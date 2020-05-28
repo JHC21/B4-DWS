@@ -2,6 +2,10 @@ package controller;
 
 import controller.mode.*;
 
+import java.lang.reflect.Array;
+import java.time.LocalTime;
+import java.util.ArrayList;
+
 public class System {
     private SleepingTime sleepingTime;
     private FunctionList functionList;
@@ -50,6 +54,28 @@ public class System {
         return new Object[]{0 /*내도시 시간*/, 0 /*내도시 시간제*/, 0 /*내도시 이름*/, 0 /*남의도시 시간*/, 0 /*남의도시 시간제*/, 0/*남의도시 이름*/};
     }
 
+    //Display Sleeping Time에서 호출하는 메소드
+    public Object[] getSleepingTIme(){
+        //UI에 뿌려질 GlobalTime의 상태를 전달해주는 메소드
+        //추천 수면시간 1, 2를 보내줌.
+        //두 값 모두 SleepingTime에서 받아와야 함
+        return new Object[]{0 , 0};
+    }
+    
+    //Set Sleeping Time에서 호출하는 메소드
+    public LocalTime[] getSleepingTimeValue(){
+        //set sleeping time에서 UI에 뿌려질 정보를 전달해주는 메소드
+        //수면시간, 기상시각을 보내줘야함.
+        LocalTime localTime[] = new LocalTime[]{ LocalTime.now()/*수면시간*/, LocalTime.now()/*기상시각*/};
+        return localTime;
+    }
+
+
+    public ArrayList<Object> getFunctionList(){
+        //UI에 뿌려질 Function List의 순서를 전달해주는 메소드
+        return new ArrayList<Object>();
+    }
+
     
     //초기 설계했던 CD에서의 clock과 동일한 역할을 함. 이 함수를 호출할시 자동으로 시스템의 현재시간을 밀리세컨드 단위로 리턴
     public long getClock(){
@@ -66,6 +92,11 @@ public class System {
 
     public void ringAlarm(){
         //Alarm이 울릴 시간이 되었을때 소리울리는 메소드
+        //의미 없음
+    }
+
+    public void ringSleepingTime(){
+        //SleepingTime이 울릴 시간이 되었을때 소리울리는 메소드
         //의미 없음
     }
     
