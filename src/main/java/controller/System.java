@@ -25,6 +25,34 @@ public class System {
         return new Object[]{0 /*TimeKeeping.time + System.clock의 값*/, 0 /*TimeKeeping.timeformat*/};
     }
 
+    public void setTime(long updateValue) {
+        // updateTime(updateValue)을 호출한다.
+    }
+
+    public void setTimer(long updateValue) {
+        // updateTimer(updateValue)를 호출한다.
+    }
+
+    public void setAlarm(boolean[] alarmingDay, LocalTime updateValue) {
+        //updateAlarm(alarmingDay, updateValue)를 호출한다.
+    }
+
+    public void setMyTimeZone(int updateValue) {
+        // updateMyTimeZone(updateValue)을 실행한다.
+    }
+
+    public void setAnotherTimeZone(int updateValue) {
+        // updateAnotherTimeZone(updateValue)을 실행한다.
+    }
+
+    public void setWakeUpTime(LocalTime updateValue) {
+        // updateWakeUpTime(updateValue)를 실행한다.
+    }
+
+    public void setSleepTime(LocalTime updateValue) {
+        // updateSleepTime(updateValue)를 실행한다.
+    }
+
     public void changeTimeFormat() {
         // UI가 System에 Time Format 변경을 요청할 때 호출되는 메소드
         // TimeKeeping의 toggleTimeFormat을 호출함
@@ -120,7 +148,7 @@ public class System {
         // number에 해당하는 알람에 changeAlarmActivation()을 호출
     }
 
-    public Object[] getGlobalTime(){
+    public Object[] getGlobalTime() {
         //UI에 뿌려질 GlobalTime의 상태를 전달해주는 메소드
         //내도시 시간, 내도시 UTC, 내도시 이름, 남의도시 시간, 남의도시 UTC, 남의도시 이름 6개 return 해줘야함
         //myTime : TimeKeeping에서 받아와야함 getTime()
@@ -128,14 +156,6 @@ public class System {
         //남의도시 시간 : Object[]{0 = System.Clock + GlobalTime.time, 0 = myTime[1]}
         //남의도시UTC, 남의도시CityName 모두 GlobalTime에서 받아와야함
         return new Object[]{0 /*내도시 시간*/, 0 /*내도시 시간제*/, 0 /*내도시 이름*/, 0 /*남의도시 시간*/, 0 /*남의도시 시간제*/, 0/*남의도시 이름*/};
-    }
-
-    public void setMyTimeZone(int updateValue) {
-        // updateMyTimeZone(updateValue)을 실행한다.
-    }
-
-    public void setAnotherTimeZone(int updateValue) {
-        // updateAnotherTimeZone(updateValue)을 실행한다.
     }
 
     //Display Sleeping Time에서 호출하는 메소드
