@@ -10,7 +10,15 @@ public class Alarm {
     private LocalTime alarmingTime;
     private int status; //0일때가 꺼져있고, 1일때가 켜져있는 상태
 
-    public void toggleAlarmActivation(){
+    public boolean[] getAlarmingDay() {
+        return this.alarmingDay;
+    }
+
+    public LocalTime getAlarmingTime() {
+        return this.alarmingTime;
+    }
+
+    public void changeAlarmActivation(){
         //Alarm의 상태를 변경, active/inactive 상태 toggle
         //this.activated를 0~1 로 변경.
     }
@@ -20,7 +28,7 @@ public class Alarm {
         //this.alarmingDay = alarmingDay;   this.alarmingTime = alarmingTime;
     }
 
-    public boolean checkAlarm(long time){
+    public int checkAlarm(long time){
         //시스템의 time을 가져와
         int alarmingDay = Utility.milliToDay(time);
         LocalTime alarmingTime = Utility.milliToLocalTime(time);
@@ -28,6 +36,6 @@ public class Alarm {
         //if(this.alarmingDay[alarmingDay] == true && this.alarmingTime == alarmingTime && this.status == 1){ 알람이 울려야 함 - return true; }
         //else{ 울리지 않음 return false; }
 
-        return false;
+        return 0; // 0: 현재 안울림 & inactivate, 1: 현재 안울림 & activate, 2: 현재 울림
     }
 }

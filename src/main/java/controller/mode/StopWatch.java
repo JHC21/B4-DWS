@@ -3,7 +3,7 @@ package controller.mode;
 public class StopWatch {
     private long startTime;
     private long stackedTime;
-    private int status; //Stop watch가 동작하지 않을때 (Stop)0, 동작할때 (start/restart) 1
+    private int state; //Stop watch가 동작하지 않을때 (Stop)0, 동작할때 (start/restart) 1
     private long lap;
 
 
@@ -28,12 +28,17 @@ public class StopWatch {
      */
 
     //결론을 내리면, getStopWatchValue는 System이 StopWatch로 현재 시간을 주면, StopWatch는 UI에 표시되어야 할 시간을 return한다.
-    public long getStopWatchValue(long systemTime) {
+    public long calculateStopWatch(long systemTime) {
         return 0;   //System.clock - startTime + stackedTime
     }
 
+    public long getLap() {
+
+        return 0; // 현재 lap을 리턴한다.
+    }
+
     //Lap을 찍는 함수.
-    public void setLap(long time){
+    public void setLap(long lapTime){
         //System.time을 받아서
         //lap = System.clock - startTime;
         //return lap 해주면 됨
@@ -48,9 +53,13 @@ public class StopWatch {
     }
 
 
-    public void toggleStopWatchState(){
+    public void changeStopWatchState(){
         //StopWatch의 stop, restart를 toggle하는 메소드
         //this.status의 상태를 0~1로 번갈아가며 toggle해주는 것임
         //1에서 0으로 갈때는 resetStopWatch를 수행해야
+    }
+
+    public int getStopWatchState() {
+        return this.state;
     }
 }

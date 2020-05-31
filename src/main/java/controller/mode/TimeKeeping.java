@@ -10,5 +10,21 @@ public class TimeKeeping {
 
         //TimeKeeping의 time값을 변경해준다.
     }
+
+    public Object[] calculateTime(long clock) {
+
+        // clock + this.time
+        return new Object[]{0 /*TimeKeeping.time + System.clock의 값*/, 0 /*TimeKeeping.timeformat*/};
+    }
+
+    public void toggleTimeFormat() {
+
+        //TimeKeeping의 timeformat을 toggle한다.
+    }
+
+    public long getTimeValue() {
+
+        return this.time;
+    }
 }
 

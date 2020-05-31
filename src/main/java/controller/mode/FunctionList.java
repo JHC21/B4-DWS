@@ -11,4 +11,8 @@ public class FunctionList {
         //그걸 위아래(+1/-1)로 이동하는걸 나타내는 movePosition을 받아
         //functions를 변경하는 메소드
     }
+    
+    public ArrayList<Object> getFunctions() {
+        return this.functions;
+    }
 }

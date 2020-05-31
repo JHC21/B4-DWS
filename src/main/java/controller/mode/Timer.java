@@ -31,7 +31,7 @@ public class Timer {
      */
 
     //결론을 내리면, getTimerValue는 System이 Timer로 현재 시간을 주면, Timer는 UI에 표시되어야 할 시간을 return한다.
-    public long getTimerValue(long systemTime) {
+    public long calculateTimerValue(long systemTime) {
         return 0;   //settedTime - (System.clock - startTime + stackedTime)
     }
 
@@ -48,15 +48,15 @@ public class Timer {
 
         //로직 짤때 상태를 먼저 받아오고
         //상태에 따라 if로 분기해서 시간을 계산해야 할 때만 계산한다.
-        return 0;
+        return 0; //0: 현재 안울림 & inactivate, 1: 현재 안울림 & activate, 2: 현재 울림
     }
     
-    public void toggleTimerCounting(){
+    public void changeTimerCounting(){
         //타이머의 stop, restart를 toggle하는 메소드
         //this.status의 상태를 0~1로 번갈아가며 toggle해주는 것임.
     }
 
-    public void toggleTimerActivation(long systemTime){
+    public void changeTimerActivation(long systemTime){
         //타이머의 inactive, active를 toggle하는 메소드
         //this.status의 상태를 1~2로 번갈아가며 toggle해주는 것임
         //만약 timer가 멈춰있을 때 재시작하는거라면, startTime을 현재 시간으로 설정해야 함
@@ -64,5 +64,9 @@ public class Timer {
 
         //만약 timer가 동작중일때 멈추는거라면, stackedTime을 최신화해줘야 함
         //else{stackedTime = systemTime - startTime; status == 1;}
+    }
+
+    public long getSettedTime() {
+        return this.settedTime;
     }
 }

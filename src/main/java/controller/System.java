@@ -25,6 +25,11 @@ public class System {
         return new Object[]{0 /*TimeKeeping.time + System.clock의 값*/, 0 /*TimeKeeping.timeformat*/};
     }
 
+    public void changeTimeFormat() {
+        // UI가 System에 Time Format 변경을 요청할 때 호출되는 메소드
+        // TimeKeeping의 toggleTimeFormat을 호출함
+    }
+
     public Object[] getTimer(){
         /*startTime : 1시
         settedTime : 6분 (default)
@@ -34,7 +39,22 @@ public class System {
         //여기서,
         // 1. UI에서 표시해줘야 할 UI상 보여지는 시간 : settedTime - (System.clock - startTime + stackedTime)
         // 2. On/Off 상태 (Timer.status값)를 전달해줘야 함
+        // 이는 calculateTimerValue()를 실행하여 얻어진다.
         return new Object[]{0 /*UI상 보여지는 시간 : settedTime - (System.clock - startTime + stackedTime)*/, 0 /*On/Off 상태 (Timer.status값)*/};
+    }
+
+    public long getTimerSetted() {
+        // Timer에 getSettedTime()을 호출해서 리턴함
+
+        return 0;
+    }
+
+    public void toggleTimerCounting() {
+        //changeTimerCounting()을 호출한다.
+    }
+
+    public void toggleTimerActivation() {
+        //changeTimerActivation(long clock)을 호출한다.
     }
 
     public Object[] getAlarm(){
@@ -43,6 +63,62 @@ public class System {
         return new Object[]{0 /*활성화정보 - int형*/, 0 /*요일정보 - boolean[]형*/, 0 /*시각정보 - long형*/};
     }
 
+    public int getNowAlarm(long currentTime) {
+        // checkAlarm을 각각 알람마다 호출한다.(for문)
+
+        /*현재 알람 울림여부, 현재 알람 activate 여부*/
+        return 0;
+    }
+
+    public int getNowSleeping(long currentTime) {
+        // checkSleeping을 호출한다
+
+        /*현재 sleeping time울림 여부, 현재 sleeping time activate 여부*/
+        return 0;
+    }
+
+    public int getNowTimer(long currentTime) {
+        // checkTimer를 호출한다
+
+        return 0; /*현재 timer울림 여부, 현재 timer activate 여부*/
+    }
+
+    public Object[] getStopWatchTime() {
+        // calculateStopWatch(long clock)를 호출한다
+        // getLap()을 호출한다
+        // 위의 두 값을 배열로 묶어 리턴한다
+
+        return new Object[]{}; // 계산된 stopwatch time, Lap time을 리턴
+    }
+
+    public int checkStopWatchState() {
+        //getStopWatchState()를 호출한다.
+
+        return 0;
+    }
+
+    public void lapStopWatch(long lapTime) {
+        // setLap(long lapTime)을 호출한다.
+    }
+
+    public void toggleStopWatchState() {
+        //changeStopWatchState()를 호출한다.
+    }
+
+    public void resetStopWatch() {
+        // resetStopWatch()를 호출한다.
+    }
+
+    public Object[] moveToNextAlarm(int number) {
+        //number로 들어온 알람의 getAlarmingDay(), getAlarmingTime()을 각각 호출한다.
+        //number로 들어온 알람의 alarmingDay와 alarmingTime을 배열로 묶어서 리턴한다.
+
+        return new Object[]{};
+    }
+
+    public void toggleAlarmActivation(int number) {
+        // number에 해당하는 알람에 changeAlarmActivation()을 호출
+    }
 
     public Object[] getGlobalTime(){
         //UI에 뿌려질 GlobalTime의 상태를 전달해주는 메소드
@@ -54,10 +130,18 @@ public class System {
         return new Object[]{0 /*내도시 시간*/, 0 /*내도시 시간제*/, 0 /*내도시 이름*/, 0 /*남의도시 시간*/, 0 /*남의도시 시간제*/, 0/*남의도시 이름*/};
     }
 
+    public void setMyTimeZone(int updateValue) {
+        // updateMyTimeZone(updateValue)을 실행한다.
+    }
+
+    public void setAnotherTimeZone(int updateValue) {
+        // updateAnotherTimeZone(updateValue)을 실행한다.
+    }
+
     //Display Sleeping Time에서 호출하는 메소드
-    public Object[] getSleepingTIme(){
+    public Object[] getSleepingTime(){
         //UI에 뿌려질 GlobalTime의 상태를 전달해주는 메소드
-        //추천 수면시간 1, 2를 보내줌.
+        //calculateSleepingTime()을 통해 추천 수면시간 1, 2를 보내줌.
         //두 값 모두 SleepingTime에서 받아와야 함
         return new Object[]{0 , 0};
     }
@@ -65,15 +149,24 @@ public class System {
     //Set Sleeping Time에서 호출하는 메소드
     public LocalTime[] getSleepingTimeValue(){
         //set sleeping time에서 UI에 뿌려질 정보를 전달해주는 메소드
-        //수면시간, 기상시각을 보내줘야함.
+        //getSleepTime(), getWakeUpTime()을 통해 수면시간, 기상시각을 보내줘야함.
+
         LocalTime localTime[] = new LocalTime[]{ LocalTime.now()/*수면시간*/, LocalTime.now()/*기상시각*/};
         return localTime;
+    }
+
+    public void toggleCheeringMessageReceiving() {
+        // toggleSleepingTimeState()를 호출한다.
     }
 
 
     public ArrayList<Object> getFunctionList(){
         //UI에 뿌려질 Function List의 순서를 전달해주는 메소드
         return new ArrayList<Object>();
+    }
+
+    public void moveItem(int location, int direction) {
+        //updateItemPosition(location, direction)을 호출한다
     }
 
     
