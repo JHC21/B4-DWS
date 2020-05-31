@@ -134,7 +134,7 @@ public class System {
     }
 
     public void resetStopWatch() {
-        // resetStopWatch()를 호출한다.
+        // setReset()를 호출한다.
     }
 
     public Object[] moveToNextAlarm(int number) {
