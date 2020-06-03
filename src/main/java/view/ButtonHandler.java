@@ -3,7 +3,15 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import view.UI;
+
 public class ButtonHandler implements ActionListener {
+
+    int test;
+
+    ButtonHandler(int test){
+        this.test = test;
+    }
 
     @Override
     public void actionPerformed(ActionEvent arg0) { //액션이벤트가 발생됬을떄 수행하는 동작

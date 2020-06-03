@@ -1,7 +1,7 @@
 package view.template;
 
 public class Mode {
-    public int mainCategory;
+    private int mainCategory;
     // 0 : TimeKeeping
     // 1 : Timer
     // 2 : Stopwatch
@@ -9,7 +9,7 @@ public class Mode {
     // 4 : GlobalTime
     // 5 : SleepingTime
     // 6 : Function Change
-    public int subCategory;
+    private int subCategory;
     // 0 : display
     // 1 : set
 
@@ -19,4 +19,16 @@ public class Mode {
         this.subCategory = subCategory;
     }
 
+    public void setMode(int mainCategory, int subCategory){
+        this.mainCategory = mainCategory;
+        this.subCategory = subCategory;
+    }
+
+    public int getMainCategory() {
+        return mainCategory;
+    }
+
+    public int getSubCategory() {
+        return subCategory;
+    }
 }

@@ -3,10 +3,13 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
+import view.handler.MyMouseEvent;
 import view.template.RoundJPanel;
 
 
 public class MainTemplate extends JFrame {
+
+    public int test = 10;
 
     public Object nowFunction;
 
@@ -161,7 +164,7 @@ public class MainTemplate extends JFrame {
             buttons[i].setBorderPainted(true);
 
             // 1. 현재 자기가 뭔지 알아야 해 ex. Timekeepint, Set larm...
-            buttons[i].addActionListener(new ButtonHandler());
+            buttons[i].addMouseListener(new MyMouseEvent("TEST"));
         }
     }
 

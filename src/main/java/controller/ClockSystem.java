@@ -6,7 +6,7 @@ import java.lang.reflect.Array;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class System {
+public class ClockSystem {
     private SleepingTime sleepingTime;
     private FunctionList functionList;
     private TimeKeeping timeKeeping;
@@ -22,7 +22,7 @@ public class System {
     public Object[] getTime() {
         //현재 시간을 받아온다 (Time Keeping의 time과 System의 clock을 더해서 return
         //TimeKeeping.time + System.clock의 값과, TimeKeeping.timeformat을 return 해줘야 한다.
-        return new Object[]{0 /*TimeKeeping.time + System.clock의 값*/, 0 /*TimeKeeping.timeformat*/};
+        return new Object[]{(long)0 /*TimeKeeping.time + System.clock의 값*/, (long)0 /*TimeKeeping.timeformat*/};
     }
 
     public void setTime(long updateValue) {

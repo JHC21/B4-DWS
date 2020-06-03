@@ -1,11 +1,14 @@
 package view;
 
+import view.handler.MyMouseEvent;
 import view.template.RoundJPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class DisplayManager extends JFrame{
+
+    int 선택자 = 0;
 
     // JButtons
     String[] btnNames = { "A", "B", "C", "D"};
@@ -34,6 +37,9 @@ public class DisplayManager extends JFrame{
             "global_time_inactive", "sleeping_time_inactive" };
     ImageIcon[] icons;
     JLabel[] labelIcons;
+
+    //Event Listener
+    MyMouseEvent myMouseEvent = new MyMouseEvent("TEST");
 
 
     public ImageIcon[] getResizedIcon(){
@@ -151,9 +157,6 @@ public class DisplayManager extends JFrame{
 
     }
 
-
-    ButtonHandler bh = new ButtonHandler();
-
     public void setButtons(){
 
         for(int i = 0 ; i < 4 ; i ++){
@@ -161,18 +164,12 @@ public class DisplayManager extends JFrame{
             buttons[i].setBounds(btnX[i], btnY[i], 40, 100);
             buttons[i].setBackground(outerPanelColor);
             buttons[i].setOpaque(true);
-            // buttons[i].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
             buttons[i].setBorderPainted(true);
-            buttons[i].addActionListener(bh);
+            buttons[i].addMouseListener(myMouseEvent);
         }
     }
 
-    public DisplayManager() {
-
-        super("Sleepy clock");
-
-        //TODO: System에서 Function List 호출
-
+    public void initTemplate(){
         getContentPane().setBackground(Color.WHITE);
         getContentPane().add(outerPanel);
         getContentPane().add(innerPanel);
@@ -190,14 +187,20 @@ public class DisplayManager extends JFrame{
         setSize(500,500);
         setLayout(null);
         setVisible(true);
-
-        while (true){
-            if(bh.a == 10){
-                System.out.println("Print 10");
-                break;
-            }
-        }
     }
 
+    // 실질적인 기능
+    public void displayTimeKeeping(){
+
+    }
+
+    public DisplayManager() {
+        super("Sleepy Clock");
+        initTemplate();
+    }
+
+    public void display(String[] flags){
+        //면에 표시하는 부분
+    }
 
 }

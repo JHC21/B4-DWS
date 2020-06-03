@@ -1,37 +1,49 @@
 package view;
 
-import controller.System;
+import controller.ClockSystem;
+import view.template.Flag;
 
 public class ModeManager {
 
-    System system = new System();
+    // System system = new System();
 
-    // TODO: 버튼확인
-    public Object displayTime(System system){
-        Object[] time = system.getTime();
-        Object currentTime = time[0]; // 리턴할 때 담겨야 할 값
-        int nowAlarm = system.getNowAlarm((long)currentTime);
-        // nowAlarm이 0 또는 1일 때는 리턴값에 0 또는 1이 포함되어야 한다
-        if (nowAlarm == 2){
-            // system.ringAlarm()
-            // this.showAlarming()
-            return new Integer(1);
-        }
+    public int[] checker(ClockSystem clockSystem){
+        long currentTime = (long)clockSystem.getTime()[0];
+        int[] value = new int[3];
+        value[0] = clockSystem.getNowAlarm(currentTime);
+        value[1] = clockSystem.getNowSleeping(currentTime);
+        value[2] = clockSystem.getNowTimer(currentTime);
 
-        int nowSleeping = system.getNowSleeping((long)currentTime);
-        if(nowSleeping == 2){
-            // system.ringSleepingTime()
-            // this.showCheeringMessage()
-            return new Integer(1);
-        }
-
-
-        return new Object();
-
+        return value;
     }
 
-    public Object setTime(System system){
-        return new Object();
+
+    // TODO: 버튼확인
+    public String[] displayTime(ClockSystem clockSystem){
+        Object[] time = clockSystem.getTime();
+        //이 값을 displayManager에 표시될 수 있게끔 값을 가공해서
+        //Strin배열로 넘겨주고, 배열에는
+        //표시될 위치를 표시해주면 됨
+        Flag flag = new Flag();
+        flag.flags[0] = "Test";
+        //Flag 클래스 보고 값을 가공해 return
+
+        return flag.flags;
+    }
+
+    public String[] setTime(ClockSystem clockSystem){
+        //setTime에 해당하는 값을 가공해서 넘겨주기만 하면 됨
+
+        Flag flag = new Flag();
+
+        return flag.flags;
+    }
+
+    public int[] displayTimer(ClockSystem clockSystem){
+        Object[] tiemr = clockSystem.getTimer();
+        //어쩌구저쩌구 값 처리
+        int[] value= new int[5];
+
     }
 
 }
