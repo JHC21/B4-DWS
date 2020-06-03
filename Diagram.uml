@@ -15,9 +15,9 @@
   </nodes>
   <notes />
   <edges />
-  <settings layout="Hierarchic Group" zoom="0.4930050363738109" x="883.5" y="359.0" />
+  <settings layout="Hierarchic Group" zoom="0.5343258891645989" x="868.5" y="594.5" />
   <SelectedNodes>
-    <node>Main</node>
+    <node>controller.mode.Alarm</node>
   </SelectedNodes>
   <Categories>
     <Category>Fields</Category>

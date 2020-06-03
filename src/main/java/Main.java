@@ -1,7 +1,7 @@
-import view.MainTemplate;
+import view.UI;
 
 public class Main {
     public static void main(String[] args){
-        new MainTemplate();
+        new UI();
     }
 }

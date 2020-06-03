@@ -1,14 +1,11 @@
 package view;
 
+import view.template.RoundJPanel;
+
 import javax.swing.*;
 import java.awt.*;
 
-import view.template.RoundJPanel;
-
-
-public class MainTemplate extends JFrame {
-
-    public Object nowFunction;
+public class DisplayManager extends JFrame{
 
     // JButtons
     String[] btnNames = { "A", "B", "C", "D"};
@@ -37,6 +34,7 @@ public class MainTemplate extends JFrame {
             "global_time_inactive", "sleeping_time_inactive" };
     ImageIcon[] icons;
     JLabel[] labelIcons;
+
 
     public ImageIcon[] getResizedIcon(){
 
@@ -81,6 +79,8 @@ public class MainTemplate extends JFrame {
             innerPanel.add(icon);
 
         innerPanel.setVisible(true);
+
+        /*
 
         // now function
         // 날짜
@@ -138,6 +138,7 @@ public class MainTemplate extends JFrame {
         innerPanel.add(clockTypePM);
         innerPanel.add(time);
         innerPanel.add(second);
+         */
 
     }
 
@@ -150,6 +151,9 @@ public class MainTemplate extends JFrame {
 
     }
 
+
+    ButtonHandler bh = new ButtonHandler();
+
     public void setButtons(){
 
         for(int i = 0 ; i < 4 ; i ++){
@@ -159,13 +163,11 @@ public class MainTemplate extends JFrame {
             buttons[i].setOpaque(true);
             // buttons[i].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
             buttons[i].setBorderPainted(true);
-
-            // 1. 현재 자기가 뭔지 알아야 해 ex. Timekeepint, Set larm...
-            buttons[i].addActionListener(new ButtonHandler());
+            buttons[i].addActionListener(bh);
         }
     }
 
-    public MainTemplate() {
+    public DisplayManager() {
 
         super("Sleepy clock");
 
@@ -188,5 +190,14 @@ public class MainTemplate extends JFrame {
         setSize(500,500);
         setLayout(null);
         setVisible(true);
+
+        while (true){
+            if(bh.a == 10){
+                System.out.println("Print 10");
+                break;
+            }
+        }
     }
+
+
 }
