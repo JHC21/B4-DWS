@@ -13,16 +13,8 @@ public class Mode {
     // 0 : display
     // 1 : set
 
+    private int functionSelector = 0;
 
-    public Mode(int mainCategory, int subCategory){
-        this.mainCategory = mainCategory;
-        this.subCategory = subCategory;
-    }
-
-    public void setMode(int mainCategory, int subCategory){
-        this.mainCategory = mainCategory;
-        this.subCategory = subCategory;
-    }
 
     public int getMainCategory() {
         return mainCategory;
@@ -31,4 +23,30 @@ public class Mode {
     public int getSubCategory() {
         return subCategory;
     }
+
+    public int getFunctionSelector() {
+        return functionSelector;
+    }
+
+    public void setFunctionSelector(int functionSelector) {
+        this.functionSelector = functionSelector;
+    }
+
+    public void moveFunctionSelector(){
+        if(this.functionSelector == 3){
+            this.functionSelector = 0;
+        }else{
+            this.functionSelector += 1;
+        }
+    }
+
+    public void enterSub(){
+        this.subCategory = 1;
+    }
+
+    public void exitSub(){
+        this.subCategory = 0;
+    }
+
+
 }
