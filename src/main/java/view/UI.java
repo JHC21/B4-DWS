@@ -63,9 +63,9 @@ public class UI {
                 }else if(mode.getSubCategory() == 1){
                     displayManager.display(modeManager.setTime(system));
 
-                    //displaymanaer한테
-                    //[system.getTime(), 시간제,  value[2~4]
-                    //을 던져주면, displayManager가 알아서 표시해주는거
+                    // displaymanaer한테
+                    // system.getTime(), 시간제,  value[2~4]
+                    // 을 던져주면, displayManager가 알아서 표시해주는거
 
                     if(pressed.equals("A")){ mode.setMode(0, 0); }
                     if(pressed.equals("B")) {

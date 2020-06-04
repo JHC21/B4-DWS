@@ -15,8 +15,10 @@ public class ClockSystem {
     private Timer timer;
     private StopWatch stopWatch;
 
-    private long clock = java.lang.System.currentTimeMillis();
-    //이 Clock은, Clock.mills()의 return값을 담는 것임. 아직
+    //초기 설계했던 CD에서의 clock과 동일한 역할을 함. 이 함수를 호출할시 자동으로 시스템의 현재시간을 밀리세컨드 단위로 리턴
+    public long clock(){
+        return java.lang.System.currentTimeMillis();
+    }
 
     //UI가 시스템에 요청하는 메소드. (Time Keeping에서 현재 시간의 값을 받아옴)
     public Object[] getTime() {
@@ -190,10 +192,7 @@ public class ClockSystem {
     }
 
     
-    //초기 설계했던 CD에서의 clock과 동일한 역할을 함. 이 함수를 호출할시 자동으로 시스템의 현재시간을 밀리세컨드 단위로 리턴
-    public long getClock(){
-        return java.lang.System.currentTimeMillis();
-    }
+
 
 
     
