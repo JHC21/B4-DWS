@@ -177,14 +177,12 @@ public class ClockSystem {
         // number에 해당하는 알람에 changeAlarmActivation()을 호출
     }
 
-    public Object[] getGlobalTime() {
+    public Object[] getGlobalTime(boolean flag) {
         //UI에 뿌려질 GlobalTime의 상태를 전달해주는 메소드
-        //내도시 시간, 내도시 UTC, 내도시 이름, 남의도시 시간, 남의도시 UTC, 남의도시 이름 6개 return 해줘야함
-        //myTime : TimeKeeping에서 받아와야함 getTime()
-        //myUTC, myCityName 모두 GlobalTime에서 받아와야함
-        //남의도시 시간 : Object[]{0 = System.Clock + GlobalTime.time, 0 = myTime[1]}
-        //남의도시UTC, 남의도시CityName 모두 GlobalTime에서 받아와야함
-        return new Object[]{0 /*내도시 시간*/, 0 /*내도시 시간제*/, 0 /*내도시 이름*/, 0 /*남의도시 시간*/, 0 /*남의도시 시간제*/, 0/*남의도시 이름*/};
+        if(!flag) { this.globalTime.updateTimeValue(this.timeKeeping.getTimeValue()); }
+        // CityData[0]: {myTimeZone 시, myTimeZone 분, 도시 이름}
+        // CityData[1]: {anotherTimeZone 시, anotherTimeZone 분, 도시 이름}
+        return this.globalTime.getCityData(this.timeKeeping.getTimeValue());
     }
 
     //Display Sleeping Time에서 호출하는 메소드

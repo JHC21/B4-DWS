@@ -43,7 +43,7 @@ public class GlobalTime {
         //myTimeZone의 시간과 도시 이름들, anotherTimeZone의 시간과 도시이름들을 리턴
 
         Object[] returnData = new Object[2];
-        this.time = clock;
+        this.time += clock;
 
         // myTime과 anotherTime을 시/분으로 변환
         LocalTime myLocalTime = controller.Utility.milliToLocalTime(clock);
