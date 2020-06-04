@@ -12,16 +12,19 @@ public class Utility {
     public static int milliToDay(long time){
         //long형식으로 들어온 시간에서 요일을 추출해서 return
         //0~6까지 각각 일월화수목금토
-        return 0;
+        return milliToTimeFormat(time)[7];
     }
 
     public static LocalTime milliToLocalTime(long time){
         //long형식으로 들어온 시간에서 시각을 추출해서 return
-        LocalTime localTime = LocalTime.now();
+        int hour = milliToTimeFormat(time)[3];
+        int minute = milliToTimeFormat(time)[4];
+        int second = milliToTimeFormat(time)[5];
+        LocalTime localTime = LocalTime.of(hour, minute, second);
         return localTime;
     }
 
-    public static int[] milliToTimeformat(long time) {
+    public static int[] milliToTimeFormat(long time) {
         //int 배열을 넘겨준다.
         //0 : 연
         //1 : 월
@@ -32,27 +35,27 @@ public class Utility {
         //6 : ms
         //7 : 요일 (일월화수목금토 0 _ 6)
 
-        int[] timeformat = new int[8];
+        int[] timeFormat = new int[8];
         DayOfWeek temp;
 
         LocalDateTime currentLocalDateTime = Instant.ofEpochMilli(time).atZone(ZoneId.systemDefault()).toLocalDateTime();
 
-        timeformat[0] = currentLocalDateTime.getYear();
-        timeformat[1] = currentLocalDateTime.getMonthValue();
-        timeformat[2] = currentLocalDateTime.getDayOfYear();
-        timeformat[3] = currentLocalDateTime.getHour();
-        timeformat[4] = currentLocalDateTime.getMinute();
-        timeformat[5] = currentLocalDateTime.getSecond();
-        timeformat[6] = (int)(time % 1000);
+        timeFormat[0] = currentLocalDateTime.getYear();
+        timeFormat[1] = currentLocalDateTime.getMonthValue();
+        timeFormat[2] = currentLocalDateTime.getDayOfYear();
+        timeFormat[3] = currentLocalDateTime.getHour();
+        timeFormat[4] = currentLocalDateTime.getMinute();
+        timeFormat[5] = currentLocalDateTime.getSecond();
+        timeFormat[6] = (int)(time % 1000);
         temp = currentLocalDateTime.getDayOfWeek();
-        if(temp.equals(DayOfWeek.SUNDAY)) timeformat[7] = 0;
-        else if(temp.equals(DayOfWeek.MONDAY)) timeformat[7] = 1;
-        else if(temp.equals(DayOfWeek.TUESDAY)) timeformat[7] = 2;
-        else if(temp.equals(DayOfWeek.WEDNESDAY)) timeformat[7] = 3;
-        else if(temp.equals(DayOfWeek.THURSDAY)) timeformat[7] = 4;
-        else if(temp.equals(DayOfWeek.FRIDAY)) timeformat[7] = 5;
-        else if(temp.equals(DayOfWeek.SATURDAY)) timeformat[7] = 6;
+        if(temp.equals(DayOfWeek.SUNDAY)) timeFormat[7] = 0;
+        else if(temp.equals(DayOfWeek.MONDAY)) timeFormat[7] = 1;
+        else if(temp.equals(DayOfWeek.TUESDAY)) timeFormat[7] = 2;
+        else if(temp.equals(DayOfWeek.WEDNESDAY)) timeFormat[7] = 3;
+        else if(temp.equals(DayOfWeek.THURSDAY)) timeFormat[7] = 4;
+        else if(temp.equals(DayOfWeek.FRIDAY)) timeFormat[7] = 5;
+        else if(temp.equals(DayOfWeek.SATURDAY)) timeFormat[7] = 6;
 
-        return timeformat;
+        return timeFormat;
     }
 }
