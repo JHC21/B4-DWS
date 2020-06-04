@@ -94,11 +94,21 @@ public class UI {
                         //displayManager.setValue(displayManager.get선택자(), ++displayManager.get값())
 
                     if (pressed.equals("D")) {
+                        int selector = displayManager.get선택자();
+                        int value = displayManager.getValue(selector);
+                        //값 가공, value += 00 같은거 혹은 선택자에 대한 function을 만듬 (어디에?)
+                        value = changeValue(selector, value);
+                        system.setTime(value);
+                        Object[] value2 = system.getTime();
+                        displamManager.display(value2);
+
                         //int 선택자 = displayManager에서 선택자를 가져오는거
                         //int 값 = displayManager에서 선택자에 해당하는 값을 가져옴
                         //displayManager.setValue(displayManager.get선택자(), --displayManager.get값())
                     }
                     if (pressed.equals("C")) {
+                        int selector = displayManager.get선택자();
+                        selector = moveSelector(mode.getMainCategory(), selector);
                         //int 선택자 = displayManager에서 선택자를 가져오는거
                         //int 값 = displayManager에서 선택자에 해당하는 값을 가져옴
                         //displayManager.setValue(++displayManager.get선택자(), displayManager.get값())
