@@ -1,17 +1,89 @@
 package view;
 
-import javax.swing.*;
-import java.awt.*;
-
 import view.handler.MyMouseEvent;
 import view.template.RoundJPanel;
 
+import javax.swing.*;
+import java.awt.*;
 
-public class MainTemplate extends JFrame {
+public class MainTemplate extends JFrame{
 
-    public int test = 10;
+    public void timeKeepingYear(){                                   //0 : Time Keeping 연
 
-    public Object nowFunction;
+    }
+    public void timeKeepingMonth(){}                                 //1 : Time Keeping 월
+    public void timeKeepingDay(){}                                   //2 : Time Keeping 일
+    public void timeKeepingWeekDay(){}                               //3 : Time Keeping 요일
+    public void timeKeepingAlarmAMFM(){}                             //4 : Time Keeping/Alarm AM/PM (시간제) (변경불가능)
+    public void timeKeepingTimerStopWatchAlarmHour(){}               //5 : Time Keeping/Timer/Stopwatch/Alarm 시
+    public void timeKeepingTimerStopWatchAlarmMinute(){}             //6 : Time Keeping/Timer/Stopwatch/Alarm 분
+    public void timeKeepingTimerStopWatchSecond(){}                  //7 : Time Keeping/Timer/Stopwatch 초
+    public void timerStopWatchCountingState(){}                      //8 : Timer/Stopwatch counting (시계 우상단)
+    public void timerStopWatchAlarmSleepingActivationState(){}       //9 : Timer/Stopwatch/Alarm/Sleeping Time activation (시계 우하단)
+    public void stopWatchLap(){}                                     //10: Stop watch의 Lap
+    public void stopWatchMilliSecond(){}                             //11: Stop watch의 millisecond
+    public void alarmSunday(){}                                      //12: Alarm 일
+    public void alarmMonday(){}                                      //13: Alarm 월
+    public void alarmTuesday(){}                                     //14: Alarm 화
+    public void alarmWednesday(){}                                   //15: Alarm 수
+    public void alarmThursday(){}                                    //16: Alarm 목
+    public void alarmFriday(){}                                      //17: Alarm 금
+    public void alarmSaturday(){}                                    //18: Alarm 토
+    public void alarmNumber(){}                                      //19: Alarm 번호 (시계 좌하단)
+    public void showAlarming(){}                                     //20: Alarm이 표시될 때 전부 (하나로 통합하고, 이걸 한번에 보여줌
+    public void strings1(){}                                         //21: global time의 내도시 / 추천 수면시간 / 목표 기상시각
+    public void strings2(){}                                         //22: global time의 내도시 시간 (시간제 포함) / 추천 수면시간1 / 목표 기상시각
+    public void cityorsleepingwakeuptimedata1(){}                    //23: global time의 남의도시 / 추천 수면시각2 / 최대 수면시간
+    public void cityorsleepingwakeuptimedata2(){}                    //24: global time의 남의도시 시간 (시간제 포함) / 추천 수면시간2 / 목표 기상시
+    public void cheeringMessageShowAll(){}                           //25: Cheering message 전체
+    public void chstomizeOwnClock(){}                                //26: function list에서 customize own clock
+    public void icon1(){}                                            //27: 아이콘1 (제일 좌측)
+    public void icon2(){}                                            //28: 아이콘2
+    public void icon3(){}                                            //29: 아이콘3
+    public void icon4(){}                                            //30: 아이콘4
+    public void icon5(){}                                            //31: 아이콘5
+    public void icon6(){}                                            //32: 아이콘6 (제일 우측)
+    interface DisplayAction{ void display(); }
+    private DisplayAction[] displays = new DisplayAction[]{
+            new DisplayAction() { public void display() { timeKeepingYear();                            } },
+            new DisplayAction() { public void display() { timeKeepingMonth();                           } },
+            new DisplayAction() { public void display() { timeKeepingDay();                             } },
+            new DisplayAction() { public void display() { timeKeepingWeekDay();                         } },
+            new DisplayAction() { public void display() { timeKeepingAlarmAMFM();                       } },
+            new DisplayAction() { public void display() { timeKeepingTimerStopWatchAlarmHour();         } },
+            new DisplayAction() { public void display() { timeKeepingTimerStopWatchAlarmMinute();       } },
+            new DisplayAction() { public void display() { timeKeepingTimerStopWatchSecond();            } },
+            new DisplayAction() { public void display() { timerStopWatchCountingState();                } },
+            new DisplayAction() { public void display() { timerStopWatchAlarmSleepingActivationState(); } },
+            new DisplayAction() { public void display() { stopWatchLap();                               } },
+            new DisplayAction() { public void display() { stopWatchMilliSecond();                       } },
+            new DisplayAction() { public void display() { alarmSunday();                                } },
+            new DisplayAction() { public void display() { alarmMonday();                                } },
+            new DisplayAction() { public void display() { alarmTuesday();                               } },
+            new DisplayAction() { public void display() { alarmWednesday();                             } },
+            new DisplayAction() { public void display() { alarmThursday();                              } },
+            new DisplayAction() { public void display() { alarmFriday();                                } },
+            new DisplayAction() { public void display() { alarmSaturday();                              } },
+            new DisplayAction() { public void display() { alarmNumber();                                } },
+            new DisplayAction() { public void display() { showAlarming();                               } },
+            new DisplayAction() { public void display() { strings1();                                   } },
+            new DisplayAction() { public void display() { strings2();                                   } },
+            new DisplayAction() { public void display() { cityorsleepingwakeuptimedata1();              } },
+            new DisplayAction() { public void display() { cityorsleepingwakeuptimedata2();              } },
+            new DisplayAction() { public void display() { cheeringMessageShowAll();                     } },
+            new DisplayAction() { public void display() { chstomizeOwnClock();                          } },
+            new DisplayAction() { public void display() { icon1();                                      } },
+            new DisplayAction() { public void display() { icon2();                                      } },
+            new DisplayAction() { public void display() { icon3();                                      } },
+            new DisplayAction() { public void display() { icon4();                                      } },
+            new DisplayAction() { public void display() { icon5();                                      } },
+            new DisplayAction() { public void display() { icon6();                                      } },
+    };
+
+
+
+
+    int 선택자 = 0;
 
     // JButtons
     String[] btnNames = { "A", "B", "C", "D"};
@@ -40,6 +112,12 @@ public class MainTemplate extends JFrame {
             "global_time_inactive", "sleeping_time_inactive" };
     ImageIcon[] icons;
     JLabel[] labelIcons;
+
+    //Event Listener
+    MyMouseEvent myMouseEvent = new MyMouseEvent("TEST");
+
+
+
 
     public ImageIcon[] getResizedIcon(){
 
@@ -85,9 +163,8 @@ public class MainTemplate extends JFrame {
 
         innerPanel.setVisible(true);
 
-        // now function
-        // 날짜
-        JLabel date = new JLabel("20/05/03 (SUN)");
+        JLabel date = new JLabel("20 05 03 (SUN)");
+
         date.setLayout(null);
         date.setForeground(Color.WHITE);
         date.setBounds(50, 15, 150, 150);
@@ -96,6 +173,15 @@ public class MainTemplate extends JFrame {
         date.setSize(200,50);
         date.setVisible(true);
 
+        innerPanel.add(date);
+
+
+
+        // now function
+        // 날짜
+
+
+        /*
         // AM
         JLabel clockTypeAM = new JLabel("AM");
         clockTypeAM.setLayout(null);
@@ -136,11 +222,14 @@ public class MainTemplate extends JFrame {
         second.setSize(100,50);
         second.setVisible(true);
 
-        innerPanel.add(date);
         innerPanel.add(clockTypeAM);
         innerPanel.add(clockTypePM);
         innerPanel.add(time);
         innerPanel.add(second);
+
+         */
+
+
 
     }
 
@@ -160,20 +249,12 @@ public class MainTemplate extends JFrame {
             buttons[i].setBounds(btnX[i], btnY[i], 40, 100);
             buttons[i].setBackground(outerPanelColor);
             buttons[i].setOpaque(true);
-            // buttons[i].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
             buttons[i].setBorderPainted(true);
-
-            // 1. 현재 자기가 뭔지 알아야 해 ex. Timekeepint, Set larm...
-            buttons[i].addMouseListener(new MyMouseEvent("TEST"));
+            buttons[i].addMouseListener(myMouseEvent);
         }
     }
 
-    public MainTemplate() {
-
-        super("Sleepy clock");
-
-        //TODO: System에서 Function List 호출
-
+    public void initTemplate(){
         getContentPane().setBackground(Color.WHITE);
         getContentPane().add(outerPanel);
         getContentPane().add(innerPanel);
@@ -192,4 +273,14 @@ public class MainTemplate extends JFrame {
         setLayout(null);
         setVisible(true);
     }
+
+    public MainTemplate() {
+        super("Sleepy Clock");
+        initTemplate();
+    }
+
+    public void display(String[] flags){
+        //면에 표시하는 부분
+    }
+
 }
