@@ -65,13 +65,27 @@ public class GlobalTime {
         // anotherTimeZone을 변경하면, myTimeZone과의 몇 시간 차이가 나는지가 업데이트 되는 것이다.
         // 결과적으로 화면에 나타낼 때에는 time + anotherTimeZone * 3,600,000된 값에 해당하는 시와 분을 계산해 출력한다.
         // 그래서 this.time을 변경할 필요 없이 anotherTimeZone 값만 업데이트 하면 됨
-        this.anotherTimeZone += updateValue;
+
+        if(this.anotherTimeZone == -12 && updateValue == -1) {
+            this.anotherTimeZone = 14;
+        } else if(this.anotherTimeZone == 14 && updateValue == 1) {
+            this.anotherTimeZone = -12;
+        } else {
+            this.anotherTimeZone += updateValue;
+        }
     }
 
     public void updateMyTimeZone(int updateValue){
         // updateValue는 UTC의 증감폭이다.
         // myTimeZone의 값을 변경하면, time의 값이 증감한 시간대만큼 변화한다. 즉, updateValue에 해당하는 밀리초만큼 time을 증감시킨다.
-        this.myTimeZone += updateValue; // UTC를 의미. int 타입 (hour)
+
+        if(this.myTimeZone == -12 && updateValue == -1) {
+            this.myTimeZone = 14;
+        } else if(this.myTimeZone == 14 && updateValue == 1) {
+            this.myTimeZone = -12;
+        } else {
+            this.myTimeZone += updateValue; // UTC를 의미. int 타입 (hour)
+        }
         this.time += updateValue * 3600000; // 1 hr == 3,600,000 millisec
     }
 
