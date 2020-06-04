@@ -46,7 +46,7 @@ public class StopWatch {
     }
 
 
-    public void resetStopWatch(){
+    public void setReset(){
         //UI에서 찍힐 값을 return해야 하므로, 0을 return하고
         //startTime, stackedTime을 0으로 초기화해주고
         //this.status를 0으로 비꿔준다 (1일때만 동작가능하게 예외처리)
