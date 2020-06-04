@@ -37,24 +37,29 @@ public class ClockSystem {
         // updateTimer(updateValue)를 호출한다.
     }
 
-    public void setAlarm(boolean[] alarmingDay, LocalTime updateValue) {
+    public void setAlarm(int number, boolean[] alarmingDay, LocalTime updateValue) {
         //updateAlarm(alarmingDay, updateValue)를 호출한다.
+        this.alarms[number].updateAlarmValue(alarmingDay,updateValue);
     }
 
     public void setMyTimeZone(int updateValue) {
         // updateMyTimeZone(updateValue)을 실행한다.
+        this.globalTime.updateMyTimeZone(updateValue);
     }
 
     public void setAnotherTimeZone(int updateValue) {
         // updateAnotherTimeZone(updateValue)을 실행한다.
+        this.globalTime.updateAnotherTimeZone(updateValue);
     }
 
     public void setWakeUpTime(LocalTime updateValue) {
         // updateWakeUpTime(updateValue)를 실행한다.
+        this.sleepingTime.updateWakeUpTime(updateValue);
     }
 
     public void setSleepTime(LocalTime updateValue) {
         // updateSleepTime(updateValue)를 실행한다.
+        this.sleepingTime.updateSleepTime(updateValue);
     }
 
     public void changeTimeFormat() {
@@ -122,7 +127,7 @@ public class ClockSystem {
         // checkSleeping을 호출한다
 
         /*현재 sleeping time울림 여부, 현재 sleeping time activate 여부*/
-        return 0;
+        return this.sleepingTime.checkSleeping(currentTime);
     }
 
     public int getNowTimer(long currentTime) {
@@ -183,11 +188,16 @@ public class ClockSystem {
     }
 
     //Display Sleeping Time에서 호출하는 메소드
-    public Object[] getSleepingTime(){
-        //UI에 뿌려질 GlobalTime의 상태를 전달해주는 메소드
+    public Object[] getSleepingTime(long currentTime){
+        //UI에 뿌려질 sleeping time의 상태를 전달해주는 메소드
         //calculateSleepingTime()을 통해 추천 수면시간 1, 2를 보내줌.
         //두 값 모두 SleepingTime에서 받아와야 함
-        return new Object[]{0 , 0};
+        Object[] temp = new Object[2];
+        temp[0] = currentTime;
+        temp[1] = null;
+        Object[] sleepingTime = this.sleepingTime.calculateSleepingTime(temp);
+
+        return sleepingTime;
     }
     
     //Set Sleeping Time에서 호출하는 메소드
@@ -195,22 +205,26 @@ public class ClockSystem {
         //set sleeping time에서 UI에 뿌려질 정보를 전달해주는 메소드
         //getSleepTime(), getWakeUpTime()을 통해 수면시간, 기상시각을 보내줘야함.
 
-        LocalTime localTime[] = new LocalTime[]{ LocalTime.now()/*수면시간*/, LocalTime.now()/*기상시각*/};
-        return localTime;
+        LocalTime localTime[] = new LocalTime[2];
+        localTime[0] = this.sleepingTime.getSleepTime();
+        localTime[1] = this.sleepingTime.getWakeUpTime();
+        return localTime; // 0 : sleep time, 1 : wakeup time
     }
 
     public void toggleCheeringMessageReceiving() {
         // toggleSleepingTimeState()를 호출한다.
+        this.sleepingTime.toggleSleepingTimeState();
     }
 
 
-    public ArrayList<Object> getFunctionList(){
+    public int[] getFunctionList(){
         //UI에 뿌려질 Function List의 순서를 전달해주는 메소드
-        return new ArrayList<Object>();
+        return this.functionList.getFunctions();
     }
 
     public void moveItem(int location, int direction) {
         //updateItemPosition(location, direction)을 호출한다
+        this.functionList.updateItemPosition(location, direction);
     }
 
     
