@@ -8,7 +8,7 @@ public class Alarm {
     private boolean[] alarmingDay;
     //alarmingTime은 java.time.LocalTime에서 시/분만 저장하는 것임. 나머지 요일별에 따른 설정은 alarmingDay에 저장
     private LocalTime alarmingTime;
-    private int status; //0일때가 꺼져있고, 1일때가 켜져있는 상태
+    private int state; //0일때가 꺼져있고, 1일때가 켜져있는 상태
 
     public boolean[] getAlarmingDay() {
         return this.alarmingDay;
@@ -16,6 +16,10 @@ public class Alarm {
 
     public LocalTime getAlarmingTime() {
         return this.alarmingTime;
+    }
+
+    public int getState() {
+        return state;
     }
 
     public void changeAlarmActivation(){
@@ -33,9 +37,18 @@ public class Alarm {
         int alarmingDay = Utility.milliToDay(time);
         LocalTime alarmingTime = Utility.milliToLocalTime(time);
 
-        //if(this.alarmingDay[alarmingDay] == true && this.alarmingTime == alarmingTime && this.status == 1){ 알람이 울려야 함 - return true; }
-        //else{ 울리지 않음 return false; }
+        if(this.state == 0){
+            return state;
+        }else{
+            if(this.alarmingDay[alarmingDay] && this.alarmingTime == alarmingTime){
+                return 2;
+            }else{
+                return 1;
+            }
+        }
 
-        return 0; // 0: 현재 안울림 & inactivate, 1: 현재 안울림 & activate, 2: 현재 울림
+        //if(this.alarmingDay[alarmingDay] == true && this.alarmingTime == alarmingTime && this.state == 1){ 알람이 울려야 함 - return true; }
+        //else{ 울리지 않음 return false; }
+        // 0: 현재 안울림 & inactivate, 1: 현재 안울림 & activate, 2: 현재 울림
     }
 }

@@ -10,7 +10,7 @@ public class ClockSystem {
     private SleepingTime sleepingTime;
     private FunctionList functionList;
     private TimeKeeping timeKeeping;
-    private Alarm[] alarms;
+    private Alarm[] alarms = new Alarm[4];
     private GlobalTime globalTime;
     private Timer timer;
     private StopWatch stopWatch;
@@ -22,16 +22,18 @@ public class ClockSystem {
 
     //UI가 시스템에 요청하는 메소드. (Time Keeping에서 현재 시간의 값을 받아옴)
     public Object[] getTime() {
+        return this.timeKeeping.calculateTime(this.clock());
         //현재 시간을 받아온다 (Time Keeping의 time과 System의 clock을 더해서 return
         //TimeKeeping.time + System.clock의 값과, TimeKeeping.timeformat을 return 해줘야 한다.
-        return new Object[]{(long)0 /*TimeKeeping.time + System.clock의 값*/, (long)0 /*TimeKeeping.timeformat*/};
     }
 
     public void setTime(long updateValue) {
+        this.timeKeeping.updateTime(updateValue);
         // updateTime(updateValue)을 호출한다.
     }
 
     public void setTimer(long updateValue) {
+        this.timer.updateTimer(updateValue);
         // updateTimer(updateValue)를 호출한다.
     }
 
@@ -56,11 +58,16 @@ public class ClockSystem {
     }
 
     public void changeTimeFormat() {
+        this.timeKeeping.toggleTimeFormat();
         // UI가 System에 Time Format 변경을 요청할 때 호출되는 메소드
         // TimeKeeping의 toggleTimeFormat을 호출함
     }
 
     public Object[] getTimer(){
+        Object[] value = new Object[2];
+        value[0] = this.timer.calculateTimerValue(this.clock());
+        value[1] = this.timer.getState();
+        return value;
         /*startTime : 1시
         settedTime : 6분 (default)
         stackedTime : 0분
@@ -69,35 +76,46 @@ public class ClockSystem {
         //여기서,
         // 1. UI에서 표시해줘야 할 UI상 보여지는 시간 : settedTime - (System.clock - startTime + stackedTime)
         // 2. On/Off 상태 (Timer.status값)를 전달해줘야 함
-        // 이는 calculateTimerValue()를 실행하여 얻어진다.
-        return new Object[]{0 /*UI상 보여지는 시간 : settedTime - (System.clock - startTime + stackedTime)*/, 0 /*On/Off 상태 (Timer.status값)*/};
-    }
-
-    public long getTimerSetted() {
-        // Timer에 getSettedTime()을 호출해서 리턴함
-
-        return 0;
     }
 
     public void toggleTimerCounting() {
+        this.timer.changeTimerCounting(this.clock());
         //changeTimerCounting()을 호출한다.
     }
 
     public void toggleTimerActivation() {
+        this.timer.changeTimerActivation(this.clock());
         //changeTimerActivation(long clock)을 호출한다.
     }
 
-    public Object[] getAlarm(){
+    public Object[] getAlarm(int alarmNum){
+        Object[] value = new Object[3];
+        value[0] = this.alarms[alarmNum].getAlarmingDay();
+        value[1] = this.alarms[alarmNum].getAlarmingTime();
+        value[2] = this.alarms[alarmNum].getState();
         //UI에 뿌려질 Alarm의 상태를 전달해주는 메소드
         //활성화정보, 요일, 시각 return 해야 함.
-        return new Object[]{0 /*활성화정보 - int형*/, 0 /*요일정보 - boolean[]형*/, 0 /*시각정보 - long형*/};
+        return value;
     }
 
     public int getNowAlarm(long currentTime) {
         // checkAlarm을 각각 알람마다 호출한다.(for문)
+        int checker = 0; int checkPosition = 0;
+        for(int i = 0; i < 4; i++){
+            int val = this.alarms[i].checkAlarm(currentTime);
+            if(val > checker){
+                checker = val; checkPosition = i;
+            }
+        }
+
+        if(checker == 0 || checker == 1){
+            return checker;
+        }else{
+            return checkPosition;
+        }
 
         /*현재 알람 울림여부, 현재 알람 activate 여부*/
-        return 0;
+        /*만약 알람이 울릴 경우 해당 알람의 넘버를 return하긴 하는데, 이건 좀 논의가 필요해보임 */
     }
 
     public int getNowSleeping(long currentTime) {
@@ -109,36 +127,39 @@ public class ClockSystem {
 
     public int getNowTimer(long currentTime) {
         // checkTimer를 호출한다
-
-        return 0; /*현재 timer울림 여부, 현재 timer activate 여부*/
+        return this.timer.checkTimer(currentTime);
+        /*현재 timer울림 여부, 현재 timer activate 여부*/
     }
 
     public Object[] getStopWatchTime() {
+        Object[] value = new Object[3];
+        value[0] = this.stopWatch.calculateStopWatch(this.clock());
+        value[1] = this.stopWatch.getLap();
+        value[2] = this.stopWatch.getStopWatchState();
         // calculateStopWatch(long clock)를 호출한다
         // getLap()을 호출한다
         // 위의 두 값을 배열로 묶어 리턴한다
 
-        return new Object[]{}; // 계산된 stopwatch time, Lap time을 리턴
+        return value;
     }
 
     public int checkStopWatchState() {
-        //getStopWatchState()를 호출한다.
-
-        return 0;
+        return this.stopWatch.getStopWatchState();
     }
 
-    public void lapStopWatch(long lapTime) {
-        // setLap(long lapTime)을 호출한다.
+    public void lapStopWatch() {
+        this.stopWatch.setLap(this.clock());
     }
 
     public void toggleStopWatchState() {
-        //changeStopWatchState()를 호출한다.
+        this.stopWatch.changeStopWatchState(this.clock());
     }
 
     public void resetStopWatch() {
-        // resetStopWatch()를 호출한다.
+        this.stopWatch.setReset(this.clock());
     }
 
+    //이건 UI에서 처리해야함 (deprecated)
     public Object[] moveToNextAlarm(int number) {
         //number로 들어온 알람의 getAlarmingDay(), getAlarmingTime()을 각각 호출한다.
         //number로 들어온 알람의 alarmingDay와 alarmingTime을 배열로 묶어서 리턴한다.
@@ -147,6 +168,7 @@ public class ClockSystem {
     }
 
     public void toggleAlarmActivation(int number) {
+        this.alarms[number].changeAlarmActivation();
         // number에 해당하는 알람에 changeAlarmActivation()을 호출
     }
 
