@@ -43,6 +43,7 @@ public class ModeManager {
         Object[] tiemr = clockSystem.getTimer();
         //어쩌구저쩌구 값 처리
         int[] value= new int[5];
+        return value;
 
     }
 

@@ -3,12 +3,13 @@ package view;
 import controller.ClockSystem;
 import org.omg.PortableServer.THREAD_POLICY_ID;
 import view.handler.MyMouseEvent;
+import view.template.Flag;
 import view.template.Mode;
 
 import javax.swing.*;
 import java.util.logging.Logger;
 
-
+/*
 public class UI {
 
     DisplayManager displayManager;
@@ -37,13 +38,13 @@ public class UI {
             // 어떤 버튼이 눌렸는지를 여기서 받아와야함
             String pressed = event.getPressed();
 
-            /*
-            System.out.println("Now, this is UI:" + pressed);
-            if(pressed.equals("B")){
-                System.out.println("B was pressed");
-                System.exit(0);
-            }
-             */
+
+            // System.out.println("Now, this is UI:" + pressed);
+            // if(pressed.equals("B")){
+            //    System.out.println("B was pressed");
+            //    System.exit(0);
+            //}
+
 
             //알람, 수면시간, 타이머가 울릴 시간인지 체크하고, 울릴 시간일 때 울리는 부분
             checker(modeManager.checker(system));
@@ -82,12 +83,11 @@ public class UI {
                     if (pressed.equals("A")) mode.exitSub();
                     if (pressed.equals("B")) {
                         int selector = displayManager.get선택자();
-                        int value = displayManager.getValue(selector);
+                        long value = Flag.getTimeValue(selector);
                         //값 가공, value += 00 같은거 혹은 선택자에 대한 function을 만듬 (어디에?)
-                        value = changeValue(selector, value);
                         system.setTime(value);
                         Object[] value2 = system.getTime();
-                        displamManager.display(value2);
+                        displayManager.display(value2);
                     }
                         //int 선택자 = displayManager에서 선택자를 가져오는거
                         //int 값 = displayManager에서 선택자에 해당하는 값을 가져옴
@@ -95,20 +95,17 @@ public class UI {
 
                     if (pressed.equals("D")) {
                         int selector = displayManager.get선택자();
-                        int value = displayManager.getValue(selector);
+                        long value = -1 * Flag.getTimeValue(selector);
                         //값 가공, value += 00 같은거 혹은 선택자에 대한 function을 만듬 (어디에?)
-                        value = changeValue(selector, value);
                         system.setTime(value);
                         Object[] value2 = system.getTime();
-                        displamManager.display(value2);
-
+                        displayManager.display(value2);
                         //int 선택자 = displayManager에서 선택자를 가져오는거
                         //int 값 = displayManager에서 선택자에 해당하는 값을 가져옴
                         //displayManager.setValue(displayManager.get선택자(), --displayManager.get값())
                     }
                     if (pressed.equals("C")) {
-                        int selector = displayManager.get선택자();
-                        selector = moveSelector(mode.getMainCategory(), selector);
+                        displayManager.set선택자(Flag.moveTimeSelector(displayManager.get선택자()));
                         //int 선택자 = displayManager에서 선택자를 가져오는거
                         //int 값 = displayManager에서 선택자에 해당하는 값을 가져옴
                         //displayManager.setValue(++displayManager.get선택자(), displayManager.get값())
@@ -177,3 +174,5 @@ public class UI {
 
     }
 }
+
+*/
