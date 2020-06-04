@@ -10,10 +10,20 @@ public class ClockSystem {
     private SleepingTime sleepingTime;
     private FunctionList functionList;
     private TimeKeeping timeKeeping;
-    private Alarm[] alarms = new Alarm[4];
+    private Alarm[] alarms;
     private GlobalTime globalTime;
     private Timer timer;
     private StopWatch stopWatch;
+
+    public ClockSystem(){
+        sleepingTime = new SleepingTime();
+        functionList = new FunctionList();
+        timeKeeping = new TimeKeeping();
+        alarms = new Alarm[4];
+        globalTime = new GlobalTime();
+        timer = new Timer();
+        stopWatch = new StopWatch();
+    }
 
     //초기 설계했던 CD에서의 clock과 동일한 역할을 함. 이 함수를 호출할시 자동으로 시스템의 현재시간을 밀리세컨드 단위로 리턴
     public long clock(){
@@ -22,7 +32,8 @@ public class ClockSystem {
 
     //UI가 시스템에 요청하는 메소드. (Time Keeping에서 현재 시간의 값을 받아옴)
     public Object[] getTime() {
-        return this.timeKeeping.calculateTime(this.clock());
+        Object[] value = this.timeKeeping.calculateTime(this.clock());
+        return value;
         //현재 시간을 받아온다 (Time Keeping의 time과 System의 clock을 더해서 return
         //TimeKeeping.time + System.clock의 값과, TimeKeeping.timeformat을 return 해줘야 한다.
     }

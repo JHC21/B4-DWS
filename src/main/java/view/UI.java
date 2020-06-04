@@ -9,7 +9,7 @@ import view.template.Mode;
 import javax.swing.*;
 import java.util.logging.Logger;
 
-/*
+
 public class UI {
 
     DisplayManager displayManager;
@@ -30,6 +30,8 @@ public class UI {
 
     public void systemWatching(Mode mode) throws Exception{
 
+        System.out.println(mode.getMainCategory());
+        System.out.println(mode.getSubCategory());
         int location = 0;
         int function_num = 0;
         int depth = 0;
@@ -47,7 +49,7 @@ public class UI {
 
 
             //알람, 수면시간, 타이머가 울릴 시간인지 체크하고, 울릴 시간일 때 울리는 부분
-            checker(modeManager.checker(system));
+            //checker(modeManager.checker(system));
 
 
             //현재 카테고리가 display종류이고 C버튼이 눌렸을 때
@@ -61,7 +63,7 @@ public class UI {
             if (mode.getMainCategory() == 0) {
                 // Timekeeping
                 if (mode.getSubCategory() == 0) {
-                    displayManager.display(modeManager.displayTime(system));
+                    displayManager.displayTime(modeManager.displayTime(system));
                     //displaymanaer한테
                     //[system.getTime(), 시간제,  value[2~4]
                     //을 던져주면, displayManager가 알아서 표시해주는거
@@ -82,7 +84,7 @@ public class UI {
 
                     if (pressed.equals("A")) mode.exitSub();
                     if (pressed.equals("B")) {
-                        int selector = displayManager.get선택자();
+                        int selector = displayManager.getSelector();
                         long value = Flag.getTimeValue(selector);
                         //값 가공, value += 00 같은거 혹은 선택자에 대한 function을 만듬 (어디에?)
                         system.setTime(value);
@@ -94,7 +96,7 @@ public class UI {
                         //displayManager.setValue(displayManager.get선택자(), ++displayManager.get값())
 
                     if (pressed.equals("D")) {
-                        int selector = displayManager.get선택자();
+                        int selector = displayManager.getSelector();
                         long value = -1 * Flag.getTimeValue(selector);
                         //값 가공, value += 00 같은거 혹은 선택자에 대한 function을 만듬 (어디에?)
                         system.setTime(value);
@@ -105,7 +107,7 @@ public class UI {
                         //displayManager.setValue(displayManager.get선택자(), --displayManager.get값())
                     }
                     if (pressed.equals("C")) {
-                        displayManager.set선택자(Flag.moveTimeSelector(displayManager.get선택자()));
+                        displayManager.setSelector(Flag.moveTimeSelector(displayManager.getSelector()));
                         //int 선택자 = displayManager에서 선택자를 가져오는거
                         //int 값 = displayManager에서 선택자에 해당하는 값을 가져옴
                         //displayManager.setValue(++displayManager.get선택자(), displayManager.get값())
@@ -165,14 +167,11 @@ public class UI {
         modeManager = new ModeManager();
         event = displayManager.myMouseEvent;
         system = new ClockSystem();
+        currentState = new Mode();
 
-
-
-
-        currentState = new Mode(0,0);
         systemWatching(currentState);
 
     }
 }
 
-*/
+

@@ -34,12 +34,12 @@ public class Flag {
         //24: global time의 남의도시 시간 (시간제 포함) / 추천 수면시간2 / 목표 기상시
         //25: Cheering message 전체
         //26: function list에서 customize own clock
-        //27: 아이콘1 (제일 좌측)
-        //28: 아이콘2
-        //29: 아이콘3
-        //30: 아이콘4
-        //31: 아이콘5
-        //32: 아이콘6 (제일 우측)
+        //27: timekeeping (초기값 제일 좌측)
+        //28: timer
+        //29: stopwatch
+        //30: alarm
+        //31: global_time
+        //32: sleeping_time (초기값 제일 우측)
 
     public static long getTimeValue(int selector){
         if(selector == 0) return 31557600000l;

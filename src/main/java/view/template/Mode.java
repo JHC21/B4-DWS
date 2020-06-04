@@ -28,6 +28,14 @@ public class Mode {
         return functionSelector;
     }
 
+    public void setMainCategory(int mainCategory) {
+        this.mainCategory = mainCategory;
+    }
+
+    public void setSubCategory(int subCategory) {
+        this.subCategory = subCategory;
+    }
+
     public void setFunctionSelector(int functionSelector) {
         this.functionSelector = functionSelector;
     }
@@ -48,5 +56,9 @@ public class Mode {
         this.subCategory = 0;
     }
 
+    public Mode(){
+        mainCategory = 0;
+        subCategory = 0;
+    }
 
 }

@@ -1,5 +1,6 @@
 package view;
 
+import controller.Utility;
 import controller.ClockSystem;
 import view.template.Flag;
 
@@ -21,14 +22,22 @@ public class ModeManager {
     // TODO: 버튼확인
     public String[] displayTime(ClockSystem clockSystem){
         Object[] time = clockSystem.getTime();
+        String[] timeFormat = Utility.millitoTimeFormat_test((long)time[0]);
+        if((Boolean) time[1]){
+            int temp = Integer.parseInt(timeFormat[3]);
+            if(temp > 12){
+                timeFormat[3] = String.valueOf(temp - 12);
+                timeFormat[8] = "오후";
+            }
+            else{timeFormat[8] = "오전";}
+        }else{
+            timeFormat[8] = null;
+        }
+
         //이 값을 displayManager에 표시될 수 있게끔 값을 가공해서
         //Strin배열로 넘겨주고, 배열에는
         //표시될 위치를 표시해주면 됨
-        Flag flag = new Flag();
-        flag.flags[0] = "Test";
-        //Flag 클래스 보고 값을 가공해 return
-
-        return flag.flags;
+        return timeFormat;
     }
 
     public String[] setTime(ClockSystem clockSystem){
