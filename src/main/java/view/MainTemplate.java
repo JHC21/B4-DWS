@@ -30,7 +30,7 @@ public class MainTemplate extends JFrame{
     public void alarmFriday(){}                                      //17: Alarm 금
     public void alarmSaturday(){}                                    //18: Alarm 토
     public void alarmNumber(){}                                      //19: Alarm 번호 (시계 좌하단)
-    public void showAlarming(){}                                     //20: Alarm이 표시될 때 전부 (하나로 통합하고, 이걸 한번에 보여줌
+    public void showAlarming(){}                                     //20: showAlarming이 표시될 때 사진 (20+33+34+35)
     public void strings1(){}                                         //21: global time의 내도시 / 추천 수면시간 / 목표 기상시각
     public void strings2(){}                                         //22: global time의 내도시 시간 (시간제 포함) / 추천 수면시간1 / 목표 기상시각
     public void cityorsleepingwakeuptimedata1(){}                    //23: global time의 남의도시 / 추천 수면시각2 / 최대 수면시간
@@ -43,6 +43,9 @@ public class MainTemplate extends JFrame{
     public void icon4(){}                                            //30: 아이콘4
     public void icon5(){}                                            //31: 아이콘5
     public void icon6(){}                                            //32: 아이콘6 (제일 우측)
+                                                                     //33: showAlarming이 표시될 때의 날짜
+                                                                     //34: showAlarming이 표시될 때의 시간제
+                                                                     //35: showAlarming이 표시될 때의 시간
     interface DisplayAction{ void display(); }
     private DisplayAction[] displays = new DisplayAction[]{
             new DisplayAction() { public void display() { timeKeepingYear();                            } },
@@ -108,14 +111,16 @@ public class MainTemplate extends JFrame{
 
 
     // Icons
-    String[] iconNames = { "timekeeping_inactive", "timer_inactive", "stop_watch_inactive", "alarm_inactive",
-            "global_time_inactive", "sleeping_time_inactive" };
+    String[] iconNames = { "timekeeping_active", "timer_active", "stop_watch_active", "alarm_active",
+            "global_time_active", "sleeping_time_active" };
     ImageIcon[] icons;
     JLabel[] labelIcons;
 
     //Event Listener
     MyMouseEvent myMouseEvent = new MyMouseEvent("TEST");
 
+    // Segments
+    JLabel[] segments;
 
 
 
@@ -163,6 +168,8 @@ public class MainTemplate extends JFrame{
 
         innerPanel.setVisible(true);
 
+        /*
+
         JLabel date = new JLabel("20 05 03 (SUN)");
 
         date.setLayout(null);
@@ -173,7 +180,8 @@ public class MainTemplate extends JFrame{
         date.setSize(200,50);
         date.setVisible(true);
 
-        innerPanel.add(date);
+
+         */
 
 
 
@@ -233,6 +241,15 @@ public class MainTemplate extends JFrame{
 
     }
 
+    // setBound(x,y,width, height), font(bold(1), size), setSize(width, height), label
+    public int[][] jLabelData = new int[][]{
+            {60, 20, 50, 50, 25, 50, 50},
+            {100, 20, 50, 50, 25, 50, 50},
+            {140, 20, 50, 50, 25, 50, 50},
+            {180, 20, 50, 50, 25, 50, 50},
+
+    };
+
     public void setOuterPanel(){
 
         outerPanel.setLayout(null);
@@ -254,6 +271,84 @@ public class MainTemplate extends JFrame{
         }
     }
 
+    public void setSegments(){
+        this.segments = new JLabel[36];
+        for(int i = 0 ; i < 36 ; i++){
+            segments[i] = new JLabel();
+            segments[i].setLayout(null);
+            segments[i].setForeground(Color.WHITE);
+            segments[i].setFont(new Font("NanumSquare", Font.BOLD, 15));
+            segments[i].setVisible(true);
+
+        }
+
+        /*
+        segments[5].setText("04");
+        segments[5].setBounds(70, 80, 150, 150);
+        segments[5].setFont(segments[0].getFont().deriveFont(50.f));
+        segments[5].setSize(150,150);
+
+        segments[6].setText("49");
+        segments[6].setBounds(140, 80, 150, 150);
+        segments[6].setFont(segments[0].getFont().deriveFont(50.f));
+        segments[6].setSize(150,150);
+
+        segments[7].setText("49");
+        segments[7].setBounds(205, 140, 40, 40);
+        segments[7].setFont(segments[0].getFont().deriveFont(30.f));
+        segments[7].setSize(40,40);
+         */
+
+        /*
+        JLabel[] labels = {new JLabel("뉴옥"), new JLabel("마이애미"), new JLabel("토론토")};
+
+        for(int i = 0 ; i < 3 ; i++){
+            labels[i].setSize(50,50);
+            labels[i].setVisible(true);
+            labels[i].setForeground(Color.WHITE);
+            labels[i].setFont(new Font("NanumSquare", Font.BOLD, 15));
+            labels[i].setBounds(10, 10+(i*20), 100, 50);
+            labels[i].setSize(100,50);
+            segments[21].add(labels[i]);
+        }
+        */
+
+        segments[21].setText("<html>뉴옥<br>마이애미<br>토론토</html>");
+        segments[21].setSize(40,40);
+        segments[21].setFont(segments[0].getFont().deriveFont(15.f));
+        segments[21].setBounds(20, 30, 100, 150);
+
+        segments[22].setText("<html><span style='font-size: 20px;'>AM &nbsp</span><span style='font-size: 30px;'>03:01</span></html>");
+        segments[22].setSize(200,40);
+        segments[22].setFont(segments[0].getFont().deriveFont(20.f));
+        segments[22].setBounds(90, 85, 200, 40);
+
+        segments[23].setText("<html>서울<br>도쿄<br>제주</html>");
+        segments[23].setSize(40,40);
+        segments[23].setFont(segments[0].getFont().deriveFont(15.f));
+        segments[23].setBounds(20, 100, 100, 150);
+
+        segments[24].setText("<html><span style='font-size: 20px;'>PM &nbsp</span><span style='font-size: 30px;'>01:01</span></html>");
+        segments[24].setSize(200,40);
+        segments[24].setFont(segments[0].getFont().deriveFont(20.f));
+        segments[24].setBounds(90, 155, 200, 40);
+
+
+        /*
+        innerPanel.add(segments[5]);
+        innerPanel.add(segments[6]);
+        innerPanel.add(segments[7]);
+         */
+
+        innerPanel.add(segments[21]);
+        innerPanel.add(segments[22]);
+        innerPanel.add(segments[23]);
+        innerPanel.add(segments[24]);
+
+
+
+    }
+
     public void initTemplate(){
         getContentPane().setBackground(Color.WHITE);
         getContentPane().add(outerPanel);
@@ -262,6 +357,7 @@ public class MainTemplate extends JFrame{
         setOuterPanel();
         setInnerPanel();
         setButtons();
+        setSegments();
 
         outerPanel.add(innerPanel);
 
@@ -277,10 +373,6 @@ public class MainTemplate extends JFrame{
     public MainTemplate() {
         super("Sleepy Clock");
         initTemplate();
-    }
-
-    public void display(String[] flags){
-        //면에 표시하는 부분
     }
 
 }
