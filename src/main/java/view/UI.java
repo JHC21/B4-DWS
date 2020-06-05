@@ -39,7 +39,6 @@ public class UI {
             // TODO: mode.mainCategory : 0~6까지 추가
             // 어떤 버튼이 눌렸는지를 여기서 받아와야함
             String pressed = event.getPressed();
-            System.out.println(pressed);
 
 
             // System.out.println("Now, this is UI:" + pressed);
@@ -71,7 +70,8 @@ public class UI {
                     // C버튼이 눌리는 처리는 맨 위에
 
                 } else if (mode.getSubCategory() == 1) {
-                    displayManager.display(modeManager.displayTime(system));
+                    displayManager.displaySelector();
+                    displayManager.displayTime(modeManager.displayTime(system));
 
                     // displaymanaer한테
                     // system.getTime(), 시간제,  value[2~4]

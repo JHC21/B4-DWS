@@ -27,7 +27,7 @@ public class DisplayManager extends JFrame{
         else{segments[3].setText(value);}
         }
     private void timeKeepingAlarmAMFM(String value){                 //4 : Time Keeping/Alarm AM/PM (시간제) (변경불가능)
-        System.out.println("This is timekeeping:" + value);
+
         if(value.equals("false")) segments[4].setText(null);
         else{segments[4].setText(value);}
     }
@@ -207,10 +207,11 @@ public class DisplayManager extends JFrame{
 
     // Segments
     JLabel[] segments;
+    JLabel selector_label;
 
 
 
-    public ImageIcon[] getResizedIcon(){
+    private ImageIcon[] getResizedIcon(){
 
         icons = new ImageIcon[6];
         for(int i = 0 ; i < 6 ; i++){
@@ -224,7 +225,7 @@ public class DisplayManager extends JFrame{
 
     }
 
-    public JLabel[] setIcons(ImageIcon[] icons){
+    private JLabel[] setIcons(ImageIcon[] icons){
 
         labelIcons = new JLabel[6];
 
@@ -238,7 +239,7 @@ public class DisplayManager extends JFrame{
         return labelIcons;
     }
 
-    public void setInnerPanel(){
+    private void setInnerPanel(){
 
         innerPanel.setLayout(null);
         innerPanel.setBounds(15,15,270,320);
@@ -256,7 +257,7 @@ public class DisplayManager extends JFrame{
     }
 
     // setBound(x,y,width, height), font(bold(1), size), setSize(width, height), label
-    public int[][] jLabelData = new int[][]{
+    private int[][] jLabelData = new int[][]{
             {60, 20, 50, 50, 25, 50, 50},       //0
             {100, 20, 50, 50, 25, 50, 50},      //1
             {140, 20, 50, 50, 25, 50, 50},      //2
@@ -286,7 +287,7 @@ public class DisplayManager extends JFrame{
             {20, 0, 250, 300, 30, 400, 200}     //26
     };
 
-    public void setOuterPanel(){
+    private void setOuterPanel(){
 
         outerPanel.setLayout(null);
         outerPanel.setBounds(100,75,300,350);
@@ -295,7 +296,7 @@ public class DisplayManager extends JFrame{
 
     }
 
-    public void setButtons(){
+    private void setButtons(){
 
         for(int i = 0 ; i < 4 ; i ++){
             buttons[i] = new JButton(btnNames[i]);
@@ -307,7 +308,7 @@ public class DisplayManager extends JFrame{
         }
     }
 
-    public void setSegments(){
+    private void setSegments(){
         this.segments = new JLabel[27];
         for(int i = 0 ; i < 27 ; i++){
             segments[i] = new JLabel();
@@ -322,7 +323,15 @@ public class DisplayManager extends JFrame{
         }
     }
 
-    public void initTemplate(){
+    private void setSelector_label(){
+        selector_label = new JLabel();
+        selector_label.setLayout(null);
+        selector_label.setFont(new Font("NanumSquare", Font.BOLD, 15));
+        selector_label.setVisible(true);
+        innerPanel.add(selector_label);
+    }
+
+    private void initTemplate(){
         getContentPane().setBackground(Color.WHITE);
         getContentPane().add(outerPanel);
         getContentPane().add(innerPanel);
@@ -331,6 +340,7 @@ public class DisplayManager extends JFrame{
         setInnerPanel();
         setButtons();
         setSegments();
+        setSelector_label();
 
         outerPanel.add(innerPanel);
 
@@ -354,6 +364,15 @@ public class DisplayManager extends JFrame{
 
     public void setSelector(int selector){
         this.selector = selector;
+    }
+
+    public void displaySelector(){
+
+        selector_label.setText("*");
+        selector_label.setBounds(jLabelData[selector][0], jLabelData[selector][1]-10, jLabelData[selector][2], jLabelData[selector][3]);
+        selector_label.setFont(segments[0].getFont().deriveFont((float)jLabelData[selector][4]));
+        selector_label.setSize(jLabelData[selector][5], jLabelData[selector][6]);
+
     }
 
     public void displayTime(String[] timeFormat){

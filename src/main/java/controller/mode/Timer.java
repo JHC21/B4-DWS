@@ -34,6 +34,11 @@ public class Timer {
     running : True
      */
 
+    public Timer(){
+        this.settedTime = 60000L;
+    }
+
+
     //결론을 내리면, getTimerValue는 System이 Timer로 현재 시간을 주면, Timer는 UI에 표시되어야 할 시간을 return한다.
     public long calculateTimerValue(long systemTime) {
         if(this.state == 2){ return this.settedTime - (systemTime - this.startTime + this.stackedTime); }

@@ -21,7 +21,9 @@ public class MyMouseEvent implements MouseListener {
     public String getPressed(){
         //System.out.println(this.pressed.getActionCommand());
         //return this.pressed.getActionCommand();
-        return clickedButton;
+        String value = clickedButton;
+        clickedButton = "default value";
+        return value;
     }
 
     public void mousePressed(MouseEvent e) {

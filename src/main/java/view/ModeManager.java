@@ -4,6 +4,8 @@ import controller.Utility;
 import controller.ClockSystem;
 import view.template.Flag;
 
+import java.util.Arrays;
+
 public class ModeManager {
 
     public int[] checker(ClockSystem clockSystem){
