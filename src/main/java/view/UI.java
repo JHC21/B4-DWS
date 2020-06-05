@@ -65,7 +65,10 @@ public class UI {
                 if (mode.getSubCategory() == 0) {
                     displayManager.displayTime(modeManager.displayTime(system));
 
-                    if(pressed.equals("A")) mode.enterSub();
+                    if(pressed.equals("A")) {
+                        displayManager.notDisplayIcon();
+                        mode.enterSub();
+                    }
                     if (pressed.equals("B")) system.changeTimeFormat();
                     // C버튼이 눌리는 처리는 맨 위에
 
@@ -77,7 +80,12 @@ public class UI {
                     // system.getTime(), 시간제,  value[2~4]
                     // 을 던져주면, displayManager가 알아서 표시해주는거
 
-                    if (pressed.equals("A")) mode.exitSub();
+                    if (pressed.equals("A")) {
+                        mode.exitSub();
+                        displayManager.displayIcon();
+                        displayManager.setSelector(0);
+                        displayManager.notDisplaySelector();
+                    }
                     if (pressed.equals("B")) {
                         system.setTime(Flag.getTimeValue(displayManager.getSelector()));
                     }

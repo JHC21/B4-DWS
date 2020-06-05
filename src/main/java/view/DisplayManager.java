@@ -263,7 +263,7 @@ public class DisplayManager extends JFrame{
             {140, 20, 50, 50, 25, 50, 50},      //2
             {180, 20, 50, 50, 25, 50, 50},      //3
             {20, 130, 50, 50, 25, 50, 50},      //4
-            {70, 80, 150, 150, 50, 150, 150},   //5
+            {70, 80, 100, 150, 50, 100, 150},   //5
             {140, 80, 150, 150, 50, 150, 150},  //6
             {205, 140, 40, 40, 30, 40, 40},     //7
             {205, 30, 40, 40, 30, 40, 40},      //8
@@ -326,8 +326,12 @@ public class DisplayManager extends JFrame{
     private void setSelector_label(){
         selector_label = new JLabel();
         selector_label.setLayout(null);
+        selector_label.setForeground(Color.WHITE);
         selector_label.setFont(new Font("NanumSquare", Font.BOLD, 15));
         selector_label.setVisible(true);
+        selector_label.setBounds(jLabelData[selector][0], jLabelData[selector][1]+30, jLabelData[selector][2], jLabelData[selector][3]);
+        selector_label.setFont(segments[0].getFont().deriveFont((float)jLabelData[selector][4]));
+        selector_label.setSize(jLabelData[selector][5], jLabelData[selector][6]);
         innerPanel.add(selector_label);
     }
 
@@ -368,11 +372,17 @@ public class DisplayManager extends JFrame{
 
     public void displaySelector(){
 
-        selector_label.setText("*");
-        selector_label.setBounds(jLabelData[selector][0], jLabelData[selector][1]-10, jLabelData[selector][2], jLabelData[selector][3]);
-        selector_label.setFont(segments[0].getFont().deriveFont((float)jLabelData[selector][4]));
-        selector_label.setSize(jLabelData[selector][5], jLabelData[selector][6]);
+        int x = segments[selector].getX();
+        int y = segments[selector].getY();
 
+        selector_label.setText(".");
+        selector_label.setBounds(x, y, 80, 80);
+        selector_label.setFont(segments[0].getFont().deriveFont((float)50));
+        selector_label.setSize(80, 80);
+    }
+
+    public void notDisplaySelector(){
+        selector_label.setText(null);
     }
 
     public void displayTime(String[] timeFormat){
@@ -398,5 +408,17 @@ public class DisplayManager extends JFrame{
         //String 형식은 "20 05 03 일    06:30"
         //12시간제일때는 "20 05 03 일 AM 06:30"
         displays[20].display(currentTime);
+    }
+
+    public void notDisplayIcon(){
+        for(int i = 0; i < 6; i ++){
+            labelIcons[i].setVisible(false);
+        }
+    }
+
+    public void displayIcon(){
+        for(int i = 0; i < 6; i++){
+            labelIcons[i].setVisible(true);
+        }
     }
 }
