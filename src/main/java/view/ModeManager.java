@@ -26,7 +26,7 @@ public class ModeManager {
         if((Boolean) time[1]){
             int temp = Integer.parseInt(timeFormat[3]);
             if(temp > 12){
-                timeFormat[3] = String.valueOf(temp - 12);
+                timeFormat[3] = String.format("%02d", temp - 12);
                 timeFormat[8] = "오후";
             }
             else{timeFormat[8] = "오전";}
