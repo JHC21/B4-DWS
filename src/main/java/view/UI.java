@@ -39,6 +39,7 @@ public class UI {
             // TODO: mode.mainCategory : 0~6까지 추가
             // 어떤 버튼이 눌렸는지를 여기서 받아와야함
             String pressed = event.getPressed();
+            System.out.println(pressed);
 
 
             // System.out.println("Now, this is UI:" + pressed);
@@ -64,19 +65,13 @@ public class UI {
                 // Timekeeping
                 if (mode.getSubCategory() == 0) {
                     displayManager.displayTime(modeManager.displayTime(system));
-                    //displaymanaer한테
-                    //[system.getTime(), 시간제,  value[2~4]
-                    //을 던져주면, displayManager가 알아서 표시해주는거
-
-                    //button이 눌렸을 때 그에 따른 처리도 각각의 분기마다 다 넣어줘야함
-                    //ex) C버튼이 눌리면 mode의 value를 바꿔줘야함
 
                     if(pressed.equals("A")) mode.enterSub();
                     if (pressed.equals("B")) system.changeTimeFormat();
                     // C버튼이 눌리는 처리는 맨 위에
 
                 } else if (mode.getSubCategory() == 1) {
-                    displayManager.display(modeManager.setTime(system));
+                    displayManager.display(modeManager.displayTime(system));
 
                     // displaymanaer한테
                     // system.getTime(), 시간제,  value[2~4]
@@ -84,27 +79,10 @@ public class UI {
 
                     if (pressed.equals("A")) mode.exitSub();
                     if (pressed.equals("B")) {
-                        int selector = displayManager.getSelector();
-                        long value = Flag.getTimeValue(selector);
-                        //값 가공, value += 00 같은거 혹은 선택자에 대한 function을 만듬 (어디에?)
-                        system.setTime(value);
-                        Object[] value2 = system.getTime();
-                        displayManager.display(value2);
+                        system.setTime(Flag.getTimeValue(displayManager.getSelector()));
                     }
-                        //int 선택자 = displayManager에서 선택자를 가져오는거
-                        //int 값 = displayManager에서 선택자에 해당하는 값을 가져옴
-                        //displayManager.setValue(displayManager.get선택자(), ++displayManager.get값())
-
                     if (pressed.equals("D")) {
-                        int selector = displayManager.getSelector();
-                        long value = -1 * Flag.getTimeValue(selector);
-                        //값 가공, value += 00 같은거 혹은 선택자에 대한 function을 만듬 (어디에?)
-                        system.setTime(value);
-                        Object[] value2 = system.getTime();
-                        displayManager.display(value2);
-                        //int 선택자 = displayManager에서 선택자를 가져오는거
-                        //int 값 = displayManager에서 선택자에 해당하는 값을 가져옴
-                        //displayManager.setValue(displayManager.get선택자(), --displayManager.get값())
+                        system.setTime(-1 * Flag.getTimeValue(displayManager.getSelector()));
                     }
                     if (pressed.equals("C")) {
                         displayManager.setSelector(Flag.moveTimeSelector(displayManager.getSelector()));

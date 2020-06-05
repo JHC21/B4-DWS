@@ -6,8 +6,6 @@ import view.template.Flag;
 
 public class ModeManager {
 
-    // System system = new System();
-
     public int[] checker(ClockSystem clockSystem){
         long currentTime = (long)clockSystem.getTime()[0];
         int[] value = new int[3];
@@ -33,19 +31,10 @@ public class ModeManager {
         }else{
             timeFormat[8] = null;
         }
-
         //이 값을 displayManager에 표시될 수 있게끔 값을 가공해서
         //Strin배열로 넘겨주고, 배열에는
         //표시될 위치를 표시해주면 됨
         return timeFormat;
-    }
-
-    public String[] setTime(ClockSystem clockSystem){
-        //setTime에 해당하는 값을 가공해서 넘겨주기만 하면 됨
-
-        Flag flag = new Flag();
-
-        return flag.flags;
     }
 
     public int[] displayTimer(ClockSystem clockSystem){

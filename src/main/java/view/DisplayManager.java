@@ -10,155 +10,168 @@ import java.io.File;
 public class DisplayManager extends JFrame{
 
 
-    public void timeKeepingYear(String value){                      //0 : Time Keeping 연
-        if(value.equals("false")) value = null;
-        segments[0].setText(value);
+    private void timeKeepingYear(String value){                      //0 : Time Keeping 연
+        if(value.equals("false")) segments[0].setText(null);
+        else{segments[0].setText(value);}
     }
-    public void timeKeepingMonth(String value){                     //1 : Time Keeping 월
-        if(value.equals("false")) value = null;
-        segments[1].setText(value);
+    private void timeKeepingMonth(String value){                     //1 : Time Keeping 월
+        if(value.equals("false")) segments[1].setText(null);
+        else{segments[1].setText(value);}
     }
-    public void timeKeepingDay(String value){                       //2 : Time Keeping 일
-        if(value.equals("false")) value = null;
-        segments[2].setText(value);
+    private void timeKeepingDay(String value){                       //2 : Time Keeping 일
+        if(value.equals("false")) segments[2].setText(null);
+        else{segments[2].setText(value);}
     }
-    public void timeKeepingWeekDay(String value){                   //3 : Time Keeping 요일
-        if(value.equals("false")) value = null;
-        segments[3].setText(value);
+    private void timeKeepingWeekDay(String value){                   //3 : Time Keeping 요일
+        if(value.equals("false")) segments[3].setText(null);
+        else{segments[3].setText(value);}
         }
-    public void timeKeepingAlarmAMFM(String value){                 //4 : Time Keeping/Alarm AM/PM (시간제) (변경불가능)
-        if(value.equals("false")) value = null;
-        segments[4].setText(value);
+    private void timeKeepingAlarmAMFM(String value){                 //4 : Time Keeping/Alarm AM/PM (시간제) (변경불가능)
+        System.out.println("This is timekeeping:" + value);
+        if(value.equals("false")) segments[4].setText(null);
+        else{segments[4].setText(value);}
     }
-    public void timeKeepingTimerStopWatchAlarmHour(String value){   //5 : Time Keeping/Timer/Stopwatch/Alarm 시
+    private void timeKeepingTimerStopWatchAlarmHour(String value){   //5 : Time Keeping/Timer/Stopwatch/Alarm 시
         segments[5].setText(value);
     }
-    public void timeKeepingTimerStopWatchAlarmMinute(String value){ //6 : Time Keeping/Timer/Stopwatch/Alarm 분
+    private void timeKeepingTimerStopWatchAlarmMinute(String value){ //6 : Time Keeping/Timer/Stopwatch/Alarm 분
         segments[6].setText(value);
     }
-    public void timeKeepingTimerStopWatchSecond(String value){      //7 : Time Keeping/Timer/Stopwatch 초
+    private void timeKeepingTimerStopWatchSecond(String value){      //7 : Time Keeping/Timer/Stopwatch 초
         segments[7].setText(value);
     }
-    public void timerStopWatchCountingState(String value){          //8 : Timer/Stopwatch counting (시계 우상단)
+    private void timerStopWatchCountingState(String value){          //8 : Timer/Stopwatch counting (시계 우상단)
         segments[8].setText(value);
     }
-    public void timerStopWatchAlarmSleepingActivationState(String value){   //9 : Timer/Stopwatch/Alarm/Sleeping Time activation (시계 우하단)
+    private void timerStopWatchAlarmSleepingActivationState(String value){   //9 : Timer/Stopwatch/Alarm/Sleeping Time activation (시계 우하단)
         segments[9].setText(value);
     }
-    public void stopWatchLap(String value){                         //10: Stop watch의 Lap
+    private void stopWatchLap(String value){                         //10: Stop watch의 Lap
         segments[10].setText(value);
     }
-    public void stopWatchMilliSecond(String value){                 //11: Stop watch의 millisecond
+    private void stopWatchMilliSecond(String value){                 //11: Stop watch의 millisecond
         segments[11].setText(value);
         }
-    public void alarmSunday(String value){                          //12: Alarm 일
+    private void alarmSunday(String value){                          //12: Alarm 일
         segments[12].setText(value);
     }
-    public void alarmMonday(String value){                          //13: Alarm 월
+    private void alarmMonday(String value){                          //13: Alarm 월
         segments[13].setText(value);
     }
-    public void alarmTuesday(String value){                         //14: Alarm 화
+    private void alarmTuesday(String value){                         //14: Alarm 화
         segments[14].setText(value);
     }
-    public void alarmWednesday(String value){                       //15: Alarm 수
+    private void alarmWednesday(String value){                       //15: Alarm 수
         segments[15].setText(value);
     }
-    public void alarmThursday(String value){                        //16: Alarm 목
+    private void alarmThursday(String value){                        //16: Alarm 목
         segments[16].setText(value);
     }
-    public void alarmFriday(String value){                          //17: Alarm 금
+    private void alarmFriday(String value){                          //17: Alarm 금
         segments[17].setText(value);
     }
-    public void alarmSaturday(String value){                        //18: Alarm 토
+    private void alarmSaturday(String value){                        //18: Alarm 토
         segments[18].setText(value);
     }
-    public void alarmNumber(String value){                          //19: Alarm 번호 (시계 좌하단)
+    private void alarmNumber(String value){                          //19: Alarm 번호 (시계 좌하단)
         segments[19].setText(value);
     }
-    public void showAlarming(String value){                         //20: showAlarming
-        String innerText = "<html><div style='border:1px solid red width:80 height:80' >" +
-                "<div style='padding:0 50px 0 50px; display:block;'>"+
-                "<img src='file:assets/alarm_active.png' width=100 height=100></div>"+
-                "<div style='width:180px; height:30px; display:block; font-size:22px; text-align:center;'>20 05 03 일</div>" +
-                "<div style='width:180px; height:50px; display:block; font-size:27px; text-align:center;'><b style='font-size:22px;'>AM</b> 06:30</div>" +
-                "</div></html>";
+    private void showAlarming(String value){                         //20: showAlarming
+        /* String이          20 05 03 일 AM 06:30
+        혹은(24시간제일경우)    20 05 03 일    17:30으로 표시된다 가정, 즉 길이가 일정하다고 가정한다
+        19length, 0~10까지 자르고, 11~13시간제, 13~19이 현재시간
+        -> HTML이라서, 시간제가 없으면 자동 정렬된다
+        */
+        if(value.equals("false")) segments[20].setText(null);
+        else {
+            String value1 = value.substring(0, 10);
+            String value2 = value.substring(11, 13);
+            String value3 = value.substring(13, 19);
+            String innerText = "<html><div style='border:1px solid red width:80 height:80' >" +
+                    "<div style='padding:0 50px 0 50px; display:block;'>" +
+                    "<img src='file:assets/alarm_active.png' width=100 height=100></div>" +
+                    "<div style='width:180px; height:30px; display:block; font-size:22px; text-align:center;'>"+ value1 +"</div>" +
+                    "<div style='width:180px; height:50px; display:block; font-size:27px; text-align:center;'><b style='font-size:22px;'>"+value2+"</b>"+value3+"</div>" +
+                    "</div></html>";
+            segments[20].setText(innerText);
+        }
     }
-    public void strings1(String value){                             //21: global time의 내도시 / 추천 수면시간 / 목표 기상시각
+    private void strings1(String value){                             //21: global time의 내도시 / 추천 수면시간 / 목표 기상시각
         String innerText = "<html>뉴욕<br>마이애미<br>토론토<br></html>";
     }
-    public void strings2(String value){                             //22: global time의 내도시 시간 (시간제 포함) / 추천 수면시간1 / 목표 기상시각
+    private void strings2(String value){                             //22: global time의 내도시 시간 (시간제 포함) / 추천 수면시간1 / 목표 기상시각
         String innerText = "<html><span style='font-size: 20px;'>AM $nbsp</span><span style='font-size:30px;'>03:01</span></html>";
     }
-    public void cityorsleepingwakeuptimedata1(String value){        //23: global time의 남의도시 / 추천 수면시각2 / 최대 수면시간
+    private void cityorsleepingwakeuptimedata1(String value){        //23: global time의 남의도시 / 추천 수면시각2 / 최대 수면시간
         String innerText = "<html>뉴욕<br>마이애미<br>토론토<br></html>";
     }
-    public void cityorsleepingwakeuptimedata2(String value){        //24: global time의 남의도시 시간 (시간제 포함) / 추천 수면시간2 / 목표 기상시
+    private void cityorsleepingwakeuptimedata2(String value){        //24: global time의 남의도시 시간 (시간제 포함) / 추천 수면시간2 / 목표 기상시
         String innerText = "<html><span style='font-size: 20px;'>AM $nbsp</span><span style='font-size:30px;'>03:01</span></html>";
     }
-    public void cheeringMessageShowAll(String value){               //25: Cheering message 전체
+    private void cheeringMessageShowAll(String value){               //25: Cheering message 전체
         String innerText = "<html><div style='border:1px solid red width:80 height:80' >" +
                 "<div style='height:80px; text-align:center; display:block;'>이제 잘 시간이에요<br>오늘도 수고 많았어요^^b</div>"+
                 "<div style='width:180px; height:30px; display:block; font-size:22px; text-align:center;'>20 05 03 일</div>" +
                 "<div style='width:180px; height:50px; display:block; font-size:27px; text-align:center;'><b style='font-size:22px;'>AM</b> 06:30</div>" +
                 "</div></html>";
     }
-    public void chstomizeOwnClock(String value){                    //26: function list에서 customize own clock
+    private void chstomizeOwnClock(String value){                    //26: function list에서 customize own clock
         String innerText = "<html><div style='text-align:center;'>Customize<br>Your Own Clock</div></html>";
     }
-    public void icon1(String value){                                //27: 아이콘1 (제일 좌측)
+    private void icon1(String value){                                //27: 아이콘1 (제일 좌측)
         segments[27].setText(value);
     }
-    public void icon2(String value){                                //28: 아이콘2
+    private void icon2(String value){                                //28: 아이콘2
         segments[28].setText(value);
     }
-    public void icon3(String value){                                //29: 아이콘3
+    private void icon3(String value){                                //29: 아이콘3
         segments[29].setText(value);
     }
-    public void icon4(String value){                                //30: 아이콘4
+    private void icon4(String value){                                //30: 아이콘4
         segments[30].setText(value);
     }
-    public void icon5(String value){                                //31: 아이콘5
+    private void icon5(String value){                                //31: 아이콘5
         segments[31].setText(value);
     }
-    public void icon6(String value){                                //32: 아이콘6 (제일 우측)
+    private void icon6(String value){                                //32: 아이콘6 (제일 우측)
         segments[32].setText(value);
     }
 
     interface DisplayAction{ void display(String value); }
     private DisplayAction[] displays = new DisplayAction[]{
-            new DisplayAction() { public void display(String value) { timeKeepingYear(value);                            } },
-            new DisplayAction() { public void display(String value) { timeKeepingMonth(value);                           } },
-            new DisplayAction() { public void display(String value) { timeKeepingDay(value);                             } },
-            new DisplayAction() { public void display(String value) { timeKeepingWeekDay(value);                         } },
-            new DisplayAction() { public void display(String value) { timeKeepingAlarmAMFM(value);                       } },
-            new DisplayAction() { public void display(String value) { timeKeepingTimerStopWatchAlarmHour(value);         } },
-            new DisplayAction() { public void display(String value) { timeKeepingTimerStopWatchAlarmMinute(value);       } },
-            new DisplayAction() { public void display(String value) { timeKeepingTimerStopWatchSecond(value);            } },
-            new DisplayAction() { public void display(String value) { timerStopWatchCountingState(value);                } },
-            new DisplayAction() { public void display(String value) { timerStopWatchAlarmSleepingActivationState(value); } },
-            new DisplayAction() { public void display(String value) { stopWatchLap(value);                               } },
-            new DisplayAction() { public void display(String value) { stopWatchMilliSecond(value);                       } },
-            new DisplayAction() { public void display(String value) { alarmSunday(value);                                } },
-            new DisplayAction() { public void display(String value) { alarmMonday(value);                                } },
-            new DisplayAction() { public void display(String value) { alarmTuesday(value);                               } },
-            new DisplayAction() { public void display(String value) { alarmWednesday(value);                             } },
-            new DisplayAction() { public void display(String value) { alarmThursday(value);                              } },
-            new DisplayAction() { public void display(String value) { alarmFriday(value);                                } },
-            new DisplayAction() { public void display(String value) { alarmSaturday(value);                              } },
-            new DisplayAction() { public void display(String value) { alarmNumber(value);                                } },
-            new DisplayAction() { public void display(String value) { showAlarming(value);                               } },
-            new DisplayAction() { public void display(String value) { strings1(value);                                   } },
-            new DisplayAction() { public void display(String value) { strings2(value);                                   } },
-            new DisplayAction() { public void display(String value) { cityorsleepingwakeuptimedata1(value);              } },
-            new DisplayAction() { public void display(String value) { cityorsleepingwakeuptimedata2(value);              } },
-            new DisplayAction() { public void display(String value) { cheeringMessageShowAll(value);                     } },
-            new DisplayAction() { public void display(String value) { chstomizeOwnClock(value);                          } },
-            new DisplayAction() { public void display(String value) { icon1(value);                                      } },
-            new DisplayAction() { public void display(String value) { icon2(value);                                      } },
-            new DisplayAction() { public void display(String value) { icon3(value);                                      } },
-            new DisplayAction() { public void display(String value) { icon4(value);                                      } },
-            new DisplayAction() { public void display(String value) { icon5(value);                                      } },
-            new DisplayAction() { public void display(String value) { icon6(value);                                      } },
+            this::timeKeepingYear,
+            this::timeKeepingMonth,
+            this::timeKeepingDay,
+            this::timeKeepingWeekDay,
+            this::timeKeepingAlarmAMFM,
+            this::timeKeepingTimerStopWatchAlarmHour,
+            this::timeKeepingTimerStopWatchAlarmMinute,
+            this::timeKeepingTimerStopWatchSecond,
+            this::timerStopWatchCountingState,
+            this::timerStopWatchAlarmSleepingActivationState,
+            this::stopWatchLap,
+            this::stopWatchMilliSecond,
+            this::alarmSunday,
+            this::alarmMonday,
+            this::alarmTuesday,
+            this::alarmWednesday,
+            this::alarmThursday,
+            this::alarmFriday,
+            this::alarmSaturday,
+            this::alarmNumber,
+            this::showAlarming,
+            this::strings1,
+            this::strings2,
+            this::cityorsleepingwakeuptimedata1,
+            this::cityorsleepingwakeuptimedata2,
+            this::cheeringMessageShowAll,
+            this::chstomizeOwnClock,
+            this::icon1,
+            this::icon2,
+            this::icon3,
+            this::icon4,
+            this::icon5,
+            this::icon6,
     };
 
 
@@ -171,11 +184,6 @@ public class DisplayManager extends JFrame{
     JButton[] buttons = new JButton[btnNames.length];
     int[] btnX = new int[]{60, 400, 60, 400};
     int[] btnY = new int[]{125, 125, 275, 275};
-
-    JButton aButton = new JButton("A");
-    JButton bButton = new JButton("B");
-    JButton cButton = new JButton("C");
-    JButton dButton = new JButton("D");
 
     // JPanel
     RoundJPanel outerPanel = new RoundJPanel();
@@ -303,8 +311,6 @@ public class DisplayManager extends JFrame{
         this.segments = new JLabel[27];
         for(int i = 0 ; i < 27 ; i++){
             segments[i] = new JLabel();
-
-            segments[i].setName("Nameof" + String.valueOf(i));
             segments[i].setLayout(null);
             segments[i].setForeground(Color.WHITE);
             segments[i].setFont(new Font("NanumSquare", Font.BOLD, 15));
@@ -330,7 +336,6 @@ public class DisplayManager extends JFrame{
 
         for(JButton btn: buttons)
             getContentPane().add(btn);
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500,500);
         setLayout(null);
@@ -362,7 +367,17 @@ public class DisplayManager extends JFrame{
         displays[7].display(timeFormat[5]);
     }
 
+    public String getValueFromCurrentSelector(){
+        return segments[selector].getText();
+    }
+
     public void display(Object[] test){
         //for test;
+    }
+
+    public void displayShowAlarming(String currentTime){
+        //String 형식은 "20 05 03 일    06:30"
+        //12시간제일때는 "20 05 03 일 AM 06:30"
+        displays[20].display(currentTime);
     }
 }

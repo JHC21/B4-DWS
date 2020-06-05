@@ -16,6 +16,7 @@ public class TimeKeeping {
     public void updateTime(long diffValue) {
 
         this.time += diffValue;
+        System.out.println(this.time);
         //TimeKeeping의 time값을 변경해준다.
     }
 
