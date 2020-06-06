@@ -2,6 +2,18 @@ package view.template;
 
 public class Flag {
 
+    static final long SECOND_MILLI = 1000l;
+    static final long MINUTE_MILLI = 60000l;
+    static final long HOUR_MILLI = 3600000l;
+    static final long DAY_MILLI = 86400000l;
+    static final long MONTH28_MILLI = 2419200000l;
+    static final long MONTH29_MILLI = 2505600000l;
+    static final long MONTH30_MILLI = 2592000000l;
+    static final long MONTH31_MILLI = 2678400000l;
+    static final long MONTH_MILLI = 2629800000l;
+    static final long YEAR365_MILLI = 31557600000l;
+    static final long YEAR366_MILLI = 31644000000l;
+
     public String[] flags;
     public Flag(){
         flags = new String[33];
@@ -41,6 +53,7 @@ public class Flag {
         //31: global_time
         //32: sleeping_time (초기값 제일 우측)
 
+    //year, month에 따른 달 증감값 신경써야 함
     public static long getTimeValue(int selector){
         if(selector == 0) return 31557600000l;
         else if(selector == 1) return 2629800000l;
@@ -51,6 +64,13 @@ public class Flag {
         return 0;
     }
 
+    public static long getTimerValue(int selector) {
+        if(selector == 0) return HOUR_MILLI;
+        else if(selector == 1) return MINUTE_MILLI;
+        else if(selector == 2) return SECOND_MILLI;
+        return 0;
+    }
+
     public static int moveTimeSelector(int selector){
         if(selector == 0) return 1;
         else if(selector == 1) return 2;
@@ -58,6 +78,13 @@ public class Flag {
         else if(selector == 5) return 6;
         else if(selector == 6) return 7;
         else if(selector == 7) return 0;
+        return 0;
+    }
+
+    public static int moveTimerSelector(int selector) {
+        if(selector == 0) return 1;
+        else if(selector == 1) return 2;
+        else if(selector == 2) return 0;
         return 0;
     }
 

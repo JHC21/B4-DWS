@@ -80,8 +80,8 @@ public class ClockSystem {
 
     public Object[] getTimer(){
         Object[] value = new Object[2];
-        value[0] = this.timer.calculateTimerValue(this.clock());
-        value[1] = this.timer.getState();
+        value[0] = this.timer.calculateTimerValue(this.clock()); // long
+        value[1] = this.timer.getState(); // off : 0, on & stop : 1 , on & run : 2
         return value;
         /*startTime : 1시
         settedTime : 6분 (default)
@@ -91,6 +91,10 @@ public class ClockSystem {
         //여기서,
         // 1. UI에서 표시해줘야 할 UI상 보여지는 시간 : settedTime - (System.clock - startTime + stackedTime)
         // 2. On/Off 상태 (Timer.status값)를 전달해줘야 함
+    }
+
+    public long getTimerSetted() {
+        return this.timer.getSettedTime();
     }
 
     public void toggleTimerCounting() {

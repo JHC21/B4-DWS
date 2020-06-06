@@ -396,6 +396,15 @@ public class DisplayManager extends JFrame{
         displays[7].display(timeFormat[5]);
     }
 
+    public void displayTimer(String[] timeFormat) {
+        //시 분 초 counting activate
+        displays[5].display(timeFormat[0]); // 시
+        displays[6].display(timeFormat[1]); // 분
+        displays[7].display(timeFormat[2]); // 초
+        displays[8].display(timeFormat[3]); // counting
+        displays[9].display(timeFormat[4]); // activate
+    }
+
     public String getValueFromCurrentSelector(){
         return segments[selector].getText();
     }

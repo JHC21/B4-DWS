@@ -9,9 +9,9 @@ public class SleepingTime {
     private LocalTime wakeUpTime;   //기상시각
     private int status;         //0이면 inactive, 1이면 active상태.글 (1이면 cheering message를 받는 상태임)
 
-    static final long SECOND_LONG = 1000;
-    static final long MINUTE_LONG = 60000;
-    static final long HOUR_LONG = 3600000;
+    static final long SECOND_LONG = 1000l;
+    static final long MINUTE_LONG = 60000l;
+    static final long HOUR_LONG = 3600000l;
 
 
     public LocalTime[] calculateSleepingTime(Object[] getTime){

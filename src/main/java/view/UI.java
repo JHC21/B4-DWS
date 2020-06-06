@@ -105,18 +105,78 @@ public class UI {
                 //Timer
                 if(mode.getSubCategory() == 0){
                     //display Timer
+                    //화면 표시
+                    displayManager.displayTimer(modeManager.displayTimer(system));
+                    // timer의 actiavte 관련은 ModeManager.checker() 가 할 수 있을 듯
+
+                    if(pressed.equals("A")) {
+                        //set timer
+                        displayManager.notDisplayIcon();//on&off 관련인가요?
+                        mode.enterSub();
+                    }
+                    if (pressed.equals("B")) {
+                        //pause&restart
+                        //예외 처리 필요할 듯
+                        system.toggleTimerCounting();
+                    }
+                    if(pressed.equals("D")) {
+                        //active&inactive
+                        //예외 처리 필요할 듯
+                        system.toggleTimerActivation();
+                    }
                 }else if(mode.getSubCategory() == 1){
                     //set Timer
+                    displayManager.displaySelector();
+                    displayManager.displayTimer(modeManager.setTimer(system));
+                    if(pressed.equals("A")) {
+                        //display timer
+                        mode.exitSub();
+                        displayManager.displayIcon(); //on&off 관련인가요?
+                        displayManager.setSelector(0);
+                        displayManager.notDisplaySelector();
+                    }
+                    if (pressed.equals("B")) {
+                        //increase value
+                        system.setTimer(Flag.getTimerValue(displayManager.getSelector()));
+                    }
+                    if (pressed.equals("D")) {
+                        //decrease value
+                        system.setTimer(-1 * Flag.getTimerValue(displayManager.getSelector()));
+                    }
+                    if (pressed.equals("C")) {
+                        //change pointer position
+                        displayManager.setSelector(Flag.moveTimerSelector(displayManager.getSelector()));
+                        //int 선택자 = displayManager에서 선택자를 가져오는거
+                        //int 값 = displayManager에서 선택자에 해당하는 값을 가져옴
+                        //displayManager.setValue(++displayManager.get선택자(), displayManager.get값())
+                    }
+
                 }
             }else if(mode.getMainCategory() == 2){
                 //StopWatch
                 if(mode.getSubCategory() == 0) {
                     //display StopWatch  (stopWatch는 set이 없음)
+                    if(pressed.equals("A")) {
+                    }
+                    if (pressed.equals("B")) {
+                    }
+                    if (pressed.equals("C")) {
+                    }
+                    if(pressed.equals("D")) {
+                    }
                 }
             }else if(mode.getMainCategory() == 3){
                 //Alarm
                 if(mode.getSubCategory() == 0){
                     //display Alarm
+                    if(pressed.equals("A")) {
+                    }
+                    if (pressed.equals("B")) {
+                    }
+                    if (pressed.equals("C")) {
+                    }
+                    if(pressed.equals("D")) {
+                    }
                 }else if(mode.getSubCategory() == 1){
                     //set Alarm
                 }

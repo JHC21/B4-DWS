@@ -34,17 +34,52 @@ public class ModeManager {
             timeFormat[8] = null;
         }
         //이 값을 displayManager에 표시될 수 있게끔 값을 가공해서
-        //Strin배열로 넘겨주고, 배열에는
+        //String배열로 넘겨주고, 배열에는
         //표시될 위치를 표시해주면 됨
         return timeFormat;
     }
 
-    public int[] displayTimer(ClockSystem clockSystem){
-        Object[] tiemr = clockSystem.getTimer();
+    public String[] displayTimer(ClockSystem clockSystem){
+        Object[] timer = clockSystem.getTimer(); // 0 : long, 1 : state
         //어쩌구저쩌구 값 처리
-        int[] value= new int[5];
+        String[] value = new String[4];
+        /*
+        0 : hour
+        1 : minute
+        2 : second
+        3 : counting
+        activate는 checker에서 할 수 있을 듯
+        */
+        int[] timerTime = Utility.milliToTimeFormat((long)timer[0]);
+        value[0] = String.format("02d", timerTime[3]); // hour
+        value[1] = String.format("02d", timerTime[4]); // minute
+        value[2] = String.format("02d", timerTime[5]); // second
+
+        int temp = (int)timer[1];
+        if(temp == 2) { // on & activate
+            value[3] = "ON";
+        }
+        else {
+            //off or inactivate
+            value[3] = "OFF";
+        }
         return value;
-
     }
+    public String[] setTimer(ClockSystem clockSystem) {
+        long timerValue = clockSystem.getTimerSetted();
+        String[] value = new String[3]; // 9는 임시 값
+        /*
+        0 : hour
+        1 : minute
+        2 : second
+        activate는 checker에서 할 수 있을 듯
+        */
 
+        int[] timerTime = Utility.milliToTimeFormat((long)timerValue);
+        value[0] = String.format("02d", timerTime[3]); // hour
+        value[1] = String.format("02d", timerTime[4]); // minute
+        value[2] = String.format("02d", timerTime[5]); // second
+
+        return value;
+    }
 }

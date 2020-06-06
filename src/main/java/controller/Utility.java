@@ -4,10 +4,10 @@ import java.time.*;
 
 public class Utility {
 
-    static final long SECOND_MILLI = 1000;
-    static final long MINUTE_MILLI = 60000;
-    static final long HOUR_MILLI = 3600000;
-    static final long DAY_MILLI = 86400000;
+    static final long SECOND_MILLI = 1000l;
+    static final long MINUTE_MILLI = 60000l;
+    static final long HOUR_MILLI = 3600000l;
+    static final long DAY_MILLI = 86400000l;
 
     public static int milliToDay(long time) {
         //long형식으로 들어온 시간에서 요일을 추출해서 return

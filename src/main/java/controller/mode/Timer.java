@@ -46,6 +46,10 @@ public class Timer {
         else{ return 0; }
     }
 
+    public long getSettedTime() {
+        return this.settedTime;
+    }
+
     public void updateTimer(long time){
         if(this.state == 1){
             this.settedTime += time;
