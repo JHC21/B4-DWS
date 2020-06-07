@@ -71,7 +71,7 @@ public class DisplayManager extends JFrame{
     private void timerStopWatchCountingState(String value){          //8 : Timer/Stopwatch counting (시계 우상단)
         //System.out.println("THIs is : " + value);
         if(value.equals("false")) segments[8].setText(null);
-        else if(value.equals("OFF")) segments[8].setIcon(activatedIcons[1]);
+        else if(value.equals("OFF") || value.equals("0")) segments[8].setIcon(activatedIcons[1]);
         else segments[8].setIcon(activatedIcons[0]);
     }
     private void timerStopWatchAlarmSleepingActivationState(String value){   //9 : Timer/Stopwatch/Alarm/Sleeping Time activation (시계 우하단)
@@ -568,6 +568,7 @@ public class DisplayManager extends JFrame{
         displays[7].display(timeFormat[2]); // S초
         displays[11].display(timeFormat[3]); // Sms
         displays[8].display(timeFormat[8]); //pause&start
+        System.out.println(timeFormat[8]);
         displays[9].display("1"); // actiavte
         //string 앞의 0까지 앞에서 해 줬다고 가정합니다
         String temp = String.format("%s:%s:%s:%s", timeFormat[4], timeFormat[5], timeFormat[6], timeFormat[7]);
@@ -797,5 +798,6 @@ public class DisplayManager extends JFrame{
         for(int i = 0; i < 31; i++){
             segments[i].setText(null);
         }
+        segments[8].setIcon(null);
     }
 }
