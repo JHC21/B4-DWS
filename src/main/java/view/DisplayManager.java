@@ -618,13 +618,13 @@ public class DisplayManager extends JFrame{
         // 23 -> 24 -> 34
 
         displays[21].display(timeformat[0]); // 추천 수면시각1
-        displays[22].display(timeformat[1]); // 추천 수면시간1 (시)
-        displays[29].display("AM");
-        displays[27].display(timeformat[2]); // 추천 수면시각1 (분)
-        displays[23].display(timeformat[3]); // 추천 수면시각2
-        displays[24].display(timeformat[4]); // 추천 수면시간2 (시)
-        displays[30].display("AM");
-        displays[28].display(timeformat[5]); // 추천 수면시각2 (분)
+        displays[29].display(timeformat[1]); // 추천 수면시간1 시간제
+        displays[22].display(timeformat[2]); // 추천 수면시각1 (시)
+        displays[27].display(timeformat[3]); // 추천 수면시각1 (분)
+        displays[23].display(timeformat[4]); // 추천 수면시각2
+        displays[30].display(timeformat[5]); // 추천 수면시각2 시간제
+        displays[24].display(timeformat[6]); // 추천 수면시간2 (시)
+        displays[28].display(timeformat[7]); // 추천 수면시각2 (분)
     }
 
     public String getValueFromCurrentSelector(){
