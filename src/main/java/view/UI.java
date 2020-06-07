@@ -437,9 +437,10 @@ public class UI {
                     if(pressed.equals("B")){
 
                         if(getSelector == 22 || getSelector == 27){
-                            system.setSleepTime(Flag.getWakeUpSleepTimeValue(getSelector), 1);
-                        }else if(getSelector == 24 || getSelector == 28){
+                            // type: 0-분, 1-시 value: 값
                             system.setWakeUpTime(Flag.getWakeUpSleepTimeValue(getSelector), 1);
+                        }else if(getSelector == 24 || getSelector == 28){
+                            system.setSleepTime(Flag.getWakeUpSleepTimeValue(getSelector), 1);
                         }
 
                     }
@@ -447,9 +448,9 @@ public class UI {
                     // Decrease value
                     if(pressed.equals("D")){
                         if(getSelector == 22 || getSelector == 27){
-                            system.setSleepTime(Flag.getWakeUpSleepTimeValue(getSelector), -1);
-                        }else if(getSelector == 24 || getSelector == 28) {
                             system.setWakeUpTime(Flag.getWakeUpSleepTimeValue(getSelector), -1);
+                        }else if(getSelector == 24 || getSelector == 28) {
+                            system.setSleepTime(Flag.getWakeUpSleepTimeValue(getSelector), -1);
                         }
                     }
 
@@ -476,7 +477,6 @@ public class UI {
                         displayManager.changeIconPosition(true);
                         system.moveItem(displayManager.getSelector()-31, -1);
                         displayManager.setSelector(Flag.moveFunctionSelectorReverse(displayManager.getSelector()));
-                        System.out.println(displayManager.getSelector());
                     }
 
                     //move selected item to rightmost

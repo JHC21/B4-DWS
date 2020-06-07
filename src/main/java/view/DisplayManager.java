@@ -189,7 +189,7 @@ public class DisplayManager extends JFrame{
             this::myTimeMinute,
             this::otherTimeMinute,
             this::myTimeTimeFormat,
-            this::otherTimeTimeFormat
+            this::otherTimeTimeFormat,
     };
 
     int selector = 0;
@@ -307,7 +307,8 @@ public class DisplayManager extends JFrame{
             {200, 40, 100, 150, 30, 100, 100},  //27(분1)
             {200, 140, 100, 150, 30, 100, 100}, //28(분2)
             {100, 40, 100, 150, 25, 100, 100},  //29(시간제1)
-            {100, 140, 100, 150, 25, 100, 100},  //30(시간제2)
+            {100, 140, 100, 150, 25, 100, 100}, //30(시간제2)
+
     }; // 27 + (6) + 4 == 31개
 
 
@@ -637,6 +638,8 @@ public class DisplayManager extends JFrame{
         displays[30].display(timeformat[5]); // 추천 수면시각2 시간제
         displays[24].display(timeformat[6]); // 추천 수면시간2 (시)
         displays[28].display(timeformat[7]); // 추천 수면시각2 (분)
+        displays[9].display(timeformat[8]);
+
     }
 
     public String getValueFromCurrentSelector(){

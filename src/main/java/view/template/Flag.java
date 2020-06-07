@@ -51,7 +51,7 @@ public class Flag {
         //27: global time의 내도시 / 추천 수면시간(분) / 목표 기상시각(분)
         //28: global time의 남의도시 / 추천 수면시각2(분) / 최대 수면시간(분)
         //29: global time의 내도시 / 추천 수면시간(분) / 목표 기상시각(분) 시간제
-        //30: global time의 내도시 / 추천 수면시간(분) / 목표 기상시각(분) 시간제
+        //30: global time의 내도시 / 추천 수면시간(분) / 최대 수면시간(분) 시간제
 
     //year, month에 따른 달 증감값 신경써야 함
     public static long getTimeValue(int selector, Object[] curTime, int pmValue){

@@ -252,10 +252,11 @@ public class ModeManager {
         //LocalTime으로 받아옴(0: 추천 수면시간 1, 1: 추천 수면시간 2)
         Object[] sleepingTime = clockSystem.getSleepingTime(currentTime);
 
-        String[] timeFormat = new String[8];
+        String[] timeFormat = new String[9];
 
         LocalTime first = (LocalTime)sleepingTime[0];
         LocalTime second = (LocalTime)sleepingTime[1];
+        Integer turned = (Integer)sleepingTime[2];
 
         timeFormat[0] = "<html>추천<br>수면시각1</html>";
         timeFormat[4] = "<html>추천<br>수면시각2</html>";
@@ -265,6 +266,7 @@ public class ModeManager {
         // timeFormat[5] => Timeformat
         timeFormat[6] = String.format("%02d",second.getHour());
         timeFormat[7] = String.format("%02d",second.getMinute());
+        // timeFormat[8]
 
         if(currentFormat){
 
@@ -282,28 +284,32 @@ public class ModeManager {
                 timeFormat[6] = String.format("%02d", tmpFirstTime - 12);
                 timeFormat[5] = "오후";
             }else{
-                timeFormat[5] = "오후";
+                timeFormat[5] = "오전";
             }
 
         }else{
             timeFormat[5] = "  ";
             timeFormat[1] = "  ";
         }
+
+        if(turned == 0) timeFormat[8] = "OFF";
+        else if(turned == 1) timeFormat[8] = "ON";
+
         return timeFormat;
     }
 
     public String[] displaySleepingTimeValue(ClockSystem clockSystem){
-        String[] timeFormat = new String[8];
+        String[] timeFormat = new String[9];
 
         LocalTime[] sleepingTimeValue = clockSystem.getSleepingTimeValue();
 
         boolean currentFormat = (boolean)clockSystem.getTime()[1];
 
         timeFormat[0] = "<html>목표<br>기상시각</html>";
-        timeFormat[4] = "<html>최대<br>수면시각</html>";
+        timeFormat[4] = "<html>최대<br>수면시간</html>";
 
-        LocalTime wakeUp = sleepingTimeValue[0];
-        LocalTime sleep =  sleepingTimeValue[1];
+        LocalTime wakeUp = sleepingTimeValue[1];
+        LocalTime sleep =  sleepingTimeValue[0];
 
         // timeFormat[1] => Timeformat
         timeFormat[2] = String.format("%02d",wakeUp.getHour());
@@ -324,6 +330,8 @@ public class ModeManager {
             timeFormat[5] = "  ";
             timeFormat[1] = "  ";
         }
+
+        timeFormat[8] = "  ";
 
         return timeFormat;
 

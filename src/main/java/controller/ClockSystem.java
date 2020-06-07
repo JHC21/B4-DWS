@@ -232,12 +232,6 @@ public class ClockSystem {
         //updateItemPosition(location, direction)을 호출한다
         this.functionList.updateItemPosition(location, direction);
     }
-
-    
-
-
-
-    
     
     public void ringTimer(){
         //Timer가 울릴 시간이 되었을때 소리울리는 메소드
