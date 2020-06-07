@@ -96,6 +96,15 @@ public class UI {
                 displayManager.cleanDisplay();
                 mode.moveFunctionSelector();
                 mode.setMainCategory(system.getFunctionList()[mode.getFunctionSelector()]);
+
+
+                if(mode.getMainCategory() == 4) { // global time
+                    // 이름없는 system method
+                    // 20번 ID에서 1,2 번 system operation을 여기서 해줘야 함
+                    if(displayManager.getSelector() != 21 || displayManager.getSelector() != 23) {
+                        displayManager.setSelector(21);
+                    }
+                }
             }
 
 
@@ -288,35 +297,50 @@ public class UI {
                         //displayManager.setValue(++displayManager.get선택자(), displayManager.get값())
                     }
                 }
-            }else if(mode.getMainCategory() == 4){
+            } else if(mode.getMainCategory() == 4) {
                 //GlobalTime
+//                System.out.println("displayManager의 selector: " + displayManager.getSelector());
                 displayManager.displayGlobalTime(modeManager.displayGlobalTime(system));
 
-                if(mode.getSubCategory() == 0){
-                    //display globalTime  (global Time은 set이 없음)
+                // 계속 이 루프로 들어가게 됨 ㅠㅠ
+                // 엉뚱한 곳에 selector가 있으면 selector를 내 도시에 맞춰주기
+                if(displayManager.getSelector() != 21 || displayManager.getSelector() != 23) {
+                    displayManager.setSelector(21);
+                    System.out.println("set selector to 21");
+                }
+                displayManager.displaySelector();
+//                System.out.println("Selector: " + displayManager.getSelector());
+
+                // another city time 안 보이는거 해결하기!
+
+                if(mode.getSubCategory() == 0) {
+                    // display globalTime  (global Time은 set이 없음)
                     if(pressed.equals("A")) { // change pointer position
-                        displayManager.displaySelector(); // 먼저 선택자를 보여주고
+                        System.out.println("변경 전 선택자: " + displayManager.getSelector());
                         displayManager.setSelector(Flag.moveGlobalTimeSelector(displayManager.getSelector()));
+                        System.out.println("변경 후 선택자: " + displayManager.getSelector());
                     }
+                    // 이건 제대로 되는 것 같음
                     if(pressed.equals("B")) { // increase value
                         // 선택자가 현재 가리키고 있는 곳의 값을 1 증가
                         int currentSelector = displayManager.getSelector(); // 선택자가 현재 가리키고 있는 곳을 알아옴
-                        if(currentSelector == 22) { // 내 도시
+                        if(currentSelector == 21) { // 내 도시
                             system.setMyTimeZone(1);
 //                            system.setMyTimeZone(Flag.getGlobalTimeValue(displayManager.getSelector()));
-                        } else if(currentSelector == 24){ // 다른 도시
+                        } else if(currentSelector == 23){ // 다른 도시
                             system.setAnotherTimeZone(1);
                         }
                     }
 
                     // C 버튼이 눌리는 경우는 function list로 이동하므로 위에서 이미 처리함
 
+                    // 이건 제대로 되는 것 같음
                     if(pressed.equals("D")) { // decrease value
                         // 선택자가 현재 가리키고 있는 곳의 값을 1 감소
                         int currentSelector = displayManager.getSelector(); // 선택자가 현재 가리키고 있는 곳을 알아옴
-                        if(currentSelector == 22) {
+                        if(currentSelector == 21) {
                             system.setMyTimeZone(-1);
-                        } else {
+                        } else if(currentSelector == 23){
                             system.setAnotherTimeZone(-1);
                         }
                     }

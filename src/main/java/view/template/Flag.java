@@ -176,11 +176,8 @@ public class Flag {
     }
 
     public static int moveGlobalTimeSelector(int selector) {
-        if(selector == 21) return 22; // myTimeZone의 hour일 경우
-        else if(selector == 22) return 23; // myTimeZone의 minute일 경우
-        else if(selector == 23) return 24; // anotherTimeZone의 hour일 경우
-        else if(selector == 24) return 25; // anotherTimeZone의 minute일 경우
-
+        if(selector == 21) return 23; // myTimeZone 변경
+        else if(selector == 23) return 21; // anotherTimeZone 변경
         return 0;
     }
 }

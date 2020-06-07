@@ -43,19 +43,21 @@ public class GlobalTime {
         //myTimeZone의 시간과 도시 이름들, anotherTimeZone의 시간과 도시이름들을 리턴
 
         Object[] returnData = new Object[2];
-        this.time += clock;
+//        this.time += clock;
 
         // myTime과 anotherTime을 시/분으로 변환
         LocalTime myLocalTime = controller.Utility.milliToLocalTime(clock);
-
         int myLocalHour = myLocalTime.getHour(); // myTimeZone의 시. 일단 24시간제로 받아오고 시간제는 보여주는 쪽에서 처리함
         int myLocalMinute = myLocalTime.getMinute(); // myTimeZone의 분
-        LocalTime anotherLocalTime = controller.Utility.milliToLocalTime(clock + anotherTimeZone * 3600000);
+//        System.out.println("GlobalTime.java myLocalHour: " + myLocalHour); // 조금 이상하지만 null은 아님
+//        System.out.println("GlobalTime.java myLocalMinute: " + myLocalMinute); // 제대로 됨
+        LocalTime anotherLocalTime = controller.Utility.milliToLocalTime(clock + (anotherTimeZone * 3600000));
         int anotherLocalHour = anotherLocalTime.getHour(); // anotherTimeZone의 시. 일단 24시간제로 받아오고 시간제는 보여주는 쪽에서 처리함
         int anotherLocalMinute = anotherLocalTime.getMinute(); // anotherTimeZone의 분
-
+//        System.out.println("GlobalTime.java anotherLocalHour: " + anotherLocalHour); // 조금 이상하지만 null은 아님
+//        System.out.println("GlobalTime.java anotherLocalMinute: " + anotherLocalMinute); // 제대로 됨
         // myTimeZone의 시간과 도시 이름들, anotherTimeZone의 이름과 도시 이름들을 리턴
-        returnData[0] = new Object[]{myLocalHour, myLocalMinute, this.cityName[myTimeZone + 12]};
+        returnData[0] = new Object[]{myLocalHour, myLocalMinute, this.cityName[myTimeZone + 12]}; //  UTC는 -12부터 시작하기 때문!
         returnData[1] = new Object[]{anotherLocalHour, anotherLocalMinute, this.cityName[anotherTimeZone + 12]};
 
         return returnData;
@@ -82,12 +84,17 @@ public class GlobalTime {
 
         if(this.myTimeZone == -12 && updateValue == -1) {
             this.myTimeZone = 14;
+            this.anotherTimeZone--;
         } else if(this.myTimeZone == 14 && updateValue == 1) {
             this.myTimeZone = -12;
+            this.anotherTimeZone++;
         } else {
             this.myTimeZone += updateValue; // UTC를 의미. int 타입 (hour)
         }
         this.time += updateValue * 3600000; // 1 hr == 3,600,000 millisec
+
+
+
     }
 
     public void updateTimeValue(long time) {

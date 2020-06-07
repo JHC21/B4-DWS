@@ -109,8 +109,9 @@ public class DisplayManager extends JFrame{
     }
     private void strings2(String value){                             //22: global time의 내도시 시간 (시간제 포함) / 추천 수면시간1 / 목표 기상시각
         // String innerText = "<html><span style='font-size: 20px;'>AM $nbsp</span><span style='font-size:30px;'>03:01</span></html>";
-        String innerText = "<html><span style='font-size: 20px;'>" + value + "</span></html>";
-        System.out.println(innerText);
+//        String innerText = "<html><span style='font-size: 20px;'>" + value + "</span></html>";
+//        System.out.println(innerText);
+        String innerText = "<html>" + value + "</html>";
         segments[22].setText(innerText);
     }
     private void cityorsleepingwakeuptimedata1(String value){        //23: global time의 남의도시 / 추천 수면시각2 / 최대 수면시간
@@ -594,7 +595,8 @@ public class DisplayManager extends JFrame{
         displays[21].display(myCities.toString());
 
         StringBuilder myTime = new StringBuilder(); // 내 도시의 시간제, 시, 분을 묶어서 전달
-        myTime.append(timeFormat[0] + "$nbsp</span><span style='font-size:30px;'>" + timeFormat[1] + ":" + timeFormat[2]);
+//        myTime.append(timeFormat[0] + "$nbsp</span><span style='font-size:30px;'>" + timeFormat[1] + ":" + timeFormat[2]);
+        myTime.append(timeFormat[0] + " " + timeFormat[1] + ":" + timeFormat[2]);
         displays[22].display(myTime.toString());
 
         StringBuilder anotherCities = new StringBuilder(); // 다른 도시의 도시들을 묶어서 전달
@@ -602,7 +604,8 @@ public class DisplayManager extends JFrame{
         displays[23].display(anotherCities.toString());
 
         StringBuilder anotherTime = new StringBuilder(); // 다른 도시의 시간제, 시, 분을 묶어서 전달
-        anotherTime.append(timeFormat[6] + " $nbsp</span><span style='font-size:30px;'>" + timeFormat[7] + ":" + timeFormat[8]);
+//        anotherTime.append(timeFormat[6] + " $nbsp</span><span style='font-size:30px;'>" + timeFormat[7] + ":" + timeFormat[8]);
+        anotherTime.append(timeFormat[6] + " " + timeFormat[7] + ":" + timeFormat[8]);
         displays[24].display(anotherTime.toString());
     }
 

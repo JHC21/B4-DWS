@@ -173,12 +173,12 @@ public class ClockSystem {
 
 
     //global time
-    public Object[] getGlobalTime(boolean flag) {
+    public Object[] getGlobalTime() {
         //UI에 뿌려질 GlobalTime의 상태를 전달해주는 메소드
-        if(!flag) { this.globalTime.updateTimeValue(this.timeKeeping.getTimeValue()); }
+        this.globalTime.updateTimeValue(this.timeKeeping.getTimeValue());
         // CityData[0]: {myTimeZone 시, myTimeZone 분, 도시 이름}
         // CityData[1]: {anotherTimeZone 시, anotherTimeZone 분, 도시 이름}
-        return this.globalTime.getCityData(this.timeKeeping.getTimeValue());
+        return this.globalTime.getCityData(this.clock());
     }
     public void setMyTimeZone(int updateValue) {
         // updateMyTimeZone(updateValue)을 실행한다.
