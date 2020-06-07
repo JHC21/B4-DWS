@@ -6,6 +6,7 @@ import view.template.RoundJPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.Arrays;
 
 public class DisplayManager extends JFrame{
 
@@ -57,27 +58,34 @@ public class DisplayManager extends JFrame{
     }
     private void stopWatchMilliSecond(String value){                 //11: Stop watch의 millisecond
         segments[11].setText(value);
-        }
+    }
     private void alarmSunday(String value){                          //12: Alarm 일
-        segments[12].setText(value);
+        if(value.equals("false")) segments[12].setText(null);
+        else segments[12].setText(value);
     }
     private void alarmMonday(String value){                          //13: Alarm 월
-        segments[13].setText(value);
+        if(value.equals("false")) segments[13].setText(null);
+        else segments[13].setText(value);
     }
     private void alarmTuesday(String value){                         //14: Alarm 화
-        segments[14].setText(value);
+        if(value.equals("false")) segments[14].setText(null);
+        else segments[14].setText(value);
     }
     private void alarmWednesday(String value){                       //15: Alarm 수
-        segments[15].setText(value);
+        if(value.equals("false")) segments[15].setText(null);
+        else segments[15].setText(value);
     }
     private void alarmThursday(String value){                        //16: Alarm 목
-        segments[16].setText(value);
+        if(value.equals("false")) segments[16].setText(null);
+        else segments[16].setText(value);
     }
     private void alarmFriday(String value){                          //17: Alarm 금
-        segments[17].setText(value);
+        if(value.equals("false")) segments[17].setText(null);
+        else segments[17].setText(value);
     }
     private void alarmSaturday(String value){                        //18: Alarm 토
-        segments[18].setText(value);
+        if(value.equals("false")) segments[18].setText(null);
+        else segments[18].setText(value);
     }
     private void alarmNumber(String value){                          //19: Alarm 번호 (시계 좌하단)
         segments[19].setText(value);
@@ -181,7 +189,7 @@ public class DisplayManager extends JFrame{
             this::myTimeMinute,
             this::otherTimeMinute,
             this::myTimeTimeFormat,
-            this::otherTimeTimeFormat
+            this::otherTimeTimeFormat,
     };
 
     int selector = 0;
@@ -299,11 +307,12 @@ public class DisplayManager extends JFrame{
             {200, 40, 100, 150, 30, 100, 100},  //27(분1)
             {200, 140, 100, 150, 30, 100, 100}, //28(분2)
             {100, 40, 100, 150, 25, 100, 100},  //29(시간제1)
-            {100, 140, 100, 150, 25, 100, 100},  //30(시간제2)
+            {100, 140, 100, 150, 25, 100, 100}, //30(시간제2)
+
     }; // 27 + (6) + 4 == 31개
 
 
-    private int[][] selectorPosition = new int[][]{
+    private final int[][] selectorPosition = new int[][]{
             {65, -33, 50, 50, 25, 50, 10},       //0
             {105, -33, 50, 50, 25, 50, 10},      //1
             {145, -33, 50, 50, 25, 50, 10},      //2
@@ -325,9 +334,9 @@ public class DisplayManager extends JFrame{
             {212, -31, 50, 50, 23, 50, 50},      //18
             {215, 70, 50, 50, 23, 50, 50},      //19
             {20, 0, 200, 300, 20, 200, 300},    //20
-            {20, 40, 110, 110, 15, 110, 110},   //21
+            {5, 38, 110, 110, 15, 110, 110},   //21
             {160, 10, 100, 150, 30, 100, 100},  //22(시1)
-            {20, 140, 100, 150, 15, 100, 100},  //23
+            {5, 134, 100, 150, 15, 100, 100},  //23
             {160, 110, 100, 150, 30, 100, 100},  //24(시2)
 
             {20, 0, 200, 300, 20, 200, 300},    //25
@@ -337,6 +346,13 @@ public class DisplayManager extends JFrame{
             {210, 110, 100, 150, 30, 100, 100}, //28(분2)
             {100, 40, 100, 150, 25, 100, 100},  //29(시간제1)
             {100, 140, 100, 150, 25, 100, 100},  //30(시간제2)
+
+            {22, 180, 50, 50, 23, 50, 50},  //FunctionList icon1  31
+            {50, 180, 50, 50, 23, 50, 50},  //FunctionList icon2  32
+            {78, 180, 50, 50, 23, 50, 50},  //FunctionList icon3  33
+            {106, 180, 50, 50, 23, 50, 50},  //FunctionList icon4  34
+            {134, 180, 50, 50, 23, 50, 50},  //FunctionList icon5  35
+            {162, 180, 50, 50, 23, 50, 50},  //FunctionList icon6  36
     }; // 37개
 
     private void setOuterPanel(){
@@ -587,22 +603,19 @@ public class DisplayManager extends JFrame{
         10: anotherTimeZone의 도시 2
         11: anotherTimeZone의 도시 3
         */
+        //System.out.println(Arrays.toString(timeFormat));
 
-        StringBuilder myCities = new StringBuilder(); // 내 도시의 도시들을 묶어서 전달
-        myCities.append(timeFormat[3] + "<br>" + timeFormat[4] + "<br>" + timeFormat[5]);
-        displays[21].display(myCities.toString());
+        displays[21].display(// 내 도시의 도시들을 묶어서 전달
+                "<html>" + timeFormat[3] + "<br>" + timeFormat[4] + "<br>" + timeFormat[5] + "</html>");
+        displays[29].display(timeFormat[0]);// 내 도시의 시간제
+        displays[22].display(timeFormat[1]);
+        displays[27].display(timeFormat[2]);
 
-        StringBuilder myTime = new StringBuilder(); // 내 도시의 시간제, 시, 분을 묶어서 전달
-        myTime.append(timeFormat[0] + "$nbsp</span><span style='font-size:30px;'>" + timeFormat[1] + ":" + timeFormat[2]);
-        displays[22].display(myTime.toString());
-
-        StringBuilder anotherCities = new StringBuilder(); // 다른 도시의 도시들을 묶어서 전달
-        anotherCities.append(timeFormat[9] + "<br>" + timeFormat[10] + "<br>" + timeFormat[11]);
-        displays[23].display(anotherCities.toString());
-
-        StringBuilder anotherTime = new StringBuilder(); // 다른 도시의 시간제, 시, 분을 묶어서 전달
-        anotherTime.append(timeFormat[6] + " $nbsp</span><span style='font-size:30px;'>" + timeFormat[7] + ":" + timeFormat[8]);
-        displays[24].display(anotherTime.toString());
+        displays[23].display(// 다른 도시의 도시들을 묶어서 전달
+                "<html>" + timeFormat[9] + "<br>" + timeFormat[10] + "<br>" + timeFormat[11] + "</html>");
+        displays[30].display(timeFormat[6]);
+        displays[24].display(timeFormat[7]);
+        displays[28].display(timeFormat[8]);
     }
 
     public void displaySleepingTime(String[] timeformat){
@@ -625,6 +638,8 @@ public class DisplayManager extends JFrame{
         displays[30].display(timeformat[5]); // 추천 수면시각2 시간제
         displays[24].display(timeformat[6]); // 추천 수면시간2 (시)
         displays[28].display(timeformat[7]); // 추천 수면시각2 (분)
+        displays[9].display(timeformat[8]);
+
     }
 
     public String getValueFromCurrentSelector(){
@@ -658,7 +673,7 @@ public class DisplayManager extends JFrame{
     }
 
     public void changeIconPosition(boolean left){
-        int trueSelector = this.selector - 27;
+        int trueSelector = this.selector - 31;
         Icon curIcon, targetIcon;
 
         if(left){

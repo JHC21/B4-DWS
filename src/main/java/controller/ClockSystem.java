@@ -163,22 +163,15 @@ public class ClockSystem {
         this.alarms[number].changeAlarmActivation();
         // number에 해당하는 알람에 changeAlarmActivation()을 호출
     }
-    //이건 UI에서 처리해야함 (deprecated)
-    public Object[] moveToNextAlarm(int number) {
-        //number로 들어온 알람의 getAlarmingDay(), getAlarmingTime()을 각각 호출한다.
-        //number로 들어온 알람의 alarmingDay와 alarmingTime을 배열로 묶어서 리턴한다.
-
-        return new Object[]{};
-    }
 
 
     //global time
-    public Object[] getGlobalTime(boolean flag) {
+    public Object[] getGlobalTime() {
         //UI에 뿌려질 GlobalTime의 상태를 전달해주는 메소드
-        if(!flag) { this.globalTime.updateTimeValue(this.timeKeeping.getTimeValue()); }
+        this.globalTime.updateTimeValue(this.timeKeeping.getTimeValue());
         // CityData[0]: {myTimeZone 시, myTimeZone 분, 도시 이름}
         // CityData[1]: {anotherTimeZone 시, anotherTimeZone 분, 도시 이름}
-        return this.globalTime.getCityData(this.timeKeeping.getTimeValue());
+        return this.globalTime.getCityData(this.clock());
     }
     public void setMyTimeZone(int updateValue) {
         // updateMyTimeZone(updateValue)을 실행한다.
@@ -187,6 +180,9 @@ public class ClockSystem {
     public void setAnotherTimeZone(int updateValue) {
         // updateAnotherTimeZone(updateValue)을 실행한다.
         this.globalTime.updateAnotherTimeZone(updateValue);
+    }
+    public void enterGlobalTime() {
+        this.globalTime.updateTimeValue(this.timeKeeping.getTimeValue());
     }
 
 
@@ -236,12 +232,6 @@ public class ClockSystem {
         //updateItemPosition(location, direction)을 호출한다
         this.functionList.updateItemPosition(location, direction);
     }
-
-    
-
-
-
-    
     
     public void ringTimer(){
         //Timer가 울릴 시간이 되었을때 소리울리는 메소드

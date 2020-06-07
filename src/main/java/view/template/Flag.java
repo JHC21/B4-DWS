@@ -43,15 +43,15 @@ public class Flag {
         //19: Alarm 번호 (시계 좌하단)
         //20: Alarm이 표시될 때 전부 (하나로 통합하고, 이걸 한번에 보여줌
         //21: global time의 내도시 / 추천 수면시간 / 목표 기상시각
-        //22: global time의 내도시 시간 (시간제 포함) / 추천 수면시간1(시) / 목표 기상시각(시)
+        //22: global time의 내도시 시간
         //23: global time의 남의도시 / 추천 수면시각2 / 최대 수면시간
-        //24: global time의 남의도시 시간 (시간제 포함) / 추천 수면시간2(시) / 목표 기상시(시)
+        //24: global time의 남의도시 시간 (시간제 포함) / 추천 수면시간2(시) / 최대 수면시간(시)
         //25: Cheering message 전체
         //26: function list에서 customize own clock
         //27: global time의 내도시 / 추천 수면시간(분) / 목표 기상시각(분)
         //28: global time의 남의도시 / 추천 수면시각2(분) / 최대 수면시간(분)
         //29: global time의 내도시 / 추천 수면시간(분) / 목표 기상시각(분) 시간제
-        //30: global time의 내도시 / 추천 수면시간(분) / 목표 기상시각(분) 시간제
+        //30: global time의 내도시 / 추천 수면시간(분) / 최대 수면시간(분) 시간제
 
     //year, month에 따른 달 증감값 신경써야 함
     public static long getTimeValue(int selector, Object[] curTime, int pmValue){
@@ -136,23 +136,23 @@ public class Flag {
 
   
     public static int moveFunctionSelector(int selector){
-        if(selector == 27) return 28;
-        else if(selector == 28) return 29;
-        else if(selector == 29) return 30;
-        else if(selector == 30) return 31;
-        else if(selector == 31) return 32;
-        else if(selector == 32) return 27;
+        if(selector == 31) return 32;
+        else if(selector == 32) return 33;
+        else if(selector == 33) return 34;
+        else if(selector == 34) return 35;
+        else if(selector == 35) return 36;
+        else if(selector == 36) return 31;
 
         return 0;
     }
 
     public static int moveFunctionSelectorReverse(int selector){
-        if(selector == 27) return 32;
-        else if(selector == 28) return 27;
-        else if(selector == 29) return 28;
-        else if(selector == 30) return 29;
-        else if(selector == 31) return 30;
+        if(selector == 31) return 36;
         else if(selector == 32) return 31;
+        else if(selector == 33) return 32;
+        else if(selector == 34) return 33;
+        else if(selector == 35) return 34;
+        else if(selector == 36) return 35;
 
         return 0;
     }
@@ -185,11 +185,8 @@ public class Flag {
     }
 
     public static int moveGlobalTimeSelector(int selector) {
-        if(selector == 21) return 22; // myTimeZone의 hour일 경우
-        else if(selector == 22) return 23; // myTimeZone의 minute일 경우
-        else if(selector == 23) return 24; // anotherTimeZone의 hour일 경우
-        else if(selector == 24) return 25; // anotherTimeZone의 minute일 경우
-
+        if(selector == 21) return 23; // myTimeZone 변경
+        else if(selector == 23) return 21; // anotherTimeZone 변경
         return 0;
     }
 }

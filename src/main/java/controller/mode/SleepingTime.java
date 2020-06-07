@@ -4,6 +4,7 @@ import controller.Utility;
 
 import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.WeakHashMap;
 
 public class SleepingTime {
     private LocalTime sleepTime;    //수면시간 (최대 12시간)
@@ -21,11 +22,11 @@ public class SleepingTime {
     }
 
 
-    public LocalTime[] calculateSleepingTime(Object[] getTime){
+    public Object[] calculateSleepingTime(Object[] getTime){
         //수면시간과, 기상시각, 현재시간(getTime이용)(을 계산해 최적 수면시간 1, 2를 return하는 메소드
         //수면 시간들은 1시간 반 간격으로 나타남
         //바깥에 보여지기엔 시간, 분만 표시되지만, 30초에 울릴 것이므로 x시간 x분 30초의 형태이다.
-        LocalTime[] localTime = new LocalTime[2];//{ *최적 수면시간 1, 최적 수면시간 2*/}
+        Object[] localTime = new Object[3];//{ *최적 수면시간 1, 최적 수면시간 2, cheering message 수신여부*/}
         long currentTime = (long)getTime[0];
         long wakeUpTimeLong;
         long sleepingTimeMap[] = new long[9];
@@ -65,6 +66,8 @@ public class SleepingTime {
             }
         }
 
+        localTime[2] = this.status;
+
         return localTime;
     }
 
@@ -83,14 +86,24 @@ public class SleepingTime {
     public void updateSleepTime(int type, int value){
         //수면시간을 변경하는 메소드, UI에서 System을 거쳐 호출함
         //받아온 값을 토대로 this.sleepTime을 변경
-        if(type == 1){
-            if(value == 1) sleepTime = sleepTime.plusHours(1);
-            else sleepTime = sleepTime.minusHours(1);
-        }else if(type == 0){
-            if(value == 1) sleepTime = sleepTime.plusMinutes(1);
-            else sleepTime = sleepTime.minusMinutes(1);
+        if(type == 1){ //시
+            System.out.println(sleepTime);
+            if(value == 1) this.sleepTime = this.sleepTime.plusHours(1);
+            else this.sleepTime = sleepTime.minusHours(1);
+        }else if(type == 0){ // 분
+            if(value == 1) this.sleepTime = this.sleepTime.plusMinutes(1);
+            else this.sleepTime = this.sleepTime.minusMinutes(1);
         }
 
+        int sleepHour = this.sleepTime.getHour();
+        int sleepMinute = this.sleepTime.getMinute();
+
+        System.out.println(this.sleepTime);
+
+        if(this.sleepTime.isAfter(LocalTime.of(12,0)))
+            this.sleepTime = LocalTime.of(1, 30);
+        if(this.sleepTime.isBefore(LocalTime.of(1,30)))
+            this.sleepTime = LocalTime.of(12, 0);
     }
 
     public void toggleSleepingTimeState(){
@@ -111,7 +124,7 @@ public class SleepingTime {
         Object[] temp = new Object[2];
         temp[0] = currentTime;
         temp[1] = null;
-        LocalTime sleepingTime = calculateSleepingTime(temp)[0];
+        LocalTime sleepingTime = (LocalTime) calculateSleepingTime(temp)[0];
 
         //long인 currentTime을 LocalTime으로 바꿔 비교를 진행하려 한다.
         //LocalTime currentLocalTime = Instant.ofEpochMilli(currentTime).atZone(ZoneId.systemDefault()).toLocalTime();

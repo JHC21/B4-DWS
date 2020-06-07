@@ -61,7 +61,7 @@ public class ModeManager {
         timeFormat[2] = String.format("%02d", timerTime[5]); // second
 
         if((int)timer[1] == 0){
-            return new String[]{"false", "false", "false", "false", "false"};
+            return new String[]{"false", "false", "false", "false", "OFF"};
         }
 
         int temp = (int)timer[1];
@@ -176,54 +176,69 @@ public class ModeManager {
         3: myTimeZone의 도시 1
         4: myTimeZone의 도시 2
         5: myTimeZone의 도시 3
-
-        5: anotherTimeZone의 hour
-        6:  anotherTimeZone의 minute
-        7: anotherTimeZone의 도시 1
-        8: anotherTimeZone의 도시 2
-        9: anotherTimeZone의 도시 3
+        6: anotherTimeZone의 시간제
+        7: anotherTimeZone의 hour
+        8: anotherTimeZone의 minute
+        9: anotherTimeZone의 도시 1
+        10: anotherTimeZone의 도시 2
+        11: anotherTimeZone의 도시 3
         */
 
         // Object[] globalTime이 Object[]들의 배열이므로 바로 접근하지 말고 하나씩 가져왔음
-        Object[] globalTime = clockSystem.getGlobalTime(false);
-        Object[] myTimeData = (Object[]) globalTime[0];
-        Object[] anotherTimeData = (Object[]) globalTime[1];
-        String[] myCityNames = (String[])(myTimeData[2]);
-        String[] anotherCityNames = (String[])(anotherTimeData[2]);
+        Object[] globalTime = clockSystem.getGlobalTime();
+
+        Object[] myTimeData = (Object[]) globalTime[0]; // 내 도시 관련 모든 것들
+        Object[] anotherTimeData = (Object[]) globalTime[1]; // 다른 도시 관련 모든 것들
+        String[] myCityNames = (String[])(myTimeData[2]); // 내 도시 이름들
+        String[] anotherCityNames = (String[])(anotherTimeData[2]); // 다른 도시 이름들
+
         String[] globalTimeFormat = new String[12]; // 리턴해줄 형식
 
         Object[] time = clockSystem.getTime(); // 시간제를 알아오기 위해 받아옴
         // myTime
         if((boolean) time[1]){ // 12시간제인 경우
-            int temp = (int)myTimeData[0];
-            if(temp > 12){
-                globalTimeFormat[1] = String.format("%02d", temp - 12);
-                globalTimeFormat[0] = "오후";
+            int temp = (int)myTimeData[0]; //  내 도시의 시
+            if(temp > 12){ // 12시간제에서의 오후
+                globalTimeFormat[1] = String.format("%02d", temp - 12); // 내 도시의 시
+                globalTimeFormat[0] = "오후"; // 내 도시의 시간제
             }
-            else{ globalTimeFormat[0] = "오전"; }
-        } else {
+            else{ // 12간제에서의 오전
+                globalTimeFormat[1] =String.valueOf(myTimeData[0]); // 내 도시의 시
+                globalTimeFormat[0] = "오전";
+            }
+        } else { // 24시간제
+            globalTimeFormat[1] = String.valueOf(myTimeData[0]);
             globalTimeFormat[0] = null; // 24시간제
         }
-
-        globalTimeFormat[2] = String.valueOf(myTimeData[1]); // 분
+        globalTimeFormat[2] = String.valueOf(myTimeData[1]); // 내 도시의 분
         globalTimeFormat[3] = myCityNames[0]; // 내 도시 1
         globalTimeFormat[4] = myCityNames[1]; // 내 도시 2
         globalTimeFormat[5] = myCityNames[2]; // 내 도시 3
+
         //anotherTime
-        if((Boolean) time[1]){ // 12시간제인 경우
-            int temp = (int)anotherTimeData[0];
-            if(temp > 12){
-                globalTimeFormat[7] = String.format("%02d", temp - 12);
+        if((boolean) time[1]){ // 12시간제인 경우
+            int temp = (int)anotherTimeData[0]; // 다른 도시의 시
+            if(temp > 12) { // 12시간제에서의 오후
+                globalTimeFormat[7] = String.format("%02d", temp - 12); // 다른 도시의 시
                 globalTimeFormat[6] = "오후";
+            } else { // 12시간제에서의 오전
+                globalTimeFormat[7] = String.valueOf(anotherTimeData[0]); //다른 도시의 시
+                globalTimeFormat[6] = "오전";
             }
-            else{ globalTimeFormat[7] = "오전"; }
-        } else {
+        } else { // 24시간제
+            globalTimeFormat[7] = String.valueOf(anotherTimeData[0]); // 다른 도시의 시
             globalTimeFormat[6] = null; // 24시간제
         }
         globalTimeFormat[8] = String.valueOf(anotherTimeData[1]); // 분
         globalTimeFormat[9] = anotherCityNames[0]; // 다른 도시 1
         globalTimeFormat[10] = anotherCityNames[1]; // 다른 도시 2
         globalTimeFormat[11] = anotherCityNames[2]; // 다른 도시 3
+//        System.out.println("다른 도시 시간제: " + globalTimeFormat[6]);
+//        System.out.println("다른 도시 시: " + globalTimeFormat[7]);
+//        System.out.println("다른 도시 분: " + globalTimeFormat[8]);
+//        System.out.println("다른 도시 1: " + globalTimeFormat[9]);
+//        System.out.println("다른 도시 2: " + globalTimeFormat[10]);
+//        System.out.println("다른 도시 3: " + globalTimeFormat[11]);
 
         return globalTimeFormat;
     }
@@ -237,10 +252,11 @@ public class ModeManager {
         //LocalTime으로 받아옴(0: 추천 수면시간 1, 1: 추천 수면시간 2)
         Object[] sleepingTime = clockSystem.getSleepingTime(currentTime);
 
-        String[] timeFormat = new String[8];
+        String[] timeFormat = new String[9];
 
         LocalTime first = (LocalTime)sleepingTime[0];
         LocalTime second = (LocalTime)sleepingTime[1];
+        Integer turned = (Integer)sleepingTime[2];
 
         timeFormat[0] = "<html>추천<br>수면시각1</html>";
         timeFormat[4] = "<html>추천<br>수면시각2</html>";
@@ -250,6 +266,7 @@ public class ModeManager {
         // timeFormat[5] => Timeformat
         timeFormat[6] = String.format("%02d",second.getHour());
         timeFormat[7] = String.format("%02d",second.getMinute());
+        // timeFormat[8]
 
         if(currentFormat){
 
@@ -274,21 +291,25 @@ public class ModeManager {
             timeFormat[5] = "  ";
             timeFormat[1] = "  ";
         }
+
+        if(turned == 0) timeFormat[8] = "OFF";
+        else if(turned == 1) timeFormat[8] = "ON";
+
         return timeFormat;
     }
 
     public String[] displaySleepingTimeValue(ClockSystem clockSystem){
-        String[] timeFormat = new String[8];
+        String[] timeFormat = new String[9];
 
         LocalTime[] sleepingTimeValue = clockSystem.getSleepingTimeValue();
 
         boolean currentFormat = (boolean)clockSystem.getTime()[1];
 
         timeFormat[0] = "<html>목표<br>기상시각</html>";
-        timeFormat[4] = "<html>최대<br>수면시각</html>";
+        timeFormat[4] = "<html>최대<br>수면시간</html>";
 
-        LocalTime wakeUp = sleepingTimeValue[0];
-        LocalTime sleep =  sleepingTimeValue[1];
+        LocalTime wakeUp = sleepingTimeValue[1];
+        LocalTime sleep =  sleepingTimeValue[0];
 
         // timeFormat[1] => Timeformat
         timeFormat[2] = String.format("%02d",wakeUp.getHour());
@@ -309,6 +330,8 @@ public class ModeManager {
             timeFormat[5] = "  ";
             timeFormat[1] = "  ";
         }
+
+        timeFormat[8] = "  ";
 
         return timeFormat;
 
