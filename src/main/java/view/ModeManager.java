@@ -222,4 +222,44 @@ public class ModeManager {
 
         return globalTimeFormat;
     }
+
+
+    public String[] displaySleepingTime(ClockSystem clockSystem){
+        long currentTime = (long)clockSystem.getTime()[0];
+        //LocalTime으로 받아옴(0: 추천 수면시간 1, 1: 추천 수면시간 2)
+        Object[] sleepingTime = clockSystem.getSleepingTime(currentTime);
+
+        String[] timeFormat = new String[6];
+
+        LocalTime first = (LocalTime)sleepingTime[0];
+        LocalTime second = (LocalTime)sleepingTime[1];
+        timeFormat[0] = "추천 수면시각1";
+        timeFormat[3] = "추천 수면시각2";
+        timeFormat[1] = Integer.toString(first.getHour());
+        timeFormat[2] = Integer.toString(first.getMinute());
+        timeFormat[4] = Integer.toString(second.getHour());
+        timeFormat[5] = Integer.toString(second.getMinute());
+
+        return timeFormat;
+    }
+
+    public String[] displaySleepingTimeValue(ClockSystem clockSystem){
+        String[] timeFormat = new String[6];
+
+        timeFormat[0] = "목표 기상시각";
+        timeFormat[3] = "최대 수면시간";
+
+        LocalTime[] sleepingTimeValue = clockSystem.getSleepingTimeValue();
+
+        LocalTime wakeUp = sleepingTimeValue[0];
+        LocalTime sleep =  sleepingTimeValue[1];
+
+        timeFormat[1] = Integer.toString(wakeUp.getHour());
+        timeFormat[2] = Integer.toString(wakeUp.getMinute());
+        timeFormat[4] = Integer.toString(sleep.getHour());
+        timeFormat[5] = Integer.toString(sleep.getMinute());
+
+        return timeFormat;
+
+    }
 }
