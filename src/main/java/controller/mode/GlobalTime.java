@@ -37,7 +37,7 @@ public class GlobalTime {
             {"크리스마스섬", "", ""} // UTC +14
     };
 
-    public void GlobalTime() {
+    public GlobalTime() {
         this.anotherTimeZone = 0;
         this.myTimeZone = 0;
     }
