@@ -76,17 +76,14 @@ public class UI {
                 if(checkerList[0] == 2) {
                     displayManager.displayShowAlarming(temp);
                     system.ringAlarm();
-                    checkerList[0] = 1;
                 }
                 else if(checkerList[1] == 2) {
                     //displayManager.cheeringMessageShowAll(temp); 위의 displayShowAlarming()과 같은 메소드가 구현되어 있지 않음
                     system.ringSleepingTime();
-                    checkerList[1] = 0;
                 }
             }
             else if(checkerList[2] == 2) { // ring timer
                 system.ringTimer();
-                checkerList[2] = 1;
             }
             //이 부분을 통해 displayManager에서 function list를 표시합니다.
             //displayManager.displayFunctionList(system.getFunctionList(), checkerList);
@@ -162,8 +159,7 @@ public class UI {
                     }
                     if(pressed.equals("D")) {
                         //active&inactive
-                        if(checkerList[2] != 0) // inactive 상태에서는 안 됨
-                            system.toggleTimerActivation();
+                        system.toggleTimerActivation();
                     }
                 }else if(mode.getSubCategory() == 1){
                     //set Timer
