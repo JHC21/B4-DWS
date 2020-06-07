@@ -290,6 +290,8 @@ public class UI {
                 }
             }else if(mode.getMainCategory() == 4){
                 //GlobalTime
+                displayManager.displayGlobalTime(modeManager.displayGlobalTime(system));
+
                 if(mode.getSubCategory() == 0){
                     //display globalTime  (global Time은 set이 없음)
                     if(pressed.equals("A")) { // change pointer position

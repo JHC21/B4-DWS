@@ -160,7 +160,7 @@ public class ModeManager {
                 timeFormat[2] = "오전";
             }
         }else{
-            timeFormat[2] = "  ";
+            timeFormat[2] = null;
         }
         timeFormat[3] = alarmValue[0]; // boolean 배열
         if((int)alarmValue[2] == 0) timeFormat[4] = "OFF";
@@ -194,12 +194,12 @@ public class ModeManager {
         Object[] anotherTimeData = (Object[]) globalTime[1];
         String[] myCityNames = (String[])(myTimeData[2]);
         String[] anotherCityNames = (String[])(anotherTimeData[2]);
-        String globalTimeFormat[] = new String[12]; // 리턴해줄 형식
+        String[] globalTimeFormat = new String[12]; // 리턴해줄 형식
 
         Object[] time = clockSystem.getTime(); // 시간제를 알아오기 위해 받아옴
         // myTime
         if((Boolean) time[1]){ // 12시간제인 경우
-            int temp = Integer.parseInt((String)myTimeData[0]);
+            int temp = (int)myTimeData[0];
             if(temp > 12){
                 globalTimeFormat[1] = String.format("%02d", temp - 12);
                 globalTimeFormat[0] = "오후";
@@ -208,13 +208,14 @@ public class ModeManager {
         } else {
             globalTimeFormat[0] = null; // 24시간제
         }
-        globalTimeFormat[2] = (String)myTimeData[1]; // 분
+
+        globalTimeFormat[2] = String.valueOf(myTimeData[1]); // 분
         globalTimeFormat[3] = myCityNames[0]; // 내 도시 1
         globalTimeFormat[4] = myCityNames[1]; // 내 도시 2
         globalTimeFormat[5] = myCityNames[2]; // 내 도시 3
         //anotherTime
         if((Boolean) time[1]){ // 12시간제인 경우
-            int temp = Integer.parseInt((String)anotherTimeData[0]);
+            int temp = (int)anotherTimeData[0];
             if(temp > 12){
                 globalTimeFormat[7] = String.format("%02d", temp - 12);
                 globalTimeFormat[6] = "오후";
@@ -223,7 +224,7 @@ public class ModeManager {
         } else {
             globalTimeFormat[6] = null; // 24시간제
         }
-        globalTimeFormat[8] = (String)anotherTimeData[1]; // 분
+        globalTimeFormat[8] = String.valueOf(anotherTimeData[1]); // 분
         globalTimeFormat[9] = anotherCityNames[0]; // 다른 도시 1
         globalTimeFormat[10] = anotherCityNames[1]; // 다른 도시 2
         globalTimeFormat[11] = anotherCityNames[2]; // 다른 도시 3

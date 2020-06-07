@@ -103,16 +103,25 @@ public class DisplayManager extends JFrame{
         }
     }
     private void strings1(String value){                             //21: global time의 내도시 / 추천 수면시간 / 목표 기상시각
-        String innerText = "<html>뉴욕<br>마이애미<br>토론토<br></html>";
+        //String innerText = "<html>뉴욕<br>마이애미<br>토론토<br></html>";
+        String innerText = "<html>" + value + "</html>";
+        segments[21].setText(innerText);
     }
     private void strings2(String value){                             //22: global time의 내도시 시간 (시간제 포함) / 추천 수면시간1 / 목표 기상시각
-        String innerText = "<html><span style='font-size: 20px;'>AM $nbsp</span><span style='font-size:30px;'>03:01</span></html>";
+        // String innerText = "<html><span style='font-size: 20px;'>AM $nbsp</span><span style='font-size:30px;'>03:01</span></html>";
+        String innerText = "<html><span style='font-size: 20px;'>" + value + "</span></html>";
+        System.out.println(innerText);
+        segments[22].setText(innerText);
     }
     private void cityorsleepingwakeuptimedata1(String value){        //23: global time의 남의도시 / 추천 수면시각2 / 최대 수면시간
-        String innerText = "<html>뉴욕<br>마이애미<br>토론토<br></html>";
+        //String innerText = "<html>뉴욕<br>마이애미<br>토론토<br></html>";
+        String innerText = "<html>" + value + "</html>";
+        segments[23].setText(innerText);
     }
     private void cityorsleepingwakeuptimedata2(String value){        //24: global time의 남의도시 시간 (시간제 포함) / 추천 수면시간2 / 목표 기상시
-        String innerText = "<html><span style='font-size: 20px;'>AM $nbsp</span><span style='font-size:30px;'>03:01</span></html>";
+        //String innerText = "<html><span style='font-size: 20px;'>AM $nbsp</span><span style='font-size:30px;'>03:01</span></html>";
+        String innerText = "<html><span style='font-size: 20px;'>" + value + "</span></html>";
+        segments[24].setText(innerText);
     }
     private void cheeringMessageShowAll(String value){               //25: Cheering message 전체
         String innerText = "<html><div style='border:1px solid red width:80 height:80' >" +
@@ -563,6 +572,7 @@ public class DisplayManager extends JFrame{
         displays[18].display(timeFormat[9]); // 토
          */
     }
+
     public void displayGlobalTime(String[] timeFormat) {
         /*
         0: myTimeZone의 시간제
@@ -580,19 +590,19 @@ public class DisplayManager extends JFrame{
         */
 
         StringBuilder myCities = new StringBuilder(); // 내 도시의 도시들을 묶어서 전달
-        myCities.append(timeFormat[3] + "\r\n" + timeFormat[4] + "\r\n" + timeFormat[5] + "\r\n");
+        myCities.append(timeFormat[3] + "<br>" + timeFormat[4] + "<br>" + timeFormat[5]);
         displays[21].display(myCities.toString());
 
         StringBuilder myTime = new StringBuilder(); // 내 도시의 시간제, 시, 분을 묶어서 전달
-        myTime.append(timeFormat[0] + "\r\n" + timeFormat[1] + "\r\n" + timeFormat[2] + "\r\n");
+        myTime.append(timeFormat[0] + "$nbsp</span><span style='font-size:30px;'>" + timeFormat[1] + ":" + timeFormat[2]);
         displays[22].display(myTime.toString());
 
         StringBuilder anotherCities = new StringBuilder(); // 다른 도시의 도시들을 묶어서 전달
-        anotherCities.append(timeFormat[9] + "\r\n" + timeFormat[10] + "\r\n" + timeFormat[11] + "\r\n");
+        anotherCities.append(timeFormat[9] + "<br>" + timeFormat[10] + "<br>" + timeFormat[11]);
         displays[23].display(anotherCities.toString());
 
         StringBuilder anotherTime = new StringBuilder(); // 다른 도시의 시간제, 시, 분을 묶어서 전달
-        anotherTime.append(timeFormat[6] + "\r\n" + timeFormat[7] + "\r\n" + timeFormat[8] + "\r\n");
+        anotherTime.append(timeFormat[6] + " $nbsp</span><span style='font-size:30px;'>" + timeFormat[7] + ":" + timeFormat[8]);
         displays[24].display(anotherTime.toString());
     }
 
