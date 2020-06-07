@@ -12,7 +12,6 @@ public class ClockSystem {
     private FunctionList functionList;
     private TimeKeeping timeKeeping;
     private Alarm[] alarms;
-    private GlobalTime globalTime;
     private Timer timer;
     private StopWatch stopWatch;
 

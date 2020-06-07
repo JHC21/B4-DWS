@@ -458,6 +458,18 @@ public class DisplayManager extends JFrame{
         displays[8].display(timeFormat[3]); // counting
         displays[9].display(timeFormat[4]); // activate
     }
+    public void setTimer(String[] timeFormat) {
+        /*
+        0 : 시
+        1 : 분
+        2 : 초
+        3 : counting
+        4 : activate
+         */
+        displays[5].display(timeFormat[0]); // 시
+        displays[6].display(timeFormat[1]); // 분
+        displays[7].display(timeFormat[2]); // 초
+    }
     public void displayStopWatch(String[] timeFormat) {
         //S : stopwatch, L : Lap
         /*
@@ -483,24 +495,27 @@ public class DisplayManager extends JFrame{
         String temp = String.format("%s:%s:%s:%s", timeFormat[4], timeFormat[5], timeFormat[6], timeFormat[7]);
         displays[10].display(temp); // Lap
     }
-    public void displayAlarm(String[] timeFormat) {
+    public void displayAlarm(Object[] timeFormat) {
         /*
         0 : 시
         1 : 분
         2 : AM/PM
-        3 : 일
-        4 : 월
-        5 : 화
-        6 : 수
-        7 : 목
-        8 : 금
-        9 : 토
-        10 : activate
-        11 : alarm number
+        3 : 요일 boolean 배열
+        4 : activate
+        5 : alarm number
          */
-        displays[5].display(timeFormat[0]); // 시
-        displays[6].display(timeFormat[1]); // 분
-        displays[4].display(timeFormat[2]); // AM/PM
+        displays[5].display((String)timeFormat[0]); // 시
+        displays[6].display((String)timeFormat[1]); // 분
+        displays[4].display((String)timeFormat[2]); // AM/PM
+
+        if(((boolean[])timeFormat[3])[0]) displays[12].display("일"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[1]) displays[13].display("월"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[2]) displays[14].display("화"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[3]) displays[15].display("수"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[4]) displays[16].display("목"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[5]) displays[17].display("금"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[6]) displays[18].display("토"); else displays[12].display("false");
+        /*
         displays[12].display(timeFormat[3]); // 일
         displays[13].display(timeFormat[4]); // 월
         displays[14].display(timeFormat[5]); // 화
@@ -508,8 +523,91 @@ public class DisplayManager extends JFrame{
         displays[16].display(timeFormat[7]); // 목
         displays[17].display(timeFormat[8]); // 금
         displays[18].display(timeFormat[9]); // 토
-        displays[9].display(timeFormat[10]); // activate
-        displays[19].display(timeFormat[11]); // alarm number
+         */
+        displays[9].display((String)timeFormat[4]); // activate
+        displays[19].display((String)timeFormat[5]); // alarm number
+    }
+    public void setAlarm(Object[] timeFormat) {
+        /*
+        0 : 시
+        1 : 분
+        2 : AM/PM
+        3 : 요일 boolean 배열
+        4 : activate
+        5 : alarm number
+         */
+        displays[5].display((String)timeFormat[0]); // 시
+        displays[6].display((String)timeFormat[1]); // 분
+        displays[4].display((String)timeFormat[2]); // AM/PM
+
+        if(((boolean[])timeFormat[3])[0]) displays[12].display("일"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[1]) displays[13].display("월"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[2]) displays[14].display("화"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[3]) displays[15].display("수"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[4]) displays[16].display("목"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[5]) displays[17].display("금"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[6]) displays[18].display("토"); else displays[12].display("false");
+        /*
+        displays[12].display(timeFormat[3]); // 일
+        displays[13].display(timeFormat[4]); // 월
+        displays[14].display(timeFormat[5]); // 화
+        displays[15].display(timeFormat[6]); // 수
+        displays[16].display(timeFormat[7]); // 목
+        displays[17].display(timeFormat[8]); // 금
+        displays[18].display(timeFormat[9]); // 토
+         */
+    }
+    public void displayGlobalTime(String[] timeFormat) {
+        /*
+        0: myTimeZone의 시간제
+        1: myTimeZone의 hour
+        2: myTimeZone의 minute
+        3: myTimeZone의 도시 1
+        4: myTimeZone의 도시 2
+        5: myTimeZone의 도시 3
+        6: anotherTimeZone의 시간제
+        7: anotherTimeZone의 hour
+        8: anotherTimeZone의 minute
+        9: anotherTimeZone의 도시 1
+        10: anotherTimeZone의 도시 2
+        11: anotherTimeZone의 도시 3
+        */
+
+        StringBuilder myCities = new StringBuilder(); // 내 도시의 도시들을 묶어서 전달
+        myCities.append(timeFormat[3] + "\r\n" + timeFormat[4] + "\r\n" + timeFormat[5] + "\r\n");
+        displays[21].display(myCities.toString());
+
+        StringBuilder myTime = new StringBuilder(); // 내 도시의 시간제, 시, 분을 묶어서 전달
+        myTime.append(timeFormat[0] + "\r\n" + timeFormat[1] + "\r\n" + timeFormat[2] + "\r\n");
+        displays[22].display(myTime.toString());
+
+        StringBuilder anotherCities = new StringBuilder(); // 다른 도시의 도시들을 묶어서 전달
+        anotherCities.append(timeFormat[9] + "\r\n" + timeFormat[10] + "\r\n" + timeFormat[11] + "\r\n");
+        displays[23].display(anotherCities.toString());
+
+        StringBuilder anotherTime = new StringBuilder(); // 다른 도시의 시간제, 시, 분을 묶어서 전달
+        anotherTime.append(timeFormat[6] + "\r\n" + timeFormat[7] + "\r\n" + timeFormat[8] + "\r\n");
+        displays[24].display(anotherTime.toString());
+    }
+
+    public void displaySleepingTime(String[] timeformat){
+
+        //21: 추천 수면시간 / 목표 기상시각
+        //22: 추천 수면시간1(시) / 목표 기상시각(시)
+        //23: 추천 수면시각2 / 최대 수면시간
+        //24: 추천 수면시간2(시) / 목표 기상시(시)
+        //33: 추천 수면시간(분) / 목표 기상시각(분)
+        //34: 추천 수면시각2(분) / 최대 수면시간(분)
+
+        // 21 -> 22 -> 33
+        // 23 -> 24 -> 34
+
+        displays[21].display(timeformat[0]); // 추천 수면시각1
+        displays[22].display(timeformat[1]); // 추천 수면시간1 (시)
+        displays[33].display(timeformat[2]); // 추천 수면시각1 (분)
+        displays[23].display(timeformat[3]); // 추천 수면시각2
+        displays[24].display(timeformat[4]); // 추천 수면시간2 (시)
+        displays[34].display(timeformat[5]); // 추천 수면시각2 (분)
     }
 
     public String getValueFromCurrentSelector(){
