@@ -513,6 +513,7 @@ public class UI {
                         displayManager.cleanDisplay();
                         System.out.println("TEST:" + Arrays.toString(system.getFunctionList()));
                         mode.setMainCategory(system.getFunctionList()[0]);
+                        if(mode.getMainCategory() == 4) system.enterGlobalTime();
                     }
 
                     if(pressed.equals("D")){
