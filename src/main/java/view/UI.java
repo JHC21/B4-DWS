@@ -358,7 +358,7 @@ public class UI {
 
                 // 계속 이 루프로 들어가게 됨 ㅠㅠ
                 // 엉뚱한 곳에 selector가 있으면 selector를 내 도시에 맞춰주기
-                if(displayManager.getSelector() != 21 || displayManager.getSelector() != 23) {
+                if(displayManager.getSelector() != 21 && displayManager.getSelector() != 23) {
                     displayManager.setSelector(21);
                     System.out.println("set selector to 21");
                 }

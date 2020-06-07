@@ -602,27 +602,8 @@ public class DisplayManager extends JFrame{
         10: anotherTimeZone의 도시 2
         11: anotherTimeZone의 도시 3
         */
-        System.out.println(Arrays.toString(timeFormat));
+        //System.out.println(Arrays.toString(timeFormat));
 
-<<<<<<< HEAD
-        StringBuilder myCities = new StringBuilder(); // 내 도시의 도시들을 묶어서 전달
-        myCities.append(timeFormat[3] + "<br>" + timeFormat[4] + "<br>" + timeFormat[5]);
-        displays[21].display(myCities.toString());
-
-        StringBuilder myTime = new StringBuilder(); // 내 도시의 시간제, 시, 분을 묶어서 전달
-//        myTime.append(timeFormat[0] + "$nbsp</span><span style='font-size:30px;'>" + timeFormat[1] + ":" + timeFormat[2]);
-        myTime.append(timeFormat[0] + " " + timeFormat[1] + ":" + timeFormat[2]);
-        displays[22].display(myTime.toString());
-
-        StringBuilder anotherCities = new StringBuilder(); // 다른 도시의 도시들을 묶어서 전달
-        anotherCities.append(timeFormat[9] + "<br>" + timeFormat[10] + "<br>" + timeFormat[11]);
-        displays[23].display(anotherCities.toString());
-
-        StringBuilder anotherTime = new StringBuilder(); // 다른 도시의 시간제, 시, 분을 묶어서 전달
-//        anotherTime.append(timeFormat[6] + " $nbsp</span><span style='font-size:30px;'>" + timeFormat[7] + ":" + timeFormat[8]);
-        anotherTime.append(timeFormat[6] + " " + timeFormat[7] + ":" + timeFormat[8]);
-        displays[24].display(anotherTime.toString());
-=======
         displays[21].display(// 내 도시의 도시들을 묶어서 전달
                 "<html>" + timeFormat[3] + "<br>" + timeFormat[4] + "<br>" + timeFormat[5] + "</html>");
         displays[29].display(timeFormat[0]);// 내 도시의 시간제
@@ -634,7 +615,6 @@ public class DisplayManager extends JFrame{
         displays[30].display(timeFormat[6]);
         displays[24].display(timeFormat[7]);
         displays[28].display(timeFormat[8]);
->>>>>>> da6795f86b628672834cedf54648f1cafb372daa
     }
 
     public void displaySleepingTime(String[] timeformat){
