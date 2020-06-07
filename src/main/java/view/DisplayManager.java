@@ -410,6 +410,18 @@ public class DisplayManager extends JFrame{
         displays[8].display(timeFormat[3]); // counting
         displays[9].display(timeFormat[4]); // activate
     }
+    public void setTimer(String[] timeFormat) {
+        /*
+        0 : 시
+        1 : 분
+        2 : 초
+        3 : counting
+        4 : activate
+         */
+        displays[5].display(timeFormat[0]); // 시
+        displays[6].display(timeFormat[1]); // 분
+        displays[7].display(timeFormat[2]); // 초
+    }
     public void displayStopWatch(String[] timeFormat) {
         //S : stopwatch, L : Lap
         /*
@@ -435,24 +447,27 @@ public class DisplayManager extends JFrame{
         String temp = String.format("%s:%s:%s:%s", timeFormat[4], timeFormat[5], timeFormat[6], timeFormat[7]);
         displays[10].display(temp); // Lap
     }
-    public void displayAlarm(String[] timeFormat) {
+    public void displayAlarm(Object[] timeFormat) {
         /*
         0 : 시
         1 : 분
         2 : AM/PM
-        3 : 일
-        4 : 월
-        5 : 화
-        6 : 수
-        7 : 목
-        8 : 금
-        9 : 토
-        10 : activate
-        11 : alarm number
+        3 : 요일 boolean 배열
+        4 : activate
+        5 : alarm number
          */
-        displays[5].display(timeFormat[0]); // 시
-        displays[6].display(timeFormat[1]); // 분
-        displays[4].display(timeFormat[2]); // AM/PM
+        displays[5].display((String)timeFormat[0]); // 시
+        displays[6].display((String)timeFormat[1]); // 분
+        displays[4].display((String)timeFormat[2]); // AM/PM
+
+        if(((boolean[])timeFormat[3])[0]) displays[12].display("일"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[1]) displays[13].display("월"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[2]) displays[14].display("화"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[3]) displays[15].display("수"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[4]) displays[16].display("목"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[5]) displays[17].display("금"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[6]) displays[18].display("토"); else displays[12].display("false");
+        /*
         displays[12].display(timeFormat[3]); // 일
         displays[13].display(timeFormat[4]); // 월
         displays[14].display(timeFormat[5]); // 화
@@ -460,8 +475,39 @@ public class DisplayManager extends JFrame{
         displays[16].display(timeFormat[7]); // 목
         displays[17].display(timeFormat[8]); // 금
         displays[18].display(timeFormat[9]); // 토
-        displays[9].display(timeFormat[10]); // activate
-        displays[19].display(timeFormat[11]); // alarm number
+         */
+        displays[9].display((String)timeFormat[4]); // activate
+        displays[19].display((String)timeFormat[5]); // alarm number
+    }
+    public void setAlarm(Object[] timeFormat) {
+        /*
+        0 : 시
+        1 : 분
+        2 : AM/PM
+        3 : 요일 boolean 배열
+        4 : activate
+        5 : alarm number
+         */
+        displays[5].display((String)timeFormat[0]); // 시
+        displays[6].display((String)timeFormat[1]); // 분
+        displays[4].display((String)timeFormat[2]); // AM/PM
+
+        if(((boolean[])timeFormat[3])[0]) displays[12].display("일"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[1]) displays[13].display("월"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[2]) displays[14].display("화"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[3]) displays[15].display("수"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[4]) displays[16].display("목"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[5]) displays[17].display("금"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[6]) displays[18].display("토"); else displays[12].display("false");
+        /*
+        displays[12].display(timeFormat[3]); // 일
+        displays[13].display(timeFormat[4]); // 월
+        displays[14].display(timeFormat[5]); // 화
+        displays[15].display(timeFormat[6]); // 수
+        displays[16].display(timeFormat[7]); // 목
+        displays[17].display(timeFormat[8]); // 금
+        displays[18].display(timeFormat[9]); // 토
+         */
     }
 
     public String getValueFromCurrentSelector(){

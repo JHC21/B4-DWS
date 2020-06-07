@@ -1,12 +1,13 @@
 package view;
 
 import controller.ClockSystem;
-import org.omg.PortableServer.THREAD_POLICY_ID;
+import controller.Utility;
 import view.handler.MyMouseEvent;
 import view.template.Flag;
 import view.template.Mode;
 
 import javax.swing.*;
+import java.time.LocalTime;
 import java.util.logging.Logger;
 
 
@@ -22,13 +23,6 @@ public class UI {
     Mode currentState;
     int alarmNumber;
 
-    public void checker(int[] value){
-        //value에 따라 각각의 값들을 처리함
-        //displayManager에 넘길 값들을 정의하고
-        //ClcokSystem의 값들을 다시 재정의해주고 하는 작업을
-        //모두 여기서 처
-    }
-
     public void systemWatching(Mode mode) throws Exception{
 
         System.out.println(mode.getMainCategory());
@@ -36,6 +30,7 @@ public class UI {
         int location = 0;
         int function_num = 0;
         int depth = 0;
+        int[] checkerList = new int[3];
         this.alarmNumber = 0;
         while(true){
             // TODO: mode.mainCategory : 0~6까지 추가
@@ -53,7 +48,45 @@ public class UI {
             //여기서 alarm, sleeping, timer의 각각 on/off여부를 가져와야 함
             //즉 checker의 리턴 값을 만들고 매 루트마다 저장하여야 할 듯 합니다
             //저장된 값들은 미래에 function list 표시를 위해 사용됩니다
-            //checker(modeManager.checker(system));
+            String[] currentTimeFormat = Utility.millitoTimeFormat_test((long)system.getTime()[0]);
+            int[] currentTime = Utility.milliToTimeFormat((long)system.getTime()[0]);
+            checkerList = modeManager.checker(system);
+            if(checkerList[0] == 2 || checkerList[1] == 2) { // show alarming, show cheering message
+                system.ringAlarm();
+                //String 형식은 "20 05 03 일    06:30"
+                //12시간제일때는 "20 05 03 일 AM 06:30"
+                String timeFormat;
+                if((boolean)system.getTime()[1]) { // 12시간제
+                    if(currentTime[3] < 12) timeFormat = "AM";
+                    else timeFormat = "PM";
+                }
+                else {// 24시간제일 때는 AM/PM 표시 안함
+                    timeFormat = "  ";
+                }
+                String temp = String.format("%s %s %s %s %s %s:%s",
+                        currentTimeFormat[0],
+                        currentTimeFormat[1],
+                        currentTimeFormat[2],
+                        currentTimeFormat[7],
+                        timeFormat,
+                        currentTimeFormat[3],
+                        currentTimeFormat[4],
+                        currentTimeFormat[5]);
+
+                if(checkerList[0] == 2) {
+                    displayManager.displayShowAlarming(temp);
+                    system.ringAlarm();
+                }
+                else if(checkerList[1] == 2) {
+                    //displayManager.cheeringMessageShowAll(temp); 위의 displayShowAlarming()과 같은 메소드가 구현되어 있지 않음
+                    system.ringSleepingTime();
+                }
+            }
+            else if(checkerList[2] == 2) { // ring timer
+                system.ringTimer();
+            }
+            //이 부분을 통해 displayManager에서 function list를 표시합니다.
+            //displayManager.displayFunctionList(system.getFunctionList(), checkerList);
 
 
             //현재 카테고리가 display종류이고 C버튼이 눌렸을 때
@@ -117,7 +150,7 @@ public class UI {
 
                     if(pressed.equals("A")) {
                         //set timer
-                        displayManager.notDisplayIcon();//on&off 관련인가요?
+                        displayManager.notDisplayIcon();
                         mode.enterSub();
                     }
                     if(pressed.equals("B")) {
@@ -133,11 +166,11 @@ public class UI {
                 }else if(mode.getSubCategory() == 1){
                     //set Timer
                     displayManager.displaySelector();
-                    displayManager.displayTimer(modeManager.setTimer(system));
+                    displayManager.setTimer(modeManager.setTimer(system));
                     if(pressed.equals("A")) {
                         //display timer
                         mode.exitSub();
-                        displayManager.displayIcon(); //on&off 관련인가요?
+                        displayManager.displayIcon();
                         displayManager.setSelector(0);
                         displayManager.notDisplaySelector();
                     }
@@ -183,7 +216,6 @@ public class UI {
                 //Alarm
                 if(mode.getSubCategory() == 0){
                     //display Alarm
-                    //timekeeping에서 timeformat을 가져오는 과정이 필요함
                     displayManager.displayAlarm(modeManager.displayAlarm(system, this.alarmNumber));
                     if(pressed.equals("A")) {
                         //set alarm
@@ -202,27 +234,43 @@ public class UI {
                 }else if(mode.getSubCategory() == 1){
                     //set Alarm
                     displayManager.displaySelector();
-                    //timekeeping에서 timeformat을 가져와 alarmValue에 저장하는 과정이 필요함
-                    String[] alarmValue = modeManager.displayAlarm(system, this.alarmNumber);
-                    displayManager.displayAlarm(alarmValue);
+                    Object[] alarmValue = modeManager.displayAlarm(system, this.alarmNumber);
+                    displayManager.setAlarm(alarmValue);
                     if(pressed.equals("A")) {
                         //display alarm
                         mode.exitSub();
-                        displayManager.displayIcon(); //on&off 관련인가요?
+                        displayManager.displayIcon();
                         displayManager.setSelector(0);
                         displayManager.notDisplaySelector();
                     }
-                    if(pressed.equals("B")) {
-                        //increase value & toggle
-                        if(Flag.isAlarmDayOfWeek(displayManager.getSelector())) { // toggle
-                            system.setAlarm(this.alarmNumber, );
+                    if(pressed.equals("B") || pressed.equals("D")) {
+                        //increase/decrease value & toggle
+                        int tempSelector = displayManager.getSelector();
+                        LocalTime updateValue = LocalTime.of(0, 0);
+
+                        //string을 다시 LocalTime으로 바꿈...ㅠㅠ
+                        if(alarmValue[2] == null)  // 24시간제
+                            updateValue.plusHours((int)alarmValue[0]);
+                        else { // 12시간제
+                            if(alarmValue[2].equals("오후")) updateValue.plusHours((int)alarmValue[0] + 12);
+                            else updateValue.plusHours((int)alarmValue[0]);
+                        }
+                        updateValue.plusMinutes((int)alarmValue[1]);
+
+                        if(12 <= tempSelector && tempSelector <= 18) { // toggle
+                            ((boolean[])alarmValue[3])[tempSelector - 12] = !((boolean[])alarmValue[3])[tempSelector - 12];
                         }
                         else { // increase value
-
+                            if(pressed.equals("B")) { // increase value
+                                if (tempSelector == 5) updateValue.plusHours(1);
+                                else updateValue.plusMinutes(1); // tempSelector == 6
+                            }
+                            else { // pressed.equals("D") decrease value
+                                if (tempSelector == 5) updateValue.minusHours(1);
+                                else updateValue.minusMinutes(1); // tempSelector == 6
+                            }
                         }
-                    }
-                    if(pressed.equals("D")) {
-                        //decrease value & toggle
+                        system.setAlarm(this.alarmNumber, (boolean[])alarmValue[3], updateValue);
                     }
                     if(pressed.equals("C")) {
                         //change pointer position
