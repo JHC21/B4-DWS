@@ -246,7 +246,7 @@ public class UI {
                     }
                     if(pressed.equals("B")) {
                         //pause&restart
-                        system.toggleTimerCounting();
+                        if(!((long)system.getTimer()[0] == 0))system.toggleTimerCounting();
                     }
                     if(pressed.equals("D")) {
                         //active&inactive
@@ -266,11 +266,11 @@ public class UI {
                     }
                     if(pressed.equals("B")) {
                         //increase value
-                        system.setTimer(Flag.getTimerValue(displayManager.getSelector()));
+                        system.setTimer(Flag.getTimerValue(displayManager.getSelector(), system.getTimerSetted(), 1));
                     }
                     if(pressed.equals("D")) {
                         //decrease value
-                        system.setTimer(-1 * Flag.getTimerValue(displayManager.getSelector()));
+                        system.setTimer(Flag.getTimerValue(displayManager.getSelector(), system.getTimerSetted(), -1));
                     }
                     if(pressed.equals("C")) {
                         //change pointer position

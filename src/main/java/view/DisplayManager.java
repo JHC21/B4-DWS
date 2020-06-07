@@ -69,12 +69,14 @@ public class DisplayManager extends JFrame{
         else{segments[7].setText(value);}
     }
     private void timerStopWatchCountingState(String value){          //8 : Timer/Stopwatch counting (시계 우상단)
-        System.out.println("THIs is : " + value);
-        if(value.equals("false")) segments[8].setIcon(activatedIcons[1]);
-        else{segments[8].setIcon(activatedIcons[0]);}
+        //System.out.println("THIs is : " + value);
+        if(value.equals("false")) segments[8].setText(null);
+        else if(value.equals("OFF")) segments[8].setIcon(activatedIcons[1]);
+        else segments[8].setIcon(activatedIcons[0]);
     }
     private void timerStopWatchAlarmSleepingActivationState(String value){   //9 : Timer/Stopwatch/Alarm/Sleeping Time activation (시계 우하단)
         if(value.equals("false")) segments[9].setText(null);
+        else if(value.equals("1") || value.equals("2")) segments[9].setText("ON");
         else{segments[9].setText(value);}
     }
     private void stopWatchLap(String value){                         //10: Stop watch의 Lap
@@ -254,17 +256,21 @@ public class DisplayManager extends JFrame{
     JLabel selector_label;
 
 
-    private void getResizedActivatedIcon(){
+    private ImageIcon[] getResizedActivatedIcon(){
 
         activatedIcons = new ImageIcon[2];
-        String icon1 = String.format("assets/%s.jpeg", "activated");
-        String icon2 = String.format("assets/%s.jpeg", "paused");
+        String icon1 = String.format("assets/%s.png", "start_icon");
+        String icon2 = String.format("assets/%s.png", "pause_icon");
         ImageIcon icon1ImageIcon = new ImageIcon(icon1);
         ImageIcon icon2ImageIcon = new ImageIcon(icon2);
-        Image icon1Image = icon1ImageIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-        Image icon2Image = icon2ImageIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        Image originIcon1 = icon1ImageIcon.getImage();
+        Image originIcon2 = icon2ImageIcon.getImage();
+        Image icon1Image = originIcon1.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        Image icon2Image = originIcon2.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         activatedIcons[0] = new ImageIcon(icon1Image);
         activatedIcons[1] = new ImageIcon(icon2Image);
+
+        return activatedIcons;
     }
 
 
@@ -305,6 +311,7 @@ public class DisplayManager extends JFrame{
         innerPanel.setOpaque(false);
         innerPanel.setBackground(innerPanelColor);
 
+        activatedIcons = getResizedActivatedIcon();
         icons = getResizedIcon();
         labelIcons = setIcons(icons);
 
@@ -457,7 +464,7 @@ public class DisplayManager extends JFrame{
         setButtons();
         setSegments();
         setSelector_label();
-        getResizedActivatedIcon();
+
 
         outerPanel.add(innerPanel);
 
@@ -527,7 +534,6 @@ public class DisplayManager extends JFrame{
         displays[6].display(timeFormat[1]); // 분
         displays[7].display(timeFormat[2]); // 초
         displays[8].display(timeFormat[3]); // counting
-        System.out.println(timeFormat[3]);
         displays[9].display(timeFormat[4]); // activate
     }
     public void setTimer(String[] timeFormat) {

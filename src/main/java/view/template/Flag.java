@@ -63,8 +63,6 @@ public class Flag {
         int updatedYear;
         boolean yoonYear;
 
-        System.out.println("EnteredValue");
-
         yoonYear = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
 
         if(selector == 0){              //연일 때
@@ -90,11 +88,15 @@ public class Flag {
         else return updateValue * pmValue;
     }
 
-    public static long getTimerValue(int selector) {
-        if(selector == 5) return HOUR_MILLI;
-        else if(selector == 6) return MINUTE_MILLI;
-        else if(selector == 7) return SECOND_MILLI;
-        return 0;
+    public static long getTimerValue(int selector, long settedTime, int pmValue) {
+        long diffValue = 0;
+        if(selector == 5) return diffValue = HOUR_MILLI;
+        else if(selector == 6) return diffValue = MINUTE_MILLI;
+        else if(selector == 7) return diffValue = SECOND_MILLI;
+
+        if(settedTime + (pmValue * diffValue) < 0) return 0;
+        else return diffValue;
+
     }
 
     public static int getWakeUpSleepTimeValue(int selector){
