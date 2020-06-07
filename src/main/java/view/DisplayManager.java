@@ -303,7 +303,7 @@ public class DisplayManager extends JFrame{
     }; // 27 + (6) + 4 == 31개
 
 
-    private int[][] selectorPosition = new int[][]{
+    private final int[][] selectorPosition = new int[][]{
             {65, -33, 50, 50, 25, 50, 10},       //0
             {105, -33, 50, 50, 25, 50, 10},      //1
             {145, -33, 50, 50, 25, 50, 10},      //2
@@ -337,6 +337,13 @@ public class DisplayManager extends JFrame{
             {210, 110, 100, 150, 30, 100, 100}, //28(분2)
             {100, 40, 100, 150, 25, 100, 100},  //29(시간제1)
             {100, 140, 100, 150, 25, 100, 100},  //30(시간제2)
+
+            {22, 180, 50, 50, 23, 50, 50},  //FunctionList icon1  31
+            {50, 180, 50, 50, 23, 50, 50},  //FunctionList icon2  32
+            {78, 180, 50, 50, 23, 50, 50},  //FunctionList icon3  33
+            {106, 180, 50, 50, 23, 50, 50},  //FunctionList icon4  34
+            {134, 180, 50, 50, 23, 50, 50},  //FunctionList icon5  35
+            {162, 180, 50, 50, 23, 50, 50},  //FunctionList icon6  36
     }; // 37개
 
     private void setOuterPanel(){
@@ -658,7 +665,7 @@ public class DisplayManager extends JFrame{
     }
 
     public void changeIconPosition(boolean left){
-        int trueSelector = this.selector - 27;
+        int trueSelector = this.selector - 31;
         Icon curIcon, targetIcon;
 
         if(left){

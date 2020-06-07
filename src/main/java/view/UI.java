@@ -8,6 +8,7 @@ import view.template.Mode;
 
 import javax.swing.*;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 
@@ -133,14 +134,16 @@ public class UI {
             //현재 카테고리가 display종류이고 C버튼이 눌렸을 때
             //function List에 질의해 다음 function을 가져옴 -> 이거만 따로 써줘야 할 필요가 있음
 
-            if(pressed.equals("C") && mode.getSubCategory() == 0){
+            if(pressed.equals("C") && mode.getSubCategory() == 0 && mode.getMainCategory() != 6){
                 displayManager.cleanDisplay();
                 mode.moveFunctionSelector();
                 mode.setMainCategory(system.getFunctionList()[mode.getFunctionSelector()]);
             }
 
             if(pressed.equals("E")){
+                displayManager.cleanDisplay();
                 mode.setMainCategory(6);
+                mode.setSubCategory(0);
             }
 
 
@@ -152,6 +155,7 @@ public class UI {
 
                     if(pressed.equals("A")) {
                         displayManager.notDisplayIcon();
+                        displayManager.cleanDisplay();
                         mode.enterSub();
                     }
                     if(pressed.equals("B")) system.changeTimeFormat();
@@ -168,6 +172,7 @@ public class UI {
 
                     if(pressed.equals("A")) {
                         mode.exitSub();
+                        displayManager.cleanDisplay();
                         displayManager.displayIcon();
                         displayManager.setSelector(0);
                         displayManager.notDisplaySelector();
@@ -205,6 +210,7 @@ public class UI {
                         int timerState = (int)system.getTimer()[1];
                         if(!(timerState == 0 || timerState == 2)){
                             displayManager.notDisplayIcon();
+                            displayManager.cleanDisplay();
                             mode.enterSub();
                         }
 
@@ -227,6 +233,7 @@ public class UI {
                         displayManager.displayIcon();
                         displayManager.setSelector(0);
                         displayManager.notDisplaySelector();
+                        displayManager.cleanDisplay();
                     }
                     if(pressed.equals("B")) {
                         //increase value
@@ -278,6 +285,7 @@ public class UI {
                     if(pressed.equals("A")) {
                         //set alarm
                         displayManager.notDisplayIcon();
+                        displayManager.cleanDisplay();
                         mode.enterSub();
                     }
                     if(pressed.equals("B")) {
@@ -300,6 +308,7 @@ public class UI {
                         displayManager.displayIcon();
                         displayManager.setSelector(0);
                         displayManager.notDisplaySelector();
+                        displayManager.cleanDisplay();
                     }
                     if(pressed.equals("B") || pressed.equals("D")) {
                         //increase/decrease value & toggle
@@ -325,9 +334,9 @@ public class UI {
                     }
                     if(pressed.equals("C")) {
                         //change pointer position
-                        System.out.print("before : " + displayManager.getSelector());
+                        // System.out.print("before : " + displayManager.getSelector());
                         displayManager.setSelector(Flag.moveAlarmSelector(displayManager.getSelector()));
-                        System.out.print("  after : " + displayManager.getSelector() + "\n");
+                        // System.out.print("  after : " + displayManager.getSelector() + "\n");
                         //int 선택자 = displayManager에서 선택자를 가져오는거
                         //int 값 = displayManager에서 선택자에 해당하는 값을 가져옴
                         //displayManager.setValue(++displayManager.get선택자(), displayManager.get값())
@@ -378,8 +387,8 @@ public class UI {
 
                     // Set sleeping time
                     if(pressed.equals("A")){
-                        displayManager.notDisplayIcon();
                         mode.enterSub();
+                        displayManager.notDisplayIcon();
                         displayManager.cleanDisplay();
                     }
 
@@ -404,6 +413,7 @@ public class UI {
                         displayManager.setSelector(21);
                         displayManager.notDisplaySelector();
                         displayManager.displayIcon();
+                        displayManager.cleanDisplay();
                     }
 
                     // Increase value
@@ -426,7 +436,7 @@ public class UI {
                         }
                     }
 
-                    // Change function position
+                    // Change selector position
                     if(pressed.equals("C")){
                         // System.out.println(getSelector);
                         displayManager.setSelector(Flag.moveWakeUpSleepTimeSelector(getSelector));
@@ -435,30 +445,34 @@ public class UI {
 
 
             }else if(mode.getMainCategory() == 6){
-                if(displayManager.getSelector() < 27) displayManager.setSelector(27);
+                int getSelector = displayManager.getSelector();
+                if(getSelector < 31) displayManager.setSelector(31);
                 //Function Change
                 if(mode.getSubCategory() == 0) {
                     //customize your own clock을 먼저 보여줘야한다.
                     displayManager.displayFunctionListEdit();
                     displayManager.displayIcon();
+                    displayManager.displaySelector();
 
                     //move selected item to left
                     if(pressed.equals("A")){
                         displayManager.changeIconPosition(true);
-                        system.moveItem(displayManager.getSelector()-27, -1);
+                        system.moveItem(displayManager.getSelector()-31, -1);
                         displayManager.setSelector(Flag.moveFunctionSelectorReverse(displayManager.getSelector()));
-                        //System.out.println(displayManager.getSelector());
+                        System.out.println(displayManager.getSelector());
                     }
 
                     //move selected item to rightmost
                     if(pressed.equals("B")){
                         displayManager.changeIconPosition(false);
-                        system.moveItem(displayManager.getSelector()-27 , 1);
+                        system.moveItem(displayManager.getSelector()-31 , 1);
                         displayManager.setSelector(Flag.moveFunctionSelector(displayManager.getSelector()));
-                        //System.out.println(displayManager.getSelector());
+                        System.out.println(displayManager.getSelector());
                     }
                     if(pressed.equals("C")){
+                        displayManager.notDisplaySelector();
                         displayManager.cleanDisplay();
+                        System.out.println("TEST:" + Arrays.toString(system.getFunctionList()));
                         mode.setMainCategory(system.getFunctionList()[0]);
                     }
 

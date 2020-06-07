@@ -136,23 +136,23 @@ public class Flag {
 
   
     public static int moveFunctionSelector(int selector){
-        if(selector == 27) return 28;
-        else if(selector == 28) return 29;
-        else if(selector == 29) return 30;
-        else if(selector == 30) return 31;
-        else if(selector == 31) return 32;
-        else if(selector == 32) return 27;
+        if(selector == 31) return 32;
+        else if(selector == 32) return 33;
+        else if(selector == 33) return 34;
+        else if(selector == 34) return 35;
+        else if(selector == 35) return 36;
+        else if(selector == 36) return 31;
 
         return 0;
     }
 
     public static int moveFunctionSelectorReverse(int selector){
-        if(selector == 27) return 32;
-        else if(selector == 28) return 27;
-        else if(selector == 29) return 28;
-        else if(selector == 30) return 29;
-        else if(selector == 31) return 30;
+        if(selector == 31) return 36;
         else if(selector == 32) return 31;
+        else if(selector == 33) return 32;
+        else if(selector == 34) return 33;
+        else if(selector == 35) return 34;
+        else if(selector == 36) return 35;
 
         return 0;
     }
