@@ -397,12 +397,44 @@ public class DisplayManager extends JFrame{
     }
 
     public void displayTimer(String[] timeFormat) {
-        //시 분 초 counting activate
+        /*
+        0 : 시
+        1 : 분
+        2 : 초
+        3 : counting
+        4 : activate
+         */
         displays[5].display(timeFormat[0]); // 시
         displays[6].display(timeFormat[1]); // 분
         displays[7].display(timeFormat[2]); // 초
         displays[8].display(timeFormat[3]); // counting
         displays[9].display(timeFormat[4]); // activate
+    }
+
+    public void displayStopWatch(String[] timeFormat) {
+        //S : stopwatch, L : Lap
+        /*
+        0 : S시
+        1 : S분
+        2 : S초
+        3 : Sms
+        4 : L시
+        5 : L분
+        6 : L초
+        7 : Lms
+        8 : pause/start
+        9 : activate
+         */
+        //activate에 대해 이야기 해 보아야 함(function list에 어떻게 표현해야 할 지)
+        displays[5].display(timeFormat[0]); // S시
+        displays[6].display(timeFormat[1]); // S분
+        displays[7].display(timeFormat[2]); // S초
+        displays[11].display(timeFormat[3]); // Sms
+        displays[8].display(timeFormat[8]); //pause&start
+        displays[9].display(timeFormat[9]); // actiavte
+        //string 앞의 0까지 앞에서 해 줬다고 가정합니다
+        String temp = String.format("%s:%s:%s:%s", timeFormat[4], timeFormat[5], timeFormat[6], timeFormat[7]);
+        displays[10].display(temp); // Lap
     }
 
     public String getValueFromCurrentSelector(){

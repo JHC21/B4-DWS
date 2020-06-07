@@ -42,32 +42,32 @@ public class ModeManager {
     public String[] displayTimer(ClockSystem clockSystem){
         Object[] timer = clockSystem.getTimer(); // 0 : long, 1 : state
         //어쩌구저쩌구 값 처리
-        String[] value = new String[4];
+        String[] timeFormat = new String[5];
         /*
         0 : hour
         1 : minute
         2 : second
         3 : counting
-        activate는 checker에서 할 수 있을 듯
+        4 : activate는 checker에서 할 수 있을 듯
         */
         int[] timerTime = Utility.milliToTimeFormat((long)timer[0]);
-        value[0] = String.format("02d", timerTime[3]); // hour
-        value[1] = String.format("02d", timerTime[4]); // minute
-        value[2] = String.format("02d", timerTime[5]); // second
+        timeFormat[0] = String.format("%02d", timerTime[3]); // hour
+        timeFormat[1] = String.format("%02d", timerTime[4]); // minute
+        timeFormat[2] = String.format("%02d", timerTime[5]); // second
 
         int temp = (int)timer[1];
         if(temp == 2) { // on & activate
-            value[3] = "ON";
+            timeFormat[3] = "ON";
         }
         else {
             //off or inactivate
-            value[3] = "OFF";
+            timeFormat[3] = "OFF";
         }
-        return value;
+        return timeFormat;
     }
     public String[] setTimer(ClockSystem clockSystem) {
         long timerValue = clockSystem.getTimerSetted();
-        String[] value = new String[3]; // 9는 임시 값
+        String[] timeFormat = new String[3]; // 9는 임시 값
         /*
         0 : hour
         1 : minute
@@ -76,10 +76,53 @@ public class ModeManager {
         */
 
         int[] timerTime = Utility.milliToTimeFormat((long)timerValue);
-        value[0] = String.format("02d", timerTime[3]); // hour
-        value[1] = String.format("02d", timerTime[4]); // minute
-        value[2] = String.format("02d", timerTime[5]); // second
+        timeFormat[0] = String.format("%02d", timerTime[3]); // hour
+        timeFormat[1] = String.format("%02d", timerTime[4]); // minute
+        timeFormat[2] = String.format("%02d", timerTime[5]); // second
 
-        return value;
+        return timeFormat;
+    }
+    public String[] displayStopWatch(ClockSystem colckSystem) {
+        //S : stopwatch, L : Lap
+        /*
+        0 : S시
+        1 : S분
+        2 : S초
+        3 : Sms
+        4 : L시
+        5 : L분
+        6 : L초
+        7 : Lms
+        8 : pause/start
+        9 : activate
+         */
+        //activate에 대해 이야기 해 보아야 함(function list에 어떻게 표현해야 할 지)
+        String[] timeFormat = new String[10]; // 리턴 값
+
+        Object[] stopwatchValue = colckSystem.getStopWatchTime(); // system으로부터 아래 값들을 가져옴
+        // 0 : stopwatchTime(long), 1 : lapTime(long), 2 : state(int)
+
+        int[] stopwatchTime = Utility.milliToTimeFormat((long)stopwatchValue[0]); // long to timeFormat 변환
+        int[] lapTime = Utility.milliToTimeFormat((long)stopwatchValue[1]); // long to timeFormat 변환
+        int temp = (int)stopwatchValue[2]; // state => 0 : pause, 1 : start
+
+        timeFormat[0] = String.format("%2d",stopwatchTime[3]); // S시
+        timeFormat[1] = String.format("%2d",stopwatchTime[4]); // S분
+        timeFormat[2] = String.format("%2d",stopwatchTime[5]); // S초
+        timeFormat[3] = String.format("%3d",stopwatchTime[6]); // Sms
+        timeFormat[4] = String.format("%2d",lapTime[3]); // L시
+        timeFormat[5] = String.format("%2d",lapTime[4]); // L분
+        timeFormat[6] = String.format("%2d",lapTime[5]); // L초
+        timeFormat[7] = String.format("%3d",lapTime[6]); // Lms
+        if(temp == 0) {
+            timeFormat[8] = "OFF";
+            //timeFormat[9] = "OFF"; // functionList에 어떻게 표시될까?
+        }
+        else { // temp == 1
+            timeFormat[8] = "ON";
+            //timeFormat[9] = "ON"; // functionList에 어떻게 표시될까?
+        }
+
+        return timeFormat;
     }
 }

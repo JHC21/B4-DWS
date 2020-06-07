@@ -49,6 +49,8 @@ public class UI {
 
 
             //알람, 수면시간, 타이머가 울릴 시간인지 체크하고, 울릴 시간일 때 울리는 부분
+            //여기서 alarm, sleeping, timer의 각각 on/off여부를 가져와야 함
+            //즉 checker의 리턴 값을 만들고 매 루트마다 저장하여야 할 듯 합니다
             //checker(modeManager.checker(system));
 
 
@@ -107,7 +109,9 @@ public class UI {
                     //display Timer
                     //화면 표시
                     displayManager.displayTimer(modeManager.displayTimer(system));
-                    // timer의 actiavte 관련은 ModeManager.checker() 가 할 수 있을 듯
+                    // timer의 actiavte 관련은 checker() 가 할 수 있을 듯?
+                    // 혹은 timer, alarm, sleeping time에 대해 check하는 과정을 삽입해야 함
+                    // 아직 안함
 
                     if(pressed.equals("A")) {
                         //set timer
@@ -156,13 +160,21 @@ public class UI {
                 //StopWatch
                 if(mode.getSubCategory() == 0) {
                     //display StopWatch  (stopWatch는 set이 없음)
+                    displayManager.displayStopWatch(modeManager.displayStopWatch(system));
+
                     if(pressed.equals("A")) {
+                        //Lap time
+                        system.lapStopWatch();
                     }
                     if (pressed.equals("B")) {
+                        //pause&active
+                        system.toggleStopWatchState();
                     }
-                    if (pressed.equals("C")) {
-                    }
-                    if(pressed.equals("D")) {
+                    if (pressed.equals("D")) {
+                        //reset&none
+                        if((int)system.getStopWatchTime()[2] == 0) {//예외 처리
+                            system.resetStopWatch();
+                        }
                     }
                 }
             }else if(mode.getMainCategory() == 3){
@@ -179,11 +191,27 @@ public class UI {
                     }
                 }else if(mode.getSubCategory() == 1){
                     //set Alarm
+                    if(pressed.equals("A")) {
+                    }
+                    if (pressed.equals("B")) {
+                    }
+                    if (pressed.equals("C")) {
+                    }
+                    if(pressed.equals("D")) {
+                    }
                 }
             }else if(mode.getMainCategory() == 4){
                 //GlobalTime
                 if(mode.getSubCategory() == 0){
                     //display globalTime  (global Time은 set이 없음)
+                    if(pressed.equals("A")) {
+                    }
+                    if (pressed.equals("B")) {
+                    }
+                    if (pressed.equals("C")) {
+                    }
+                    if(pressed.equals("D")) {
+                    }
                 }
             }else if(mode.getMainCategory() == 5){
                 //SleepingTime
