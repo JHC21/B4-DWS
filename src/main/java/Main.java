@@ -3,7 +3,7 @@ import view.UI;
 
 public class Main {
     public static void main(String[] args) throws Exception{
-        //new MainTemplate();
+        // new MainTemplate();
         new UI();
     }
 }

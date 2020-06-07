@@ -3,6 +3,7 @@ package controller.mode;
 import controller.Utility;
 
 import java.time.LocalTime;
+import java.util.Arrays;
 
 public class SleepingTime {
     private LocalTime sleepTime;    //수면시간 (최대 12시간)
@@ -13,12 +14,18 @@ public class SleepingTime {
     static final long MINUTE_LONG = 60000l;
     static final long HOUR_LONG = 3600000l;
 
+    public SleepingTime(){
+        this.sleepTime = LocalTime.of(5, 0);
+        this.wakeUpTime = LocalTime.of(9,0);
+        this.status = 1;
+    }
+
 
     public LocalTime[] calculateSleepingTime(Object[] getTime){
         //수면시간과, 기상시각, 현재시간(getTime이용)(을 계산해 최적 수면시간 1, 2를 return하는 메소드
         //수면 시간들은 1시간 반 간격으로 나타남
         //바깥에 보여지기엔 시간, 분만 표시되지만, 30초에 울릴 것이므로 x시간 x분 30초의 형태이다.
-        LocalTime localTime[] = new LocalTime[2];//{ *최적 수면시간 1, 최적 수면시간 2*/}
+        LocalTime[] localTime = new LocalTime[2];//{ *최적 수면시간 1, 최적 수면시간 2*/}
         long currentTime = (long)getTime[0];
         long wakeUpTimeLong;
         long sleepingTimeMap[] = new long[9];
@@ -54,33 +61,36 @@ public class SleepingTime {
                 //유효한 sleeping time이며, 현재 시간이 sleeping time보다 처음 작다면 그것이 최적 수면 시간 1이다.
                 localTime[0] = Utility.milliToLocalTime(sleepingTimeMap[i]);
                 localTime[1] = Utility.milliToLocalTime(sleepingTimeMap[i - 1]);
+                break;
             }
         }
-
-        //xx시 xx분 30초를 만드는 과정
-        localTime[0].minusSeconds(localTime[0].getMinute());
-        localTime[1].minusSeconds(localTime[1].getMinute());
-        localTime[0].plusSeconds(30);
-        localTime[1].plusSeconds(30);
 
         return localTime;
     }
 
-
-    public void updateWakeUpTime(LocalTime time){
+    public void updateWakeUpTime(int type, int value){
         //기상시각을 변경하는 메소드, UI에서 System을 거쳐 호출함
         //받아온 값을 토대로 this.wakeUpTime을 변경
-        this.wakeUpTime = time;
-
-        return;
+        if(type == 1){
+            if(value == 1) wakeUpTime = wakeUpTime.plusHours(1);
+            else wakeUpTime = wakeUpTime.minusHours(1);
+        }else if(type == 0){
+            if(value == 1) wakeUpTime = wakeUpTime.plusMinutes(1);
+            else wakeUpTime = wakeUpTime.minusMinutes(1);
+        }
     }
 
-    public void updateSleepTime(LocalTime time){
+    public void updateSleepTime(int type, int value){
         //수면시간을 변경하는 메소드, UI에서 System을 거쳐 호출함
         //받아온 값을 토대로 this.sleepTime을 변경
-        this.sleepTime = time;
+        if(type == 1){
+            if(value == 1) sleepTime = sleepTime.plusHours(1);
+            else sleepTime = sleepTime.minusHours(1);
+        }else if(type == 0){
+            if(value == 1) sleepTime = sleepTime.plusMinutes(1);
+            else sleepTime = sleepTime.minusMinutes(1);
+        }
 
-        return;
     }
 
     public void toggleSleepingTimeState(){

@@ -198,8 +198,12 @@ public class UI {
 
                     if(pressed.equals("A")) {
                         //set timer
-                        displayManager.notDisplayIcon();
-                        mode.enterSub();
+                        int timerState = (int)system.getTimer()[1];
+                        if(!(timerState == 0 || timerState == 2)){
+                            displayManager.notDisplayIcon();
+                            mode.enterSub();
+                        }
+
                     }
                     if(pressed.equals("B")) {
                         //pause&restart
@@ -362,6 +366,10 @@ public class UI {
                 }
             }else if(mode.getMainCategory() == 5){
                 //SleepingTime
+                int getSelector = displayManager.getSelector();
+                System.out.println(getSelector);
+                if(getSelector != 22 && getSelector != 27 && getSelector != 24 && getSelector != 28){
+                    displayManager.setSelector(22); }
                 if(mode.getSubCategory() == 0){
                     //display sleeping time
                     // displayManager.displayTime(modeManager.displayTime(system));
@@ -371,6 +379,7 @@ public class UI {
                     if(pressed.equals("A")){
                         displayManager.notDisplayIcon();
                         mode.enterSub();
+                        displayManager.cleanDisplay();
                     }
 
                     // B버튼이 눌렸을 때는 아무것도 실행되지 않음
@@ -393,21 +402,33 @@ public class UI {
                         mode.exitSub();
                         displayManager.setSelector(21);
                         displayManager.notDisplaySelector();
+                        displayManager.displayIcon();
                     }
 
                     // Increase value
                     if(pressed.equals("B")){
-                        system.setTime(Flag.getWakeUpSleepTimeValue(displayManager.getSelector()));
+
+                        if(getSelector == 22 || getSelector == 27){
+                            system.setSleepTime(Flag.getWakeUpSleepTimeValue(getSelector), 1);
+                        }else if(getSelector == 24 || getSelector == 28){
+                            system.setWakeUpTime(Flag.getWakeUpSleepTimeValue(getSelector), 1);
+                        }
+
                     }
 
                     // Decrease value
                     if(pressed.equals("D")){
-                        system.setTime(-1 * Flag.getWakeUpSleepTimeValue(displayManager.getSelector()));
+                        if(getSelector == 22 || getSelector == 27){
+                            system.setSleepTime(Flag.getWakeUpSleepTimeValue(getSelector), -1);
+                        }else if(getSelector == 24 || getSelector == 28) {
+                            system.setWakeUpTime(Flag.getWakeUpSleepTimeValue(getSelector), -1);
+                        }
                     }
 
                     // Change function position
                     if(pressed.equals("C")){
-                        displayManager.setSelector(Flag.moveWakeUpSleepTimeSelector(displayManager.getSelector()));
+                        // System.out.println(getSelector);
+                        displayManager.setSelector(Flag.moveWakeUpSleepTimeSelector(getSelector));
                     }
                 }
 

@@ -46,7 +46,6 @@ public class ModeManager {
 
     public String[] displayTimer(ClockSystem clockSystem){
         Object[] timer = clockSystem.getTimer(); // 0 : long, 1 : state
-        System.out.println(Arrays.toString(timer));
         String[] timeFormat = new String[5];
         /*
         0 : hour
@@ -128,7 +127,6 @@ public class ModeManager {
         timeFormat[6] = String.format("%02d",lapTime[5]); // L초
         timeFormat[7] = String.format("%03d",lapTime[6]); // Lms
         timeFormat[8] = String.valueOf((int)stopwatchValue[2]);
-        System.out.println(Arrays.toString(timeFormat));
 
         return timeFormat;
     }
@@ -196,7 +194,7 @@ public class ModeManager {
 
         Object[] time = clockSystem.getTime(); // 시간제를 알아오기 위해 받아옴
         // myTime
-        if((Boolean) time[1]){ // 12시간제인 경우
+        if((boolean) time[1]){ // 12시간제인 경우
             int temp = (int)myTimeData[0];
             if(temp > 12){
                 globalTimeFormat[1] = String.format("%02d", temp - 12);
@@ -240,12 +238,12 @@ public class ModeManager {
 
         LocalTime first = (LocalTime)sleepingTime[0];
         LocalTime second = (LocalTime)sleepingTime[1];
-        timeFormat[0] = "추천 수면시각1";
-        timeFormat[3] = "추천 수면시각2";
-        timeFormat[1] = Integer.toString(first.getHour());
-        timeFormat[2] = Integer.toString(first.getMinute());
-        timeFormat[4] = Integer.toString(second.getHour());
-        timeFormat[5] = Integer.toString(second.getMinute());
+        timeFormat[0] = "<html>추천<br>수면시각1</html>";
+        timeFormat[3] = "<html>추천<br>수면시각2</html>";
+        timeFormat[1] = String.format("%02d",first.getHour());
+        timeFormat[2] = String.format("%02d",first.getMinute());
+        timeFormat[4] = String.format("%02d",second.getHour());
+        timeFormat[5] = String.format("%02d",second.getMinute());
 
         return timeFormat;
     }
@@ -253,18 +251,18 @@ public class ModeManager {
     public String[] displaySleepingTimeValue(ClockSystem clockSystem){
         String[] timeFormat = new String[6];
 
-        timeFormat[0] = "목표 기상시각";
-        timeFormat[3] = "최대 수면시간";
+        timeFormat[0] = "<html>목표<br>기상시각</html>";
+        timeFormat[3] = "<html>최대<br>수면시각</html>";
 
         LocalTime[] sleepingTimeValue = clockSystem.getSleepingTimeValue();
 
         LocalTime wakeUp = sleepingTimeValue[0];
         LocalTime sleep =  sleepingTimeValue[1];
 
-        timeFormat[1] = Integer.toString(wakeUp.getHour());
-        timeFormat[2] = Integer.toString(wakeUp.getMinute());
-        timeFormat[4] = Integer.toString(sleep.getHour());
-        timeFormat[5] = Integer.toString(sleep.getMinute());
+        timeFormat[1] = String.format("%02d",wakeUp.getHour());
+        timeFormat[2] = String.format("%02d",wakeUp.getMinute());
+        timeFormat[4] = String.format("%02d",sleep.getHour());
+        timeFormat[5] = String.format("%02d",sleep.getMinute());
 
         return timeFormat;
 
