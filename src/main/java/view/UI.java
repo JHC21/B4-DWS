@@ -119,12 +119,12 @@ public class UI {
 
             //back to base
             if(mode.getSubCategory() == 1) {
-                if(currentTime > lastPressedTime + 5000) {
+                if(currentTime > lastPressedTime + 300000) {
                     mode.exitSub();
                 }
             }
             if(mode.getMainCategory() == 6) {
-                if(currentTime > lastPressedTime + 5000) {
+                if(currentTime > lastPressedTime + 300000) {
                     mode.setMainCategory(system.getFunctionList()[0]);
                 }
             }
@@ -137,6 +137,10 @@ public class UI {
                 displayManager.cleanDisplay();
                 mode.moveFunctionSelector();
                 mode.setMainCategory(system.getFunctionList()[mode.getFunctionSelector()]);
+            }
+
+            if(pressed.equals("E")){
+                mode.setMainCategory(6);
             }
 
 
@@ -309,8 +313,6 @@ public class UI {
                             if(pressed.equals("B")) { // increase value
                                 if (tempSelector == 5) {
                                     updateValue = updateValue.plusHours(1);
-                                    System.out.println(updateValue);
-                                    System.out.println("PLUS Hour!");
                                 }
                                 else updateValue = updateValue.plusMinutes(1); // tempSelector == 6
                             }
@@ -367,7 +369,6 @@ public class UI {
             }else if(mode.getMainCategory() == 5){
                 //SleepingTime
                 int getSelector = displayManager.getSelector();
-                System.out.println(getSelector);
                 if(getSelector != 22 && getSelector != 27 && getSelector != 24 && getSelector != 28){
                     displayManager.setSelector(22); }
                 if(mode.getSubCategory() == 0){
@@ -446,7 +447,7 @@ public class UI {
                         displayManager.changeIconPosition(true);
                         system.moveItem(displayManager.getSelector()-27, -1);
                         displayManager.setSelector(Flag.moveFunctionSelectorReverse(displayManager.getSelector()));
-                        System.out.println(displayManager.getSelector());
+                        //System.out.println(displayManager.getSelector());
                     }
 
                     //move selected item to rightmost
@@ -454,7 +455,7 @@ public class UI {
                         displayManager.changeIconPosition(false);
                         system.moveItem(displayManager.getSelector()-27 , 1);
                         displayManager.setSelector(Flag.moveFunctionSelector(displayManager.getSelector()));
-                        System.out.println(displayManager.getSelector());
+                        //System.out.println(displayManager.getSelector());
                     }
                     if(pressed.equals("C")){
                         displayManager.cleanDisplay();

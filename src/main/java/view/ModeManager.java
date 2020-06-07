@@ -61,7 +61,7 @@ public class ModeManager {
         timeFormat[2] = String.format("%02d", timerTime[5]); // second
 
         if((int)timer[1] == 0){
-            return new String[]{"false", "false", "false", "false", "false"};
+            return new String[]{"false", "false", "false", "false", "OFF"};
         }
 
         int temp = (int)timer[1];
