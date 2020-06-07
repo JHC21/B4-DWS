@@ -117,6 +117,7 @@ public class DisplayManager extends JFrame{
     }
     private void chstomizeOwnClock(String value){                    //26: function list에서 customize own clock
         String innerText = "<html><div style='text-align:center;'>Customize<br>Your Own Clock</div></html>";
+        segments[26].setText(innerText);
     }
     private void icon1(String value){                                //27: 아이콘1 (제일 좌측)
         segments[27].setText(value);
@@ -233,6 +234,7 @@ public class DisplayManager extends JFrame{
             labelIcons[i] = new JLabel(icons[i],SwingUtilities.CENTER);
             labelIcons[i].setLayout(null);
             labelIcons[i].setBounds(15+(i*28), 250, 100, 100);
+            //0 :15, 1: 43, 2: 71, 3:
             labelIcons[i].setSize(30,30);
             labelIcons[i].setVisible(true);
         }
@@ -285,6 +287,43 @@ public class DisplayManager extends JFrame{
             {90, 155, 200, 40, 20, 200, 40},    //24
             {20, 0, 200, 300, 20, 200, 300},    //25
             {20, 0, 250, 300, 30, 400, 200}     //26
+    };
+
+
+    private int[][] selectorPosition = new int[][]{
+            {60, 20, 50, 50, 25, 50, 50},       //0
+            {100, 20, 50, 50, 25, 50, 50},      //1
+            {140, 20, 50, 50, 25, 50, 50},      //2
+            {180, 20, 50, 50, 25, 50, 50},      //3
+            {20, 130, 50, 50, 25, 50, 50},      //4
+            {70, 80, 100, 150, 50, 100, 150},   //5
+            {140, 80, 150, 150, 50, 150, 150},  //6
+            {205, 140, 40, 40, 30, 40, 40},     //7
+            {205, 30, 40, 40, 30, 40, 40},      //8
+            {205, 240, 50, 50, 25, 50, 50},     //9
+            {93, 95, 180, 30, 22, 180, 30},     //10
+            {205, 170, 50, 50, 20, 50, 50},     //11
+            {30, 25, 50, 50, 23, 50, 50},       //12
+            {60, 25, 50, 50, 23, 50, 50},       //13
+            {90, 25, 50, 50, 23, 50, 50},       //14
+            {120, 25, 50, 50, 23, 50, 50},      //15
+            {150, 25, 50, 50, 23, 50, 50},      //16
+            {180, 25, 50, 50, 23, 50, 50},      //17
+            {210, 25, 50, 50, 23, 50, 50},      //18
+            {215, 70, 50, 50, 23, 50, 50},      //19
+            {20, 0, 200, 300, 20, 200, 300},    //20
+            {20, 40, 100, 150, 15, 100, 100},   //21
+            {90, 85, 200, 40, 20, 200, 40},     //22
+            {20, 110, 100, 150, 15, 100, 100},  //23
+            {90, 155, 200, 40, 20, 200, 40},    //24
+            {20, 0, 200, 300, 20, 200, 300},    //25
+            {20, 0, 250, 300, 30, 400, 200},     //26
+            {1, 2, 3, 4, 5, 6, 7},              //Icon1 (Leftmost)      27
+            {1, 2, 3, 4, 5, 6, 7},              //Icon2                 28
+            {1, 2, 3, 4, 5, 6, 7},              //Icon3                 29
+            {1, 2, 3, 4, 5, 6, 7},              //Icon4                 30
+            {1, 2, 3, 4, 5, 6, 7},              //Icon5                 31
+            {1, 2, 3, 4, 5, 6, 7},              //Icon6 (RightMost)     32
     };
 
     private void setOuterPanel(){
@@ -396,6 +435,15 @@ public class DisplayManager extends JFrame{
         displays[6].display(timeFormat[4]);
         displays[7].display(timeFormat[5]);
     }
+
+    public String[] getDisplayedTime(){
+        String[] value = new String[8];
+        for(int i = 0; i < 8; i ++){
+            value[i] = segments[i].getText();
+        }
+        return value;
+    }
+
     public void displayTimer(String[] timeFormat) {
         /*
         0 : 시
@@ -487,6 +535,22 @@ public class DisplayManager extends JFrame{
     public void displayIcon(){
         for(int i = 0; i < 6; i++){
             labelIcons[i].setVisible(true);
+        }
+    }
+
+    public void displayFunctionListEdit(){
+        displays[26].display("");
+    }
+
+    public void changeIconPosition(boolean left){
+        if(left){
+
+        }
+    }
+
+    public void cleanDisplay(){
+        for(int i = 0; i < 32; i++){
+            segments[i].setText(null);
         }
     }
 }

@@ -67,7 +67,7 @@ public class UI {
             if (mode.getMainCategory() == 0) {
                 // Timekeeping
                 if (mode.getSubCategory() == 0) {
-                    displayManager.displayTime(modeManager.displayTime(system));
+                    displayManager.displayTime((String[])modeManager.displayTime(system)[0]);
 
                     if(pressed.equals("A")) {
                         displayManager.notDisplayIcon();
@@ -78,7 +78,8 @@ public class UI {
 
                 } else if(mode.getSubCategory() == 1) {
                     displayManager.displaySelector();
-                    displayManager.displayTime(modeManager.displayTime(system));
+                    Object[] curTime = modeManager.displayTime(system);
+                    displayManager.displayTime((String[])curTime[0]);
 
                     // displaymanaer한테
                     // system.getTime(), 시간제,  value[2~4]
@@ -91,10 +92,10 @@ public class UI {
                         displayManager.notDisplaySelector();
                     }
                     if(pressed.equals("B")) {
-                        system.setTime(Flag.getTimeValue(displayManager.getSelector()));
+                        system.setTime(Flag.getTimeValue(displayManager.getSelector(), curTime, 1));
                     }
                     if(pressed.equals("D")) {
-                        system.setTime(-1 * Flag.getTimeValue(displayManager.getSelector()));
+                        system.setTime(Flag.getTimeValue(displayManager.getSelector(), curTime, -1));
                     }
                     if(pressed.equals("C")) {
                         displayManager.setSelector(Flag.moveTimeSelector(displayManager.getSelector()));
@@ -215,7 +216,7 @@ public class UI {
                     if(pressed.equals("B")) {
                         //increase value & toggle
                         if(Flag.isAlarmDayOfWeek(displayManager.getSelector())) { // toggle
-                            system.setAlarm(this.alarmNumber, );
+                            //system.setAlarm(this.alarmNumber, );
                         }
                         else { // increase value
 
@@ -255,6 +256,21 @@ public class UI {
             }else if(mode.getMainCategory() == 6){
                 //Function Change
                 if(mode.getSubCategory() == 0) {
+                    //customize your own clock을 먼저 보여줘야한다.
+                    displayManager.displayFunctionListEdit();
+                    displayManager.displayIcon();
+                    displayManager.setSelector(27);
+
+                    if(pressed.equals("A")){
+                        //move selected item to left
+                    }if(pressed.equals("B")){
+                        //move selected item to right
+                    }if(pressed.equals("C")){
+
+                    }if(pressed.equals("D")){
+
+                    }
+
                     //display function list
                 }
             }
