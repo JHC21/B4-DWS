@@ -143,6 +143,7 @@ public class UI {
                 if(mode.getMainCategory() == 4) { // global time
                     // 이름없는 system method
                     // 20번 ID에서 1,2 번 system operation을 여기서 해줘야 함
+                    system.enterGlobalTime();
                     if(displayManager.getSelector() != 21 || displayManager.getSelector() != 23) {
                         displayManager.setSelector(21);
                     }

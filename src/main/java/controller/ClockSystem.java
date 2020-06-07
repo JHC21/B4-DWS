@@ -181,6 +181,9 @@ public class ClockSystem {
         // updateAnotherTimeZone(updateValue)을 실행한다.
         this.globalTime.updateAnotherTimeZone(updateValue);
     }
+    public void enterGlobalTime() {
+        this.globalTime.updateTimeValue(this.timeKeeping.getTimeValue());
+    }
 
 
     //Display Sleeping Time에서 호출하는 메소드
