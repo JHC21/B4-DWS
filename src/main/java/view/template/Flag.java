@@ -41,9 +41,9 @@ public class Flag {
         //19: Alarm 번호 (시계 좌하단)
         //20: Alarm이 표시될 때 전부 (하나로 통합하고, 이걸 한번에 보여줌
         //21: global time의 내도시 / 추천 수면시간 / 목표 기상시각
-        //22: global time의 내도시 시간 (시간제 포함) / 추천 수면시간1 / 목표 기상시각
+        //22: global time의 내도시 시간 (시간제 포함) / 추천 수면시간1(시) / 목표 기상시각(시)
         //23: global time의 남의도시 / 추천 수면시각2 / 최대 수면시간
-        //24: global time의 남의도시 시간 (시간제 포함) / 추천 수면시간2 / 목표 기상시
+        //24: global time의 남의도시 시간 (시간제 포함) / 추천 수면시간2(시) / 목표 기상시(시)
         //25: Cheering message 전체
         //26: function list에서 customize own clock
         //27: timekeeping (초기값 제일 좌측)
@@ -52,6 +52,8 @@ public class Flag {
         //30: alarm
         //31: global_time
         //32: sleeping_time (초기값 제일 우측)
+        //33: global time의 내도시 / 추천 수면시간(분) / 목표 기상시각(분)
+        //34: global time의 남의도시 / 추천 수면시각2(분) / 최대 수면시간(분)
 
     //year, month에 따른 달 증감값 신경써야 함
     public static long getTimeValue(int selector){
@@ -68,6 +70,12 @@ public class Flag {
         if(selector == 0) return HOUR_MILLI;
         else if(selector == 1) return MINUTE_MILLI;
         else if(selector == 2) return SECOND_MILLI;
+        return 0;
+    }
+
+    public static long getWakeUpSleepTimeValue(int selector){
+        if(selector == 22 || selector == 24) return HOUR_MILLI;
+        else if(selector == 33 || selector == 34) return MINUTE_MILLI;
         return 0;
     }
 
@@ -101,11 +109,21 @@ public class Flag {
 
         return 0;
     }
+
+    public static int moveWakeUpSleepTimeSelector(int selector){
+        if(selector == 22) return 33;
+        else if(selector == 33) return 24;
+        else if(selector == 24) return 34;
+        else if (selector == 34) return 22;
+
+        return 0;
+    }
     public static boolean isAlarmDayOfWeek(int selector) {
         //set alarm에서 B나 D버튼이 들어와서 시, 분의 경우 증감 혹은 요일의 경우 toggle을 해야 할 때,
         //false인 경우 증감, true 인 경우 toggle을 하도록 한다.
         if(selector == 5 || selector == 6) return false;
         else return true;
     }
+
 
 }

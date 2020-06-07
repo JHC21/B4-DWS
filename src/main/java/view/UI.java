@@ -242,15 +242,55 @@ public class UI {
                     }
                     if(pressed.equals("D")) {
                     }
-                    if(pressed.equals("C")) {
-                    }
                 }
             }else if(mode.getMainCategory() == 5){
                 //SleepingTime
                 if(mode.getSubCategory() == 0){
                     //display sleeping time
+                    // displayManager.displayTime(modeManager.displayTime(system));
+                    displayManager.displaySleepingTime(modeManager.displaySleepingTime(system));
+
+                    // Set sleeping time
+                    if(pressed.equals("A")){
+                        displayManager.notDisplayIcon();
+                        mode.enterSub();
+                    }
+
+                    // B버튼이 눌렸을 때는 아무것도 실행되지 않음
+
+                    // C버튼이 눌렸을 때는 맨 위에서 처리
+
+                    // Turn on/off (cheering message 수신 여부)
+                    if(pressed.equals("D")){
+                        system.toggleCheeringMessageReceiving();
+                    }
+
                 }else if(mode.getSubCategory() == 1){
-                    //set sleeping time
+                    //Set sleeping time
+                    displayManager.displaySelector();
+                    displayManager.displaySleepingTime(modeManager.displaySleepingTimeValue(system));
+
+                    //Move to sleeping time
+                    if(pressed.equals("A")){
+                        mode.exitSub();
+                        displayManager.setSelector(21);
+                        displayManager.notDisplaySelector();
+                    }
+
+                    // Increase value
+                    if(pressed.equals("B")){
+                        system.setTime(Flag.getWakeUpSleepTimeValue(displayManager.getSelector()));
+                    }
+
+                    // Decrease value
+                    if(pressed.equals("D")){
+                        system.setTime(-1 * Flag.getWakeUpSleepTimeValue(displayManager.getSelector()));
+                    }
+
+                    // Change function position
+                    if(pressed.equals("C")){
+                        displayManager.setSelector(Flag.moveWakeUpSleepTimeSelector(displayManager.getSelector()));
+                    }
                 }
             }else if(mode.getMainCategory() == 6){
                 //Function Change
