@@ -607,7 +607,7 @@ public class DisplayManager extends JFrame{
         displays[18].display(timeFormat[9]); // 토
          */
         displays[9].display((String)timeFormat[4]); // activate
-        displays[19].display((String)timeFormat[5]); // alarm number
+        displays[19].display(String.valueOf(Integer.parseInt((String)timeFormat[5]) + 1)); // alarm number
     }
     public void setAlarm(Object[] timeFormat) {
         /*

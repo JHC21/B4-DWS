@@ -84,4 +84,12 @@ public class Utility {
 
         return timeFormat;
     }
+
+    public static boolean checkAtLeastOne(boolean[] days){
+        int counter = 0;
+        for(int i = 0; i < 7; i++){
+            if(days[i]) counter += 1;
+        }
+        return counter > 1;
+    }
 }
