@@ -262,11 +262,17 @@ public class ModeManager {
         timeFormat[0] = "<html>추천<br>수면시각1</html>";
         timeFormat[4] = "<html>추천<br>수면시각2</html>";
         // timeFormat[1] => Timeformat
-        timeFormat[2] = String.format("%02d",first.getHour());
-        timeFormat[3] = String.format("%02d",first.getMinute());
+        if(first == null) {timeFormat[2] = ""; timeFormat[3] = "";}
+        else{
+            timeFormat[2] = String.format("%02d", first.getHour());
+            timeFormat[3] = String.format("%02d", first.getMinute());
+        }
         // timeFormat[5] => Timeformat
-        timeFormat[6] = String.format("%02d",second.getHour());
-        timeFormat[7] = String.format("%02d",second.getMinute());
+        if(second == null){timeFormat[6] = ""; timeFormat[7] = "";}
+        else {
+            timeFormat[6] = String.format("%02d", second.getHour());
+            timeFormat[7] = String.format("%02d", second.getMinute());
+        }
         // timeFormat[8]
 
         if(currentFormat){
