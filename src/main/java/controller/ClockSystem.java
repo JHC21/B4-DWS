@@ -5,6 +5,7 @@ import controller.mode.*;
 import java.lang.reflect.Array;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ClockSystem {
     private SleepingTime sleepingTime;

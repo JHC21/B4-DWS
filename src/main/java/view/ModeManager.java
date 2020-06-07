@@ -21,7 +21,8 @@ public class ModeManager {
 
 
     // TODO: 버튼확인
-    public String[] displayTime(ClockSystem clockSystem){
+    public Object[] displayTime(ClockSystem clockSystem){
+        Object[] value = new Object[2];
         Object[] time = clockSystem.getTime();
         String[] timeFormat = Utility.millitoTimeFormat_test((long)time[0]);
         if((Boolean) time[1]){
@@ -32,12 +33,15 @@ public class ModeManager {
             }
             else{timeFormat[8] = "오전";}
         }else{
-            timeFormat[8] = null;
+            timeFormat[8] = "  ";
         }
         //이 값을 displayManager에 표시될 수 있게끔 값을 가공해서
         //String배열로 넘겨주고, 배열에는
         //표시될 위치를 표시해주면 됨
-        return timeFormat;
+        value[0] = timeFormat;
+        value[1] = time[0];
+
+        return value;
     }
 
     public String[] displayTimer(ClockSystem clockSystem){

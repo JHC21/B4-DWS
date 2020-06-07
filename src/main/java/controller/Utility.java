@@ -24,6 +24,11 @@ public class Utility {
         return localTime;
     }
 
+    public static int millitoYear(long time){
+        LocalDateTime currentLocalDateTime = Instant.ofEpochMilli(time).atZone(ZoneId.systemDefault()).toLocalDateTime();
+        return currentLocalDateTime.getYear();
+    }
+
     public static String[] millitoTimeFormat_test(long time) {
         String[] timeFormat = new String[9];
         DayOfWeek temp;
