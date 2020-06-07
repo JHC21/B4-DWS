@@ -108,4 +108,12 @@ public class Flag {
         else return true;
     }
 
+    public static int moveGlobalTimeSelector(int selector) {
+        if(selector == 21) return 22; // myTimeZone의 hour일 경우
+        else if(selector == 22) return 23; // myTimeZone의 minute일 경우
+        else if(selector == 23) return 24; // anotherTimeZone의 hour일 경우
+        else if(selector == 24) return 25; // anotherTimeZone의 minute일 경우
+
+        return 0;
+    }
 }

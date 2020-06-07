@@ -163,4 +163,63 @@ public class ModeManager {
         timeFormat[11] = String.format("%d", alarmNo);
         return timeFormat;
     }
+
+    public String[] displayGlobalTime(ClockSystem clockSystem) {
+        /*
+        0: myTimeZone의 시간제
+        1: myTimeZone의 hour
+        2: myTimeZone의 minute
+        3: myTimeZone의 도시 1
+        4: myTimeZone의 도시 2
+        5: myTimeZone의 도시 3
+
+        5: anotherTimeZone의 hour
+        6:  anotherTimeZone의 minute
+        7: anotherTimeZone의 도시 1
+        8: anotherTimeZone의 도시 2
+        9: anotherTimeZone의 도시 3
+        */
+
+        // Object[] globalTime이 Object[]들의 배열이므로 바로 접근하지 말고 하나씩 가져왔음
+        Object[] globalTime = clockSystem.getGlobalTime(false);
+        Object[] myTimeData = (Object[]) globalTime[0];
+        Object[] anotherTimeData = (Object[]) globalTime[1];
+        String[] myCityNames = (String[])(myTimeData[2]);
+        String[] anotherCityNames = (String[])(anotherTimeData[2]);
+        String globalTimeFormat[] = new String[12]; // 리턴해줄 형식
+
+        Object[] time = clockSystem.getTime(); // 시간제를 알아오기 위해 받아옴
+        // myTime
+        if((Boolean) time[1]){ // 12시간제인 경우
+            int temp = Integer.parseInt((String)myTimeData[0]);
+            if(temp > 12){
+                globalTimeFormat[1] = String.format("%02d", temp - 12);
+                globalTimeFormat[0] = "오후";
+            }
+            else{ globalTimeFormat[0] = "오전"; }
+        } else {
+            globalTimeFormat[0] = null; // 24시간제
+        }
+        globalTimeFormat[2] = (String)myTimeData[1]; // 분
+        globalTimeFormat[3] = myCityNames[0]; // 내 도시 1
+        globalTimeFormat[4] = myCityNames[1]; // 내 도시 2
+        globalTimeFormat[5] = myCityNames[2]; // 내 도시 3
+        //anotherTime
+        if((Boolean) time[1]){ // 12시간제인 경우
+            int temp = Integer.parseInt((String)anotherTimeData[0]);
+            if(temp > 12){
+                globalTimeFormat[7] = String.format("%02d", temp - 12);
+                globalTimeFormat[6] = "오후";
+            }
+            else{ globalTimeFormat[7] = "오전"; }
+        } else {
+            globalTimeFormat[6] = null; // 24시간제
+        }
+        globalTimeFormat[8] = (String)anotherTimeData[1]; // 분
+        globalTimeFormat[9] = anotherCityNames[0]; // 다른 도시 1
+        globalTimeFormat[10] = anotherCityNames[1]; // 다른 도시 2
+        globalTimeFormat[11] = anotherCityNames[2]; // 다른 도시 3
+
+        return globalTimeFormat;
+    }
 }

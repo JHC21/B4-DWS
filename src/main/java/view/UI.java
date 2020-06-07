@@ -7,6 +7,7 @@ import view.template.Flag;
 import view.template.Mode;
 
 import javax.swing.*;
+import java.net.PasswordAuthentication;
 import java.util.logging.Logger;
 
 
@@ -236,13 +237,31 @@ public class UI {
                 //GlobalTime
                 if(mode.getSubCategory() == 0){
                     //display globalTime  (global Time은 set이 없음)
-                    if(pressed.equals("A")) {
+                    if(pressed.equals("A")) { // change pointer position
+                        displayManager.displaySelector(); // 먼저 선택자를 보여주고
+                        displayManager.setSelector(Flag.moveGlobalTimeSelector(displayManager.getSelector()));
                     }
-                    if(pressed.equals("B")) {
+                    if(pressed.equals("B")) { // increase value
+                        // 선택자가 현재 가리키고 있는 곳의 값을 1 증가
+                        int currentSelector = displayManager.getSelector(); // 선택자가 현재 가리키고 있는 곳을 알아옴
+                        if(currentSelector == 22) { // 내 도시
+                            system.setMyTimeZone(1);
+//                            system.setMyTimeZone(Flag.getGlobalTimeValue(displayManager.getSelector()));
+                        } else if(currentSelector == 24){ // 다른 도시
+                            system.setAnotherTimeZone(1);
+                        }
                     }
-                    if(pressed.equals("D")) {
-                    }
-                    if(pressed.equals("C")) {
+
+                    // C 버튼이 눌리는 경우는 function list로 이동하므로 위에서 이미 처리함
+
+                    if(pressed.equals("D")) { // decrease value
+                        // 선택자가 현재 가리키고 있는 곳의 값을 1 감소
+                        int currentSelector = displayManager.getSelector(); // 선택자가 현재 가리키고 있는 곳을 알아옴
+                        if(currentSelector == 22) {
+                            system.setMyTimeZone(-1);
+                        } else {
+                            system.setAnotherTimeZone(-1);
+                        }
                     }
                 }
             }else if(mode.getMainCategory() == 5){
