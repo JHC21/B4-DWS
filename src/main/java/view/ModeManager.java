@@ -203,14 +203,14 @@ public class ModeManager {
                 globalTimeFormat[0] = "오후"; // 내 도시의 시간제
             }
             else{ // 12간제에서의 오전
-                globalTimeFormat[1] =String.valueOf(myTimeData[0]); // 내 도시의 시
+                globalTimeFormat[1] =String.format("%02d", myTimeData[0]); // 내 도시의 시
                 globalTimeFormat[0] = "오전";
             }
         } else { // 24시간제
-            globalTimeFormat[1] = String.valueOf(myTimeData[0]);
+            globalTimeFormat[1] = String.format("%02d", myTimeData[0]);
             globalTimeFormat[0] = null; // 24시간제
         }
-        globalTimeFormat[2] = String.valueOf(myTimeData[1]); // 내 도시의 분
+        globalTimeFormat[2] = String.format("%02d", myTimeData[1]); // 내 도시의 분
         globalTimeFormat[3] = myCityNames[0]; // 내 도시 1
         globalTimeFormat[4] = myCityNames[1]; // 내 도시 2
         globalTimeFormat[5] = myCityNames[2]; // 내 도시 3
@@ -222,14 +222,14 @@ public class ModeManager {
                 globalTimeFormat[7] = String.format("%02d", temp - 12); // 다른 도시의 시
                 globalTimeFormat[6] = "오후";
             } else { // 12시간제에서의 오전
-                globalTimeFormat[7] = String.valueOf(anotherTimeData[0]); //다른 도시의 시
+                globalTimeFormat[7] = String.format("%02d", temp); //다른 도시의 시
                 globalTimeFormat[6] = "오전";
             }
         } else { // 24시간제
             globalTimeFormat[7] = String.valueOf(anotherTimeData[0]); // 다른 도시의 시
             globalTimeFormat[6] = null; // 24시간제
         }
-        globalTimeFormat[8] = String.valueOf(anotherTimeData[1]); // 분
+        globalTimeFormat[8] = String.format("%02d", anotherTimeData[1]); // 분
         globalTimeFormat[9] = anotherCityNames[0]; // 다른 도시 1
         globalTimeFormat[10] = anotherCityNames[1]; // 다른 도시 2
         globalTimeFormat[11] = anotherCityNames[2]; // 다른 도시 3

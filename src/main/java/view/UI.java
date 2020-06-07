@@ -357,25 +357,18 @@ public class UI {
 //                System.out.println("displayManager의 selector: " + displayManager.getSelector());
                 displayManager.displayGlobalTime(modeManager.displayGlobalTime(system));
 
-                // 계속 이 루프로 들어가게 됨 ㅠㅠ
                 // 엉뚱한 곳에 selector가 있으면 selector를 내 도시에 맞춰주기
                 if(displayManager.getSelector() != 21 && displayManager.getSelector() != 23) {
                     displayManager.setSelector(21);
                     System.out.println("set selector to 21");
                 }
                 displayManager.displaySelector();
-//                System.out.println("Selector: " + displayManager.getSelector());
-
-                // another city time 안 보이는거 해결하기!
 
                 if(mode.getSubCategory() == 0) {
                     // display globalTime  (global Time은 set이 없음)
                     if(pressed.equals("A")) { // change pointer position
-                        System.out.println("변경 전 선택자: " + displayManager.getSelector());
                         displayManager.setSelector(Flag.moveGlobalTimeSelector(displayManager.getSelector()));
-                        System.out.println("변경 후 선택자: " + displayManager.getSelector());
                     }
-                    // 이건 제대로 되는 것 같음
                     if(pressed.equals("B")) { // increase value
                         // 선택자가 현재 가리키고 있는 곳의 값을 1 증가
                         int currentSelector = displayManager.getSelector(); // 선택자가 현재 가리키고 있는 곳을 알아옴
@@ -389,7 +382,6 @@ public class UI {
 
                     // C 버튼이 눌리는 경우는 function list로 이동하므로 위에서 이미 처리함
 
-                    // 이건 제대로 되는 것 같음
                     if(pressed.equals("D")) { // decrease value
                         // 선택자가 현재 가리키고 있는 곳의 값을 1 감소
                         int currentSelector = displayManager.getSelector(); // 선택자가 현재 가리키고 있는 곳을 알아옴
