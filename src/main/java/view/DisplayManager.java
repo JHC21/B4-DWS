@@ -496,6 +496,26 @@ public class DisplayManager extends JFrame{
         displays[24].display(anotherTime.toString());
     }
 
+    public void displaySleepingTime(String[] timeformat){
+
+        //21: 추천 수면시간 / 목표 기상시각
+        //22: 추천 수면시간1(시) / 목표 기상시각(시)
+        //23: 추천 수면시각2 / 최대 수면시간
+        //24: 추천 수면시간2(시) / 목표 기상시(시)
+        //33: 추천 수면시간(분) / 목표 기상시각(분)
+        //34: 추천 수면시각2(분) / 최대 수면시간(분)
+
+        // 21 -> 22 -> 33
+        // 23 -> 24 -> 34
+
+        displays[21].display(timeformat[0]); // 추천 수면시각1
+        displays[22].display(timeformat[1]); // 추천 수면시간1 (시)
+        displays[33].display(timeformat[2]); // 추천 수면시각1 (분)
+        displays[23].display(timeformat[3]); // 추천 수면시각2
+        displays[24].display(timeformat[4]); // 추천 수면시간2 (시)
+        displays[34].display(timeformat[5]); // 추천 수면시각2 (분)
+    }
+
     public String getValueFromCurrentSelector(){
         return segments[selector].getText();
     }
