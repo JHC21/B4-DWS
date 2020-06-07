@@ -257,15 +257,6 @@ public class UI {
                         int tempSelector = displayManager.getSelector();
                         LocalTime updateValue = LocalTime.of(0, 0);
 
-                        //string을 다시 LocalTime으로 바꿈...ㅠㅠ
-                        if(((String)alarmValue[2]).equals("  "))  // 24시간제
-                            updateValue = updateValue.plusHours(Integer.parseInt((String)alarmValue[0]));
-                        else { // 12시간제
-                            if(((String)alarmValue[2]).equals("오후")) updateValue = updateValue.plusHours(Integer.parseInt((String) alarmValue[0]) + 12);
-                            else updateValue = updateValue.plusHours(Integer.parseInt((String)alarmValue[0]));
-                        }
-                        updateValue = updateValue.plusMinutes(Integer.parseInt((String)alarmValue[0]));
-
                         if(12 <= tempSelector && tempSelector <= 18) { // toggle
                             ((boolean[])alarmValue[3])[tempSelector - 12] = !((boolean[])alarmValue[3])[tempSelector - 12];
                         }

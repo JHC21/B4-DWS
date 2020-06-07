@@ -521,7 +521,10 @@ public class DisplayManager extends JFrame{
          */
         displays[5].display((String)timeFormat[0]); // 시
         displays[6].display((String)timeFormat[1]); // 분
-        displays[4].display((String)timeFormat[2]); // AM/PM
+        if(((String)timeFormat[2]).equals("  ")) {
+            displays[4].display("  ");
+        }
+        else displays[4].display((String)timeFormat[2]); // AM/PM
 
         if(((boolean[])timeFormat[3])[0]) displays[12].display("일"); else displays[12].display("false");
         if(((boolean[])timeFormat[3])[1]) displays[13].display("월"); else displays[12].display("false");

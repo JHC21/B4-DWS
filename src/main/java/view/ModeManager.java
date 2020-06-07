@@ -160,7 +160,7 @@ public class ModeManager {
                 timeFormat[2] = "오전";
             }
         }else{
-            timeFormat[2] = null;
+            timeFormat[2] = "  ";
         }
         timeFormat[3] = alarmValue[0]; // boolean 배열
         if((int)alarmValue[2] == 0) timeFormat[4] = "OFF";
