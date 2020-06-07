@@ -284,7 +284,7 @@ public class ModeManager {
                 timeFormat[6] = String.format("%02d", tmpFirstTime - 12);
                 timeFormat[5] = "오후";
             }else{
-                timeFormat[5] = "오후";
+                timeFormat[5] = "오전";
             }
 
         }else{

@@ -57,7 +57,7 @@ public class Mode {
     }
 
     public Mode(){
-        mainCategory = 6;
+        mainCategory = 5;
         subCategory = 0;
     }
 
