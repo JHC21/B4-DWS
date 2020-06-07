@@ -3,6 +3,7 @@ package controller.mode;
 import controller.Utility;
 
 import java.time.LocalTime;
+import java.util.Arrays;
 
 public class SleepingTime {
     private LocalTime sleepTime;    //수면시간 (최대 12시간)
@@ -13,12 +14,18 @@ public class SleepingTime {
     static final long MINUTE_LONG = 60000l;
     static final long HOUR_LONG = 3600000l;
 
+    public SleepingTime(){
+        this.sleepTime = LocalTime.of(5, 0);
+        this.wakeUpTime = LocalTime.of(9,0);
+        this.status = 1;
+    }
+
 
     public LocalTime[] calculateSleepingTime(Object[] getTime){
         //수면시간과, 기상시각, 현재시간(getTime이용)(을 계산해 최적 수면시간 1, 2를 return하는 메소드
         //수면 시간들은 1시간 반 간격으로 나타남
         //바깥에 보여지기엔 시간, 분만 표시되지만, 30초에 울릴 것이므로 x시간 x분 30초의 형태이다.
-        LocalTime localTime[] = new LocalTime[2];//{ *최적 수면시간 1, 최적 수면시간 2*/}
+        LocalTime[] localTime = new LocalTime[2];//{ *최적 수면시간 1, 최적 수면시간 2*/}
         long currentTime = (long)getTime[0];
         long wakeUpTimeLong;
         long sleepingTimeMap[] = new long[9];
@@ -40,9 +47,9 @@ public class SleepingTime {
         //불가능한 경우 일단 0을 넣는다.
         sleepingTimeMap[0] = 0; // 가능한 sleeping time이 2개 미만일 때 사용됨
         for(int i = 1; i < 9; i++) { // 1부터 8까지 유효한 sleeping time이 저장된다.
-            if(i < validSleepingTimeAmount) {
+            if(i <= validSleepingTimeAmount) {
                 //한 시간 반 씩 빼서 sleepingTimeMap에 저장한다.
-                sleepingTimeMap[i] = wakeUpTimeLong - ((HOUR_LONG + 30 * MINUTE_LONG) * (i + 1));
+                sleepingTimeMap[i] = wakeUpTimeLong - ((HOUR_LONG + 30 * MINUTE_LONG) * i);
             }
             else {
                 sleepingTimeMap[i] = 0;
@@ -54,18 +61,12 @@ public class SleepingTime {
                 //유효한 sleeping time이며, 현재 시간이 sleeping time보다 처음 작다면 그것이 최적 수면 시간 1이다.
                 localTime[0] = Utility.milliToLocalTime(sleepingTimeMap[i]);
                 localTime[1] = Utility.milliToLocalTime(sleepingTimeMap[i - 1]);
+                break;
             }
         }
 
-        //xx시 xx분 30초를 만드는 과정
-        localTime[0].minusSeconds(localTime[0].getMinute());
-        localTime[1].minusSeconds(localTime[1].getMinute());
-        localTime[0].plusSeconds(30);
-        localTime[1].plusSeconds(30);
-
         return localTime;
     }
-
 
     public void updateWakeUpTime(LocalTime time){
         //기상시각을 변경하는 메소드, UI에서 System을 거쳐 호출함

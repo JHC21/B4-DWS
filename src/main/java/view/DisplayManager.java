@@ -102,17 +102,24 @@ public class DisplayManager extends JFrame{
             segments[20].setText(innerText);
         }
     }
-    private void strings1(String value){                             //21: global time의 내도시 / 추천 수면시간 / 목표 기상시각
-        String innerText = "<html>뉴욕<br>마이애미<br>토론토<br></html>";
+    private void sleepingGlobalTimeMyText(String value){                             //21: global time의 내도시 / 추천 수면시간 / 목표 기상시각
+        // String innerText = "<html>뉴욕<br>마이애미<br>토론토<br></html>";
+        String innerText = "<html>추천<br>수면시각1</html>";
+        segments[21].setText(value);
     }
-    private void strings2(String value){                             //22: global time의 내도시 시간 (시간제 포함) / 추천 수면시간1 / 목표 기상시각
-        String innerText = "<html><span style='font-size: 20px;'>AM $nbsp</span><span style='font-size:30px;'>03:01</span></html>";
+    private void sleepingGlobalTimeMyHour(String value){                             //22: global time의 내도시 시간 (시간제 포함) / 추천 수면시간1 / 목표 기상시각
+        // String innerText = "<html><span style='font-size: 20px;'>AM $nbsp</span><span style='font-size:30px;'>03:01</span></html>";
+        segments[22].setText(value);
     }
-    private void cityorsleepingwakeuptimedata1(String value){        //23: global time의 남의도시 / 추천 수면시각2 / 최대 수면시간
-        String innerText = "<html>뉴욕<br>마이애미<br>토론토<br></html>";
+    private void sleepingGlobalTimeOtherText(String value){        //before : 23: global time의 남의도시 / 추천 수면시각2 / 최대 수면시간    after : 그냥 내도시시각 (Hour)
+        //String innerText = "<html>뉴욕<br>마이애미<br>토론토<br></html>";
+        String innerText = "<html>추천<br>수면시각2</html>";
+        segments[23].setText(value);
     }
-    private void cityorsleepingwakeuptimedata2(String value){        //24: global time의 남의도시 시간 (시간제 포함) / 추천 수면시간2 / 목표 기상시
-        String innerText = "<html><span style='font-size: 20px;'>AM $nbsp</span><span style='font-size:30px;'>03:01</span></html>";
+    private void sleepingGlobalTimeOtherHour(String value){        //before : 24: global time의 남의도시 시간 (시간제 포함) / 추천 수면시간2 / 목표 기상시     after : 그냥 남의도시시각 (Hour)
+        //String innerText = "<html><span style='font-size: 20px;'>AM $nbsp</span><span style='font-size:30px;'>03:01</span></html>";
+        segments[24].setText(value);
+
     }
     private void cheeringMessageShowAll(String value){               //25: Cheering message 전체
         String innerText = "<html><div style='border:1px solid red width:80 height:80' >" +
@@ -125,23 +132,21 @@ public class DisplayManager extends JFrame{
         String innerText = "<html><div style='text-align:center;'>Customize<br>Your Own Clock</div></html>";
         segments[26].setText(innerText);
     }
-    private void icon1(String value){                                //27: 아이콘1 (제일 좌측)
+
+    private void myTimeMinute(String value){
         segments[27].setText(value);
     }
-    private void icon2(String value){                                //28: 아이콘2
+
+    private void otherTimeMinute(String value){
         segments[28].setText(value);
     }
-    private void icon3(String value){                                //29: 아이콘3
+
+    private void myTimeTimeFormat(String value) {
         segments[29].setText(value);
     }
-    private void icon4(String value){                                //30: 아이콘4
+
+    private void otherTimeTimeFormat(String value){
         segments[30].setText(value);
-    }
-    private void icon5(String value){                                //31: 아이콘5
-        segments[31].setText(value);
-    }
-    private void icon6(String value){                                //32: 아이콘6 (제일 우측)
-        segments[32].setText(value);
     }
 
     interface DisplayAction{ void display(String value); }
@@ -167,22 +172,17 @@ public class DisplayManager extends JFrame{
             this::alarmSaturday,
             this::alarmNumber,
             this::showAlarming,
-            this::strings1,
-            this::strings2,
-            this::cityorsleepingwakeuptimedata1,
-            this::cityorsleepingwakeuptimedata2,
+            this::sleepingGlobalTimeMyText,
+            this::sleepingGlobalTimeMyHour,
+            this::sleepingGlobalTimeOtherText,
+            this::sleepingGlobalTimeOtherHour,
             this::cheeringMessageShowAll,
             this::chstomizeOwnClock,
-            this::icon1,
-            this::icon2,
-            this::icon3,
-            this::icon4,
-            this::icon5,
-            this::icon6,
+            this::myTimeMinute,
+            this::otherTimeMinute,
+            this::myTimeTimeFormat,
+            this::otherTimeTimeFormat
     };
-
-
-
 
     int selector = 0;
 
@@ -287,35 +287,42 @@ public class DisplayManager extends JFrame{
             {210, 25, 50, 50, 23, 50, 50},      //18
             {215, 70, 50, 50, 23, 50, 50},      //19
             {20, 0, 200, 300, 20, 200, 300},    //20
-            {20, 40, 100, 150, 15, 100, 100},   //21
-            {90, 85, 200, 40, 20, 200, 40},     //22
-            {20, 110, 100, 150, 15, 100, 100},  //23
-            {90, 155, 200, 40, 20, 200, 40},    //24
+
+            {20, 40, 110, 110, 15, 110, 110},   //21
+            {150, 40, 100, 150, 30, 100, 100},  //22(시1)
+            {20, 140, 100, 150, 15, 100, 100},  //23
+            {150, 140, 100, 150, 30, 100, 100},  //24(시2)
+
             {20, 0, 200, 300, 20, 200, 300},    //25
-            {20, 0, 250, 300, 30, 400, 200}     //26
-    };
+            {20, 0, 250, 300, 30, 400, 200},    //26
+
+            {200, 40, 100, 150, 30, 100, 100},  //27(분1)
+            {200, 140, 100, 150, 30, 100, 100}, //28(분2)
+            {100, 40, 100, 150, 25, 100, 100},  //29(시간제1)
+            {100, 140, 100, 150, 25, 100, 100},  //30(시간제2)
+    }; // 27 + (6) + 4 == 31개
 
 
     private int[][] selectorPosition = new int[][]{
-            {60, 20, 50, 50, 25, 50, 50},       //0
-            {100, 20, 50, 50, 25, 50, 50},      //1
-            {140, 20, 50, 50, 25, 50, 50},      //2
+            {65, -33, 50, 50, 25, 50, 10},       //0
+            {105, -33, 50, 50, 25, 50, 10},      //1
+            {145, -33, 50, 50, 25, 50, 10},      //2
             {180, 20, 50, 50, 25, 50, 50},      //3
             {20, 130, 50, 50, 25, 50, 50},      //4
-            {70, 80, 100, 150, 50, 100, 150},   //5
-            {140, 80, 150, 150, 50, 150, 150},  //6
-            {205, 140, 40, 40, 30, 40, 40},     //7
+            {90, 65, 100, 150, 50, 100, 150},   //5
+            {160, 65, 150, 150, 50, 150, 150},  //6
+            {215, 80, 40, 40, 30, 40, 40},      //7
             {205, 30, 40, 40, 30, 40, 40},      //8
             {205, 240, 50, 50, 25, 50, 50},     //9
             {93, 95, 180, 30, 22, 180, 30},     //10
             {205, 170, 50, 50, 20, 50, 50},     //11
-            {30, 25, 50, 50, 23, 50, 50},       //12
-            {60, 25, 50, 50, 23, 50, 50},       //13
-            {90, 25, 50, 50, 23, 50, 50},       //14
-            {120, 25, 50, 50, 23, 50, 50},      //15
-            {150, 25, 50, 50, 23, 50, 50},      //16
-            {180, 25, 50, 50, 23, 50, 50},      //17
-            {210, 25, 50, 50, 23, 50, 50},      //18
+            {32, -31, 50, 50, 23, 50, 50},       //12
+            {62, -31, 50, 50, 23, 50, 50},       //13
+            {92, -31, 50, 50, 23, 50, 50},       //14
+            {122, -31, 50, 50, 23, 50, 50},      //15
+            {152, -31, 50, 50, 23, 50, 50},      //16
+            {182, -31, 50, 50, 23, 50, 50},      //17
+            {212, -31, 50, 50, 23, 50, 50},      //18
             {215, 70, 50, 50, 23, 50, 50},      //19
             {20, 0, 200, 300, 20, 200, 300},    //20
             {20, 40, 100, 150, 15, 100, 100},   //21
@@ -330,7 +337,11 @@ public class DisplayManager extends JFrame{
             {1, 2, 3, 4, 5, 6, 7},              //Icon4                 30
             {1, 2, 3, 4, 5, 6, 7},              //Icon5                 31
             {1, 2, 3, 4, 5, 6, 7},              //Icon6 (RightMost)     32
-    };
+            {20, 10, 10, 10, 15, 10, 10},  //                      33
+            {20, 110, 10, 10, 15, 10, 10},  //                      34
+            {20, 80, 10, 10, 15, 10, 10},  //                      35
+            {20, 110, 10, 10, 15, 100, 100},  //                      36
+    }; // 37개
 
     private void setOuterPanel(){
 
@@ -354,8 +365,8 @@ public class DisplayManager extends JFrame{
     }
 
     private void setSegments(){
-        this.segments = new JLabel[27];
-        for(int i = 0 ; i < 27 ; i++){
+        this.segments = new JLabel[31];
+        for(int i = 0 ; i < 31 ; i++){
             segments[i] = new JLabel();
             segments[i].setLayout(null);
             segments[i].setForeground(Color.WHITE);
@@ -364,6 +375,7 @@ public class DisplayManager extends JFrame{
             segments[i].setBounds(jLabelData[i][0], jLabelData[i][1], jLabelData[i][2], jLabelData[i][3]);
             segments[i].setFont(segments[0].getFont().deriveFont((float)jLabelData[i][4]));
             segments[i].setSize(jLabelData[i][5], jLabelData[i][6]);
+
             innerPanel.add(segments[i]);
         }
     }
@@ -417,11 +429,8 @@ public class DisplayManager extends JFrame{
 
     public void displaySelector(){
 
-        int x = segments[selector].getX();
-        int y = segments[selector].getY();
-
         selector_label.setText(".");
-        selector_label.setBounds(x, y, 80, 80);
+        selector_label.setBounds(selectorPosition[selector][0], selectorPosition[selector][1], 80, 80);
         selector_label.setFont(segments[0].getFont().deriveFont((float)50));
         selector_label.setSize(80, 80);
     }
@@ -512,7 +521,10 @@ public class DisplayManager extends JFrame{
          */
         displays[5].display((String)timeFormat[0]); // 시
         displays[6].display((String)timeFormat[1]); // 분
-        displays[4].display((String)timeFormat[2]); // AM/PM
+        if(((String)timeFormat[2]).equals("  ")) {
+            displays[4].display("  ");
+        }
+        else displays[4].display((String)timeFormat[2]); // AM/PM
 
         if(((boolean[])timeFormat[3])[0]) displays[12].display("일"); else displays[12].display("false");
         if(((boolean[])timeFormat[3])[1]) displays[13].display("월"); else displays[12].display("false");
@@ -547,12 +559,12 @@ public class DisplayManager extends JFrame{
         displays[4].display((String)timeFormat[2]); // AM/PM
 
         if(((boolean[])timeFormat[3])[0]) displays[12].display("일"); else displays[12].display("false");
-        if(((boolean[])timeFormat[3])[1]) displays[13].display("월"); else displays[12].display("false");
-        if(((boolean[])timeFormat[3])[2]) displays[14].display("화"); else displays[12].display("false");
-        if(((boolean[])timeFormat[3])[3]) displays[15].display("수"); else displays[12].display("false");
-        if(((boolean[])timeFormat[3])[4]) displays[16].display("목"); else displays[12].display("false");
-        if(((boolean[])timeFormat[3])[5]) displays[17].display("금"); else displays[12].display("false");
-        if(((boolean[])timeFormat[3])[6]) displays[18].display("토"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[1]) displays[13].display("월"); else displays[13].display("false");
+        if(((boolean[])timeFormat[3])[2]) displays[14].display("화"); else displays[14].display("false");
+        if(((boolean[])timeFormat[3])[3]) displays[15].display("수"); else displays[15].display("false");
+        if(((boolean[])timeFormat[3])[4]) displays[16].display("목"); else displays[16].display("false");
+        if(((boolean[])timeFormat[3])[5]) displays[17].display("금"); else displays[17].display("false");
+        if(((boolean[])timeFormat[3])[6]) displays[18].display("토"); else displays[18].display("false");
         /*
         displays[12].display(timeFormat[3]); // 일
         displays[13].display(timeFormat[4]); // 월
@@ -563,6 +575,7 @@ public class DisplayManager extends JFrame{
         displays[18].display(timeFormat[9]); // 토
          */
     }
+
     public void displayGlobalTime(String[] timeFormat) {
         /*
         0: myTimeZone의 시간제
@@ -580,19 +593,19 @@ public class DisplayManager extends JFrame{
         */
 
         StringBuilder myCities = new StringBuilder(); // 내 도시의 도시들을 묶어서 전달
-        myCities.append(timeFormat[3] + "\r\n" + timeFormat[4] + "\r\n" + timeFormat[5] + "\r\n");
+        myCities.append(timeFormat[3] + "<br>" + timeFormat[4] + "<br>" + timeFormat[5]);
         displays[21].display(myCities.toString());
 
         StringBuilder myTime = new StringBuilder(); // 내 도시의 시간제, 시, 분을 묶어서 전달
-        myTime.append(timeFormat[0] + "\r\n" + timeFormat[1] + "\r\n" + timeFormat[2] + "\r\n");
+        myTime.append(timeFormat[0] + "$nbsp</span><span style='font-size:30px;'>" + timeFormat[1] + ":" + timeFormat[2]);
         displays[22].display(myTime.toString());
 
         StringBuilder anotherCities = new StringBuilder(); // 다른 도시의 도시들을 묶어서 전달
-        anotherCities.append(timeFormat[9] + "\r\n" + timeFormat[10] + "\r\n" + timeFormat[11] + "\r\n");
+        anotherCities.append(timeFormat[9] + "<br>" + timeFormat[10] + "<br>" + timeFormat[11]);
         displays[23].display(anotherCities.toString());
 
         StringBuilder anotherTime = new StringBuilder(); // 다른 도시의 시간제, 시, 분을 묶어서 전달
-        anotherTime.append(timeFormat[6] + "\r\n" + timeFormat[7] + "\r\n" + timeFormat[8] + "\r\n");
+        anotherTime.append(timeFormat[6] + " $nbsp</span><span style='font-size:30px;'>" + timeFormat[7] + ":" + timeFormat[8]);
         displays[24].display(anotherTime.toString());
     }
 
@@ -610,10 +623,12 @@ public class DisplayManager extends JFrame{
 
         displays[21].display(timeformat[0]); // 추천 수면시각1
         displays[22].display(timeformat[1]); // 추천 수면시간1 (시)
-        displays[33].display(timeformat[2]); // 추천 수면시각1 (분)
+        displays[29].display("AM");
+        displays[27].display(timeformat[2]); // 추천 수면시각1 (분)
         displays[23].display(timeformat[3]); // 추천 수면시각2
         displays[24].display(timeformat[4]); // 추천 수면시간2 (시)
-        displays[34].display(timeformat[5]); // 추천 수면시각2 (분)
+        displays[30].display("AM");
+        displays[28].display(timeformat[5]); // 추천 수면시각2 (분)
     }
 
     public String getValueFromCurrentSelector(){
@@ -717,7 +732,7 @@ public class DisplayManager extends JFrame{
 
 
     public void cleanDisplay(){
-        for(int i = 0; i < 27; i++){
+        for(int i = 0; i < 31; i++){
             segments[i].setText(null);
         }
     }

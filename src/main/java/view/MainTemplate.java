@@ -300,19 +300,30 @@ public class MainTemplate extends JFrame{
 
     public void setSegments(){
         this.segments = new JLabel[27];
+
         for(int i = 0 ; i < 27 ; i++){
             segments[i] = new JLabel();
 
-            segments[i].setName("Nameof" + String.valueOf(i));
+            // segments[i].setName("Nameof" + String.valueOf(i));
             segments[i].setLayout(null);
             segments[i].setForeground(Color.WHITE);
             segments[i].setFont(new Font("NanumSquare", Font.BOLD, 15));
-            segments[i].setVisible(true);
-            segments[i].setBounds(jLabelData[i][0], jLabelData[i][1], jLabelData[i][2], jLabelData[i][3]);
-            segments[i].setFont(segments[0].getFont().deriveFont((float)jLabelData[i][4]));
-            segments[i].setSize(jLabelData[i][5], jLabelData[i][6]);
+            // segments[i].setVisible(true);
+            // segments[i].setBounds(jLabelData[i][0], jLabelData[i][1], jLabelData[i][2], jLabelData[i][3]);
+           // segments[i].setFont(segments[0].getFont().deriveFont((float)jLabelData[i][4]));
+            // segments[i].setSize(jLabelData[i][5], jLabelData[i][6]);
             innerPanel.add(segments[i]);
         }
+
+        segments[0].setText("07");
+        segments[0].setBounds(90,85, 200, 40);
+        segments[0].setFont(segments[0].getFont().deriveFont((float)26));
+        segments[0].setSize(200, 40);
+        segments[0].setVisible(true);
+        innerPanel.add(segments[0]);
+
+
+
     }
 
     public void initTemplate(){
@@ -334,6 +345,8 @@ public class MainTemplate extends JFrame{
         setSize(500,500);
         setLayout(null);
         setVisible(true);
+
+
 
     }
 

@@ -157,8 +157,12 @@ public class UI {
 
                     if(pressed.equals("A")) {
                         //set timer
-                        displayManager.notDisplayIcon();
-                        mode.enterSub();
+                        int timerState = (int)system.getTimer()[1];
+                        if(!(timerState == 0 || timerState == 2)){
+                            displayManager.notDisplayIcon();
+                            mode.enterSub();
+                        }
+
                     }
                     if(pressed.equals("B")) {
                         //pause&restart
@@ -219,7 +223,8 @@ public class UI {
                     }
                 }
             }else if(mode.getMainCategory() == 3){
-                if(displayManager.getSelector() < 12 || displayManager.getSelector() > 18) displayManager.setSelector(5);
+                int temp = displayManager.getSelector();
+                if(!((temp > 4 && temp < 19) && (temp < 7 || temp > 12))) displayManager.setSelector(12);
 
                 //Alarm
                 if(mode.getSubCategory() == 0){
@@ -256,33 +261,30 @@ public class UI {
                         int tempSelector = displayManager.getSelector();
                         LocalTime updateValue = LocalTime.of(0, 0);
 
-                        //string을 다시 LocalTime으로 바꿈...ㅠㅠ
-                        if(alarmValue[2] == null)  // 24시간제
-                            updateValue.plusHours((int)alarmValue[0]);
-                        else { // 12시간제
-                            if(alarmValue[2].equals("오후")) updateValue.plusHours((int)alarmValue[0] + 12);
-                            else updateValue.plusHours((int)alarmValue[0]);
-                        }
-                        updateValue.plusMinutes((int)alarmValue[1]);
-
                         if(12 <= tempSelector && tempSelector <= 18) { // toggle
                             ((boolean[])alarmValue[3])[tempSelector - 12] = !((boolean[])alarmValue[3])[tempSelector - 12];
                         }
                         else { // increase value
                             if(pressed.equals("B")) { // increase value
-                                if (tempSelector == 5) updateValue.plusHours(1);
-                                else updateValue.plusMinutes(1); // tempSelector == 6
+                                if (tempSelector == 5) {
+                                    updateValue = updateValue.plusHours(1);
+                                    System.out.println(updateValue);
+                                    System.out.println("PLUS Hour!");
+                                }
+                                else updateValue = updateValue.plusMinutes(1); // tempSelector == 6
                             }
                             else { // pressed.equals("D") decrease value
-                                if (tempSelector == 5) updateValue.minusHours(1);
-                                else updateValue.minusMinutes(1); // tempSelector == 6
+                                if (tempSelector == 5) updateValue = updateValue.minusHours(1);
+                                else updateValue = updateValue.minusMinutes(1); // tempSelector == 6
                             }
                         }
                         system.setAlarm(this.alarmNumber, (boolean[])alarmValue[3], updateValue);
                     }
                     if(pressed.equals("C")) {
                         //change pointer position
+                        System.out.print("before : " + displayManager.getSelector());
                         displayManager.setSelector(Flag.moveAlarmSelector(displayManager.getSelector()));
+                        System.out.print("  after : " + displayManager.getSelector() + "\n");
                         //int 선택자 = displayManager에서 선택자를 가져오는거
                         //int 값 = displayManager에서 선택자에 해당하는 값을 가져옴
                         //displayManager.setValue(++displayManager.get선택자(), displayManager.get값())
@@ -290,6 +292,8 @@ public class UI {
                 }
             }else if(mode.getMainCategory() == 4){
                 //GlobalTime
+                displayManager.displayGlobalTime(modeManager.displayGlobalTime(system));
+
                 if(mode.getSubCategory() == 0){
                     //display globalTime  (global Time은 set이 없음)
                     if(pressed.equals("A")) { // change pointer position
@@ -321,6 +325,9 @@ public class UI {
                 }
             }else if(mode.getMainCategory() == 5){
                 //SleepingTime
+                if(displayManager.getSelector() != 22 || displayManager.getSelector() != 27 ||
+                        displayManager.getSelector() == 24 || displayManager.getSelector() != 28)
+                    displayManager.setSelector(22);
                 if(mode.getSubCategory() == 0){
                     //display sleeping time
                     // displayManager.displayTime(modeManager.displayTime(system));
@@ -330,6 +337,7 @@ public class UI {
                     if(pressed.equals("A")){
                         displayManager.notDisplayIcon();
                         mode.enterSub();
+                        displayManager.cleanDisplay();
                     }
 
                     // B버튼이 눌렸을 때는 아무것도 실행되지 않음
@@ -366,6 +374,7 @@ public class UI {
 
                     // Change function position
                     if(pressed.equals("C")){
+                        // System.out.println(displayManager.getSelector());
                         displayManager.setSelector(Flag.moveWakeUpSleepTimeSelector(displayManager.getSelector()));
                     }
                 }

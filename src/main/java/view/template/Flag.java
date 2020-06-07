@@ -48,14 +48,10 @@ public class Flag {
         //24: global time의 남의도시 시간 (시간제 포함) / 추천 수면시간2(시) / 목표 기상시(시)
         //25: Cheering message 전체
         //26: function list에서 customize own clock
-        //27: timekeeping (초기값 제일 좌측)
-        //28: timer
-        //29: stopwatch
-        //30: alarm
-        //31: global_time
-        //32: sleeping_time (초기값 제일 우측)
-        //33: global time의 내도시 / 추천 수면시간(분) / 목표 기상시각(분)
-        //34: global time의 남의도시 / 추천 수면시각2(분) / 최대 수면시간(분)
+        //27: global time의 내도시 / 추천 수면시간(분) / 목표 기상시각(분)
+        //28: global time의 남의도시 / 추천 수면시각2(분) / 최대 수면시간(분)
+        //29: global time의 내도시 / 추천 수면시간(분) / 목표 기상시각(분) 시간제
+        //30: global time의 내도시 / 추천 수면시간(분) / 목표 기상시각(분) 시간제
 
     //year, month에 따른 달 증감값 신경써야 함
     public static long getTimeValue(int selector, Object[] curTime, int pmValue){
@@ -101,7 +97,7 @@ public class Flag {
 
     public static long getWakeUpSleepTimeValue(int selector){
         if(selector == 22 || selector == 24) return HOUR_MILLI;
-        else if(selector == 33 || selector == 34) return MINUTE_MILLI;
+        else if(selector == 27 || selector == 28) return MINUTE_MILLI;
         return 0;
     }
 
@@ -136,6 +132,8 @@ public class Flag {
 
         return 0;
     }
+
+
   
     public static int moveFunctionSelector(int selector){
         if(selector == 27) return 28;
@@ -158,12 +156,23 @@ public class Flag {
 
         return 0;
     }
+
+    //21: global time의 내도시 / 추천 수면시간 / 목표 기상시각
+    //22: global time의 내도시 시간 (시간제 포함) / 추천 수면시간1(시) / 목표 기상시각(시)
+    //23: global time의 남의도시 / 추천 수면시각2 / 최대 수면시간
+    //24: global time의 남의도시 시간 (시간제 포함) / 추천 수면시간2(시) / 목표 기상시(시)
+    //25: Cheering message 전체
+    //26: function list에서 customize own clock
+    //27: global time의 내도시 / 추천 수면시간(분) / 목표 기상시각(분)
+    //28: global time의 남의도시 / 추천 수면시각2(분) / 최대 수면시간(분)
+    //29: global time의 내도시 / 추천 수면시간(분) / 목표 기상시각(분) 시간제
+    //30: global time의 내도시 / 추천 수면시간(분) / 목표 기상시각(분) 시간제
   
     public static int moveWakeUpSleepTimeSelector(int selector){
-        if(selector == 22) return 33;
-        else if(selector == 33) return 24;
-        else if(selector == 24) return 34;
-        else if (selector == 34) return 22;
+        if(selector == 22) return 27;
+        else if(selector == 27) return 24;
+        else if(selector == 24) return 28;
+        else if (selector == 28) return 22;
 
         return 0;
     }
