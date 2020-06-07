@@ -157,8 +157,12 @@ public class UI {
 
                     if(pressed.equals("A")) {
                         //set timer
-                        displayManager.notDisplayIcon();
-                        mode.enterSub();
+                        int timerState = (int)system.getTimer()[1];
+                        if(!(timerState == 0 || timerState == 2)){
+                            displayManager.notDisplayIcon();
+                            mode.enterSub();
+                        }
+
                     }
                     if(pressed.equals("B")) {
                         //pause&restart
