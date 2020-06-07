@@ -78,7 +78,7 @@ public class StopWatch {
     public void changeStopWatchState(long systemTime){
         if(this.state == 1){
             this.state = 0;
-            this.stackedTime = systemTime - this.startTime;
+            this.stackedTime = systemTime - this.startTime + this.stackedTime;
         }else /*if state == 0*/{
             this.state = 1;
             this.startTime = systemTime;
