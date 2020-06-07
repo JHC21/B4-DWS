@@ -568,7 +568,7 @@ public class DisplayManager extends JFrame{
         displays[7].display(timeFormat[2]); // S초
         displays[11].display(timeFormat[3]); // Sms
         displays[8].display(timeFormat[8]); //pause&start
-        System.out.println(timeFormat[8]);
+        //System.out.println(timeFormat[8]);
         displays[9].display("1"); // actiavte
         //string 앞의 0까지 앞에서 해 줬다고 가정합니다
         String temp = String.format("%s:%s:%s:%s", timeFormat[4], timeFormat[5], timeFormat[6], timeFormat[7]);
