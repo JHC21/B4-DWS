@@ -38,7 +38,7 @@ public class GlobalTime {
 
     public GlobalTime() {
         this.anotherTimeZone = 0;
-        this.myTimeZone = 0;
+        this.myTimeZone = 9;
     }
     public Object[] getCityData(long clock){
         //입력으로 들어오는 것은 System.Clock과, System.getTime() 이다.
