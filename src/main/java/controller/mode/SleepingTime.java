@@ -40,9 +40,9 @@ public class SleepingTime {
         //불가능한 경우 일단 0을 넣는다.
         sleepingTimeMap[0] = 0; // 가능한 sleeping time이 2개 미만일 때 사용됨
         for(int i = 1; i < 9; i++) { // 1부터 8까지 유효한 sleeping time이 저장된다.
-            if(i < validSleepingTimeAmount) {
+            if(i <= validSleepingTimeAmount) {
                 //한 시간 반 씩 빼서 sleepingTimeMap에 저장한다.
-                sleepingTimeMap[i] = wakeUpTimeLong - ((HOUR_LONG + 30 * MINUTE_LONG) * (i + 1));
+                sleepingTimeMap[i] = wakeUpTimeLong - ((HOUR_LONG + 30 * MINUTE_LONG) * i);
             }
             else {
                 sleepingTimeMap[i] = 0;
