@@ -37,7 +37,7 @@ public class TimeKeeping {
         }
         value[0] = this.time + clock;
         value[1] = timeformat;
-        System.out.println();
+        //System.out.println();
         return value;
     }
 

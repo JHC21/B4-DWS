@@ -71,7 +71,7 @@ public class ClockSystem {
     //UI가 시스템에 요청하는 메소드. (Time Keeping에서 현재 시간의 값을 받아옴)
     //timeKeeping
     public Object[] getTime() {
-        System.out.println(this.timeKeeping.getTime());
+        //System.out.println(this.timeKeeping.getTime());
         return this.timeKeeping.calculateTime(this.clock());
         //현재 시간을 받아온다 (Time Keeping의 time과 System의 clock을 더해서 return
         //TimeKeeping.time + System.clock의 값과, TimeKeeping.timeformat을 return 해줘야 한다.

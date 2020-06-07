@@ -143,6 +143,7 @@ public class UI {
             if(pressed.equals("C") && mode.getSubCategory() == 0 && mode.getMainCategory() != 6){
                 System.out.println("Pressed C in Display XXX");
                 displayManager.cleanDisplay();
+                displayManager.notDisplaySelector();
                 mode.moveFunctionSelector();
                 mode.setMainCategory(system.getFunctionList()[mode.getFunctionSelector()]);
 
