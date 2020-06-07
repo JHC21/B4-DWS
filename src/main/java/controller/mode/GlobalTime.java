@@ -47,10 +47,11 @@ public class GlobalTime {
 
         // myTime과 anotherTime을 시/분으로 변환
         LocalTime myLocalTime = controller.Utility.milliToLocalTime(clock);
-        int myLocalHour = myLocalTime.getHour(); // myTimeZone의 시각
+
+        int myLocalHour = myLocalTime.getHour(); // myTimeZone의 시. 일단 24시간제로 받아오고 시간제는 보여주는 쪽에서 처리함
         int myLocalMinute = myLocalTime.getMinute(); // myTimeZone의 분
         LocalTime anotherLocalTime = controller.Utility.milliToLocalTime(clock + anotherTimeZone * 3600000);
-        int anotherLocalHour = anotherLocalTime.getHour(); // anotherTimeZone의 시각
+        int anotherLocalHour = anotherLocalTime.getHour(); // anotherTimeZone의 시. 일단 24시간제로 받아오고 시간제는 보여주는 쪽에서 처리함
         int anotherLocalMinute = anotherLocalTime.getMinute(); // anotherTimeZone의 분
 
         // myTimeZone의 시간과 도시 이름들, anotherTimeZone의 이름과 도시 이름들을 리턴

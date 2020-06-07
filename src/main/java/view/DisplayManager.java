@@ -117,6 +117,7 @@ public class DisplayManager extends JFrame{
     }
     private void chstomizeOwnClock(String value){                    //26: function list에서 customize own clock
         String innerText = "<html><div style='text-align:center;'>Customize<br>Your Own Clock</div></html>";
+        segments[26].setText(innerText);
     }
     private void icon1(String value){                                //27: 아이콘1 (제일 좌측)
         segments[27].setText(value);
@@ -233,6 +234,7 @@ public class DisplayManager extends JFrame{
             labelIcons[i] = new JLabel(icons[i],SwingUtilities.CENTER);
             labelIcons[i].setLayout(null);
             labelIcons[i].setBounds(15+(i*28), 250, 100, 100);
+            //0 :15, 1: 43, 2: 71, 3:
             labelIcons[i].setSize(30,30);
             labelIcons[i].setVisible(true);
         }
@@ -285,6 +287,43 @@ public class DisplayManager extends JFrame{
             {90, 155, 200, 40, 20, 200, 40},    //24
             {20, 0, 200, 300, 20, 200, 300},    //25
             {20, 0, 250, 300, 30, 400, 200}     //26
+    };
+
+
+    private int[][] selectorPosition = new int[][]{
+            {60, 20, 50, 50, 25, 50, 50},       //0
+            {100, 20, 50, 50, 25, 50, 50},      //1
+            {140, 20, 50, 50, 25, 50, 50},      //2
+            {180, 20, 50, 50, 25, 50, 50},      //3
+            {20, 130, 50, 50, 25, 50, 50},      //4
+            {70, 80, 100, 150, 50, 100, 150},   //5
+            {140, 80, 150, 150, 50, 150, 150},  //6
+            {205, 140, 40, 40, 30, 40, 40},     //7
+            {205, 30, 40, 40, 30, 40, 40},      //8
+            {205, 240, 50, 50, 25, 50, 50},     //9
+            {93, 95, 180, 30, 22, 180, 30},     //10
+            {205, 170, 50, 50, 20, 50, 50},     //11
+            {30, 25, 50, 50, 23, 50, 50},       //12
+            {60, 25, 50, 50, 23, 50, 50},       //13
+            {90, 25, 50, 50, 23, 50, 50},       //14
+            {120, 25, 50, 50, 23, 50, 50},      //15
+            {150, 25, 50, 50, 23, 50, 50},      //16
+            {180, 25, 50, 50, 23, 50, 50},      //17
+            {210, 25, 50, 50, 23, 50, 50},      //18
+            {215, 70, 50, 50, 23, 50, 50},      //19
+            {20, 0, 200, 300, 20, 200, 300},    //20
+            {20, 40, 100, 150, 15, 100, 100},   //21
+            {90, 85, 200, 40, 20, 200, 40},     //22
+            {20, 110, 100, 150, 15, 100, 100},  //23
+            {90, 155, 200, 40, 20, 200, 40},    //24
+            {20, 0, 200, 300, 20, 200, 300},    //25
+            {20, 0, 250, 300, 30, 400, 200},     //26
+            {1, 2, 3, 4, 5, 6, 7},              //Icon1 (Leftmost)      27
+            {1, 2, 3, 4, 5, 6, 7},              //Icon2                 28
+            {1, 2, 3, 4, 5, 6, 7},              //Icon3                 29
+            {1, 2, 3, 4, 5, 6, 7},              //Icon4                 30
+            {1, 2, 3, 4, 5, 6, 7},              //Icon5                 31
+            {1, 2, 3, 4, 5, 6, 7},              //Icon6 (RightMost)     32
     };
 
     private void setOuterPanel(){
@@ -396,6 +435,15 @@ public class DisplayManager extends JFrame{
         displays[6].display(timeFormat[4]);
         displays[7].display(timeFormat[5]);
     }
+
+    public String[] getDisplayedTime(){
+        String[] value = new String[8];
+        for(int i = 0; i < 8; i ++){
+            value[i] = segments[i].getText();
+        }
+        return value;
+    }
+
     public void displayTimer(String[] timeFormat) {
         /*
         0 : 시
@@ -409,6 +457,18 @@ public class DisplayManager extends JFrame{
         displays[7].display(timeFormat[2]); // 초
         displays[8].display(timeFormat[3]); // counting
         displays[9].display(timeFormat[4]); // activate
+    }
+    public void setTimer(String[] timeFormat) {
+        /*
+        0 : 시
+        1 : 분
+        2 : 초
+        3 : counting
+        4 : activate
+         */
+        displays[5].display(timeFormat[0]); // 시
+        displays[6].display(timeFormat[1]); // 분
+        displays[7].display(timeFormat[2]); // 초
     }
     public void displayStopWatch(String[] timeFormat) {
         //S : stopwatch, L : Lap
@@ -435,24 +495,27 @@ public class DisplayManager extends JFrame{
         String temp = String.format("%s:%s:%s:%s", timeFormat[4], timeFormat[5], timeFormat[6], timeFormat[7]);
         displays[10].display(temp); // Lap
     }
-    public void displayAlarm(String[] timeFormat) {
+    public void displayAlarm(Object[] timeFormat) {
         /*
         0 : 시
         1 : 분
         2 : AM/PM
-        3 : 일
-        4 : 월
-        5 : 화
-        6 : 수
-        7 : 목
-        8 : 금
-        9 : 토
-        10 : activate
-        11 : alarm number
+        3 : 요일 boolean 배열
+        4 : activate
+        5 : alarm number
          */
-        displays[5].display(timeFormat[0]); // 시
-        displays[6].display(timeFormat[1]); // 분
-        displays[4].display(timeFormat[2]); // AM/PM
+        displays[5].display((String)timeFormat[0]); // 시
+        displays[6].display((String)timeFormat[1]); // 분
+        displays[4].display((String)timeFormat[2]); // AM/PM
+
+        if(((boolean[])timeFormat[3])[0]) displays[12].display("일"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[1]) displays[13].display("월"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[2]) displays[14].display("화"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[3]) displays[15].display("수"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[4]) displays[16].display("목"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[5]) displays[17].display("금"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[6]) displays[18].display("토"); else displays[12].display("false");
+        /*
         displays[12].display(timeFormat[3]); // 일
         displays[13].display(timeFormat[4]); // 월
         displays[14].display(timeFormat[5]); // 화
@@ -460,8 +523,91 @@ public class DisplayManager extends JFrame{
         displays[16].display(timeFormat[7]); // 목
         displays[17].display(timeFormat[8]); // 금
         displays[18].display(timeFormat[9]); // 토
-        displays[9].display(timeFormat[10]); // activate
-        displays[19].display(timeFormat[11]); // alarm number
+         */
+        displays[9].display((String)timeFormat[4]); // activate
+        displays[19].display((String)timeFormat[5]); // alarm number
+    }
+    public void setAlarm(Object[] timeFormat) {
+        /*
+        0 : 시
+        1 : 분
+        2 : AM/PM
+        3 : 요일 boolean 배열
+        4 : activate
+        5 : alarm number
+         */
+        displays[5].display((String)timeFormat[0]); // 시
+        displays[6].display((String)timeFormat[1]); // 분
+        displays[4].display((String)timeFormat[2]); // AM/PM
+
+        if(((boolean[])timeFormat[3])[0]) displays[12].display("일"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[1]) displays[13].display("월"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[2]) displays[14].display("화"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[3]) displays[15].display("수"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[4]) displays[16].display("목"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[5]) displays[17].display("금"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[6]) displays[18].display("토"); else displays[12].display("false");
+        /*
+        displays[12].display(timeFormat[3]); // 일
+        displays[13].display(timeFormat[4]); // 월
+        displays[14].display(timeFormat[5]); // 화
+        displays[15].display(timeFormat[6]); // 수
+        displays[16].display(timeFormat[7]); // 목
+        displays[17].display(timeFormat[8]); // 금
+        displays[18].display(timeFormat[9]); // 토
+         */
+    }
+    public void displayGlobalTime(String[] timeFormat) {
+        /*
+        0: myTimeZone의 시간제
+        1: myTimeZone의 hour
+        2: myTimeZone의 minute
+        3: myTimeZone의 도시 1
+        4: myTimeZone의 도시 2
+        5: myTimeZone의 도시 3
+        6: anotherTimeZone의 시간제
+        7: anotherTimeZone의 hour
+        8: anotherTimeZone의 minute
+        9: anotherTimeZone의 도시 1
+        10: anotherTimeZone의 도시 2
+        11: anotherTimeZone의 도시 3
+        */
+
+        StringBuilder myCities = new StringBuilder(); // 내 도시의 도시들을 묶어서 전달
+        myCities.append(timeFormat[3] + "\r\n" + timeFormat[4] + "\r\n" + timeFormat[5] + "\r\n");
+        displays[21].display(myCities.toString());
+
+        StringBuilder myTime = new StringBuilder(); // 내 도시의 시간제, 시, 분을 묶어서 전달
+        myTime.append(timeFormat[0] + "\r\n" + timeFormat[1] + "\r\n" + timeFormat[2] + "\r\n");
+        displays[22].display(myTime.toString());
+
+        StringBuilder anotherCities = new StringBuilder(); // 다른 도시의 도시들을 묶어서 전달
+        anotherCities.append(timeFormat[9] + "\r\n" + timeFormat[10] + "\r\n" + timeFormat[11] + "\r\n");
+        displays[23].display(anotherCities.toString());
+
+        StringBuilder anotherTime = new StringBuilder(); // 다른 도시의 시간제, 시, 분을 묶어서 전달
+        anotherTime.append(timeFormat[6] + "\r\n" + timeFormat[7] + "\r\n" + timeFormat[8] + "\r\n");
+        displays[24].display(anotherTime.toString());
+    }
+
+    public void displaySleepingTime(String[] timeformat){
+
+        //21: 추천 수면시간 / 목표 기상시각
+        //22: 추천 수면시간1(시) / 목표 기상시각(시)
+        //23: 추천 수면시각2 / 최대 수면시간
+        //24: 추천 수면시간2(시) / 목표 기상시(시)
+        //33: 추천 수면시간(분) / 목표 기상시각(분)
+        //34: 추천 수면시각2(분) / 최대 수면시간(분)
+
+        // 21 -> 22 -> 33
+        // 23 -> 24 -> 34
+
+        displays[21].display(timeformat[0]); // 추천 수면시각1
+        displays[22].display(timeformat[1]); // 추천 수면시간1 (시)
+        displays[33].display(timeformat[2]); // 추천 수면시각1 (분)
+        displays[23].display(timeformat[3]); // 추천 수면시각2
+        displays[24].display(timeformat[4]); // 추천 수면시간2 (시)
+        displays[34].display(timeformat[5]); // 추천 수면시각2 (분)
     }
 
     public String getValueFromCurrentSelector(){
@@ -487,6 +633,86 @@ public class DisplayManager extends JFrame{
     public void displayIcon(){
         for(int i = 0; i < 6; i++){
             labelIcons[i].setVisible(true);
+        }
+    }
+
+    public void displayFunctionListEdit(){
+        displays[26].display("의미없음");   //customize your own clock 보여줌
+    }
+
+    public void changeIconPosition(boolean left){
+        int trueSelector = this.selector - 27;
+        Icon curIcon, targetIcon;
+
+        if(left){
+            //icon n n-1의 위치를 바꾸고
+            //n = 0이면, 0과 5
+            if(trueSelector == 0){
+                curIcon = labelIcons[0].getIcon();
+                targetIcon = labelIcons[5].getIcon();
+                labelIcons[0].setIcon(targetIcon);
+                labelIcons[5].setIcon(curIcon);
+            }else{
+                curIcon = labelIcons[trueSelector].getIcon();
+                targetIcon = labelIcons[trueSelector - 1].getIcon();
+                labelIcons[trueSelector].setIcon(targetIcon);
+                labelIcons[trueSelector - 1].setIcon(curIcon);
+            }
+        }else{
+            if(trueSelector == 5){
+                curIcon = labelIcons[0].getIcon();
+                targetIcon = labelIcons[5].getIcon();
+                labelIcons[0].setIcon(targetIcon);
+                labelIcons[5].setIcon(curIcon);
+            }else{
+                curIcon = labelIcons[trueSelector].getIcon();
+                targetIcon = labelIcons[trueSelector + 1].getIcon();
+                labelIcons[trueSelector].setIcon(targetIcon);
+                labelIcons[trueSelector + 1].setIcon(curIcon);
+            }
+        }
+
+
+    }
+
+    /**
+     *
+     * private ImageIcon[] getResizedIcon(){
+     *
+     *         icons = new ImageIcon[6];
+     *         for(int i = 0 ; i < 6 ; i++){
+     *             String iconFile = String.format("assets/%s.png", iconNames[i]);
+     *             ImageIcon originIcon = new ImageIcon(iconFile);
+     *             Image originImg = originIcon.getImage();
+     *             Image changedImg= originImg.getScaledInstance(30, 30, Image.SCALE_SMOOTH );
+     *             icons[i] = new ImageIcon(changedImg);
+     *         }
+     *         return icons;
+     *
+     *     }
+     *
+     *     private JLabel[] setIcons(ImageIcon[] icons){
+     *
+     *         labelIcons = new JLabel[6];
+     *
+     *         for(int i = 0 ; i < 6 ; i++){
+     *             labelIcons[i] = new JLabel(icons[i],SwingUtilities.CENTER);
+     *             labelIcons[i].setLayout(null);
+     *             labelIcons[i].setBounds(15+(i*28), 250, 100, 100);
+     *             //0 :15, 1: 43, 2: 71, 3:
+     *             labelIcons[i].setSize(30,30);
+     *             labelIcons[i].setVisible(true);
+     *         }
+     *         return labelIcons;
+     *     }
+     *
+     */
+
+
+
+    public void cleanDisplay(){
+        for(int i = 0; i < 27; i++){
+            segments[i].setText(null);
         }
     }
 }

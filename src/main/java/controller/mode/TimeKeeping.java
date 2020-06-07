@@ -1,5 +1,7 @@
 package controller.mode;
 
+import controller.Utility;
+
 import java.sql.Time;
 
 public class TimeKeeping {
@@ -23,6 +25,9 @@ public class TimeKeeping {
     public Object[] calculateTime(long clock) {
 
         Object[] value = new Object[2];
+        if(Utility.millitoYear(this.time + clock) >= 2100){
+            time = (30 * 31557600000L - 21 * 3600000L) - clock;
+        }
         value[0] = this.time + clock;
         value[1] = timeformat;
         return value;

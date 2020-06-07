@@ -21,7 +21,8 @@ public class ModeManager {
 
 
     // TODO: 버튼확인
-    public String[] displayTime(ClockSystem clockSystem){
+    public Object[] displayTime(ClockSystem clockSystem){
+        Object[] value = new Object[2];
         Object[] time = clockSystem.getTime();
         String[] timeFormat = Utility.millitoTimeFormat_test((long)time[0]);
         if((Boolean) time[1]){
@@ -32,12 +33,15 @@ public class ModeManager {
             }
             else{timeFormat[8] = "오전";}
         }else{
-            timeFormat[8] = null;
+            timeFormat[8] = "  ";
         }
         //이 값을 displayManager에 표시될 수 있게끔 값을 가공해서
         //String배열로 넘겨주고, 배열에는
         //표시될 위치를 표시해주면 됨
-        return timeFormat;
+        value[0] = timeFormat;
+        value[1] = time[0];
+
+        return value;
     }
 
     public String[] displayTimer(ClockSystem clockSystem){
@@ -119,48 +123,147 @@ public class ModeManager {
         timeFormat[7] = String.format("%3d",lapTime[6]); // Lms
         if(temp == 0) {
             timeFormat[8] = "OFF";
-            //timeFormat[9] = "OFF"; // functionList에 어떻게 표시될까?
+            //timeFormat[9] = "OFF";
         }
         else { // temp == 1
             timeFormat[8] = "ON";
-            //timeFormat[9] = "ON"; // functionList에 어떻게 표시될까?
+            //timeFormat[9] = "ON";
         }
 
         return timeFormat;
     }
 
-    public String[] displayAlarm(ClockSystem clockSystem, int alarmNo) {
+    public Object[] displayAlarm(ClockSystem clockSystem, int alarmNo) {
         /*
         0 : 시
         1 : 분
-        2 : AM/PM // 일단 UI의 역할로 넘겼습니다.
-        3 : 일
-        4 : 월
-        5 : 화
-        6 : 수
-        7 : 목
-        8 : 금
-        9 : 토
-        10 : activate
-        11 : alarm number
+        2 : AM/PM
+        3 : 요일 boolean 배열
+        4 : activate
+        5 : alarm number
          */
-        String[] timeFormat = new String[12];
+        Object[] timeFormat = new String[6];
 
+        // 0 : time(long), 1 : timeFormat
+        Object[] timeValue = clockSystem.getTime();
         // 0 : alarming day(boolean[7]), 1 : alarming time(LocalTime), 2 : state(0 : off, 1 : on)
         Object[] alarmValue = clockSystem.getAlarm(alarmNo);
 
         timeFormat[0] = String.format("%02d", ((LocalTime)alarmValue[1]).getHour());
         timeFormat[1] = String.format("%02d", ((LocalTime)alarmValue[1]).getMinute());
-        if(((boolean[])alarmValue[0])[0]) timeFormat[3] = "일"; else timeFormat[3] = "false";
-        if(((boolean[])alarmValue[0])[1]) timeFormat[4] = "월"; else timeFormat[3] = "false";
-        if(((boolean[])alarmValue[0])[2]) timeFormat[5] = "화"; else timeFormat[3] = "false";
-        if(((boolean[])alarmValue[0])[3]) timeFormat[6] = "수"; else timeFormat[3] = "false";
-        if(((boolean[])alarmValue[0])[4]) timeFormat[7] = "목"; else timeFormat[3] = "false";
-        if(((boolean[])alarmValue[0])[5]) timeFormat[8] = "금"; else timeFormat[3] = "false";
-        if(((boolean[])alarmValue[0])[6]) timeFormat[9] = "토"; else timeFormat[3] = "false";
-        if((int)alarmValue[2] == 0) timeFormat[10] = "OFF";
-        else timeFormat[10] = "ON";
-        timeFormat[11] = String.format("%d", alarmNo);
+        if((boolean)timeValue[1]){
+            int temp = Utility.milliToTimeFormat((long)timeValue[0])[3];
+            if(temp > 12){
+                timeFormat[0] = String.format("%02d", temp - 12);
+                timeFormat[2] = "오후";
+            }
+            else{timeFormat[2] = "오전";}
+        }else{
+            timeFormat[2] = null;
+        }
+        timeFormat[3] = alarmValue[0]; // boolean 배열
+        if((int)alarmValue[2] == 0) timeFormat[4] = "OFF";
+        else timeFormat[4] = "ON";
+        timeFormat[5] = String.format("%d", alarmNo);
         return timeFormat;
+    }
+
+    public String[] displayGlobalTime(ClockSystem clockSystem) {
+        /*
+        0: myTimeZone의 시간제
+        1: myTimeZone의 hour
+        2: myTimeZone의 minute
+        3: myTimeZone의 도시 1
+        4: myTimeZone의 도시 2
+        5: myTimeZone의 도시 3
+
+        5: anotherTimeZone의 hour
+        6:  anotherTimeZone의 minute
+        7: anotherTimeZone의 도시 1
+        8: anotherTimeZone의 도시 2
+        9: anotherTimeZone의 도시 3
+        */
+
+        // Object[] globalTime이 Object[]들의 배열이므로 바로 접근하지 말고 하나씩 가져왔음
+        Object[] globalTime = clockSystem.getGlobalTime(false);
+        Object[] myTimeData = (Object[]) globalTime[0];
+        Object[] anotherTimeData = (Object[]) globalTime[1];
+        String[] myCityNames = (String[])(myTimeData[2]);
+        String[] anotherCityNames = (String[])(anotherTimeData[2]);
+        String globalTimeFormat[] = new String[12]; // 리턴해줄 형식
+
+        Object[] time = clockSystem.getTime(); // 시간제를 알아오기 위해 받아옴
+        // myTime
+        if((Boolean) time[1]){ // 12시간제인 경우
+            int temp = Integer.parseInt((String)myTimeData[0]);
+            if(temp > 12){
+                globalTimeFormat[1] = String.format("%02d", temp - 12);
+                globalTimeFormat[0] = "오후";
+            }
+            else{ globalTimeFormat[0] = "오전"; }
+        } else {
+            globalTimeFormat[0] = null; // 24시간제
+        }
+        globalTimeFormat[2] = (String)myTimeData[1]; // 분
+        globalTimeFormat[3] = myCityNames[0]; // 내 도시 1
+        globalTimeFormat[4] = myCityNames[1]; // 내 도시 2
+        globalTimeFormat[5] = myCityNames[2]; // 내 도시 3
+        //anotherTime
+        if((Boolean) time[1]){ // 12시간제인 경우
+            int temp = Integer.parseInt((String)anotherTimeData[0]);
+            if(temp > 12){
+                globalTimeFormat[7] = String.format("%02d", temp - 12);
+                globalTimeFormat[6] = "오후";
+            }
+            else{ globalTimeFormat[7] = "오전"; }
+        } else {
+            globalTimeFormat[6] = null; // 24시간제
+        }
+        globalTimeFormat[8] = (String)anotherTimeData[1]; // 분
+        globalTimeFormat[9] = anotherCityNames[0]; // 다른 도시 1
+        globalTimeFormat[10] = anotherCityNames[1]; // 다른 도시 2
+        globalTimeFormat[11] = anotherCityNames[2]; // 다른 도시 3
+
+        return globalTimeFormat;
+    }
+
+
+    public String[] displaySleepingTime(ClockSystem clockSystem){
+        long currentTime = (long)clockSystem.getTime()[0];
+        //LocalTime으로 받아옴(0: 추천 수면시간 1, 1: 추천 수면시간 2)
+        Object[] sleepingTime = clockSystem.getSleepingTime(currentTime);
+
+        String[] timeFormat = new String[6];
+
+        LocalTime first = (LocalTime)sleepingTime[0];
+        LocalTime second = (LocalTime)sleepingTime[1];
+        timeFormat[0] = "추천 수면시각1";
+        timeFormat[3] = "추천 수면시각2";
+        timeFormat[1] = Integer.toString(first.getHour());
+        timeFormat[2] = Integer.toString(first.getMinute());
+        timeFormat[4] = Integer.toString(second.getHour());
+        timeFormat[5] = Integer.toString(second.getMinute());
+
+        return timeFormat;
+    }
+
+    public String[] displaySleepingTimeValue(ClockSystem clockSystem){
+        String[] timeFormat = new String[6];
+
+        timeFormat[0] = "목표 기상시각";
+        timeFormat[3] = "최대 수면시간";
+
+        LocalTime[] sleepingTimeValue = clockSystem.getSleepingTimeValue();
+
+        LocalTime wakeUp = sleepingTimeValue[0];
+        LocalTime sleep =  sleepingTimeValue[1];
+
+        timeFormat[1] = Integer.toString(wakeUp.getHour());
+        timeFormat[2] = Integer.toString(wakeUp.getMinute());
+        timeFormat[4] = Integer.toString(sleep.getHour());
+        timeFormat[5] = Integer.toString(sleep.getMinute());
+
+        return timeFormat;
+
     }
 }
