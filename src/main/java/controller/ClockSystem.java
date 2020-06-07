@@ -144,9 +144,9 @@ public class ClockSystem {
     //alarm
     public Object[] getAlarm(int alarmNum){
         Object[] value = new Object[3];
-        value[0] = this.alarms[alarmNum].getAlarmingDay();
-        value[1] = this.alarms[alarmNum].getAlarmingTime();
-        value[2] = this.alarms[alarmNum].getState();
+        value[0] = this.alarms[alarmNum].getAlarmingDay(); // boolean[7]
+        value[1] = this.alarms[alarmNum].getAlarmingTime(); // LocalTime
+        value[2] = this.alarms[alarmNum].getState(); // 0 : off, 1 : on
         //UI에 뿌려질 Alarm의 상태를 전달해주는 메소드
         //활성화정보, 요일, 시각 return 해야 함.
         return value;

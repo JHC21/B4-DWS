@@ -82,11 +82,30 @@ public class Flag {
     }
 
     public static int moveTimerSelector(int selector) {
-        if(selector == 0) return 1;
-        else if(selector == 1) return 2;
-        else if(selector == 2) return 0;
+        if(selector == 5) return 6;
+        else if(selector == 6) return 7;
+        else if(selector == 7) return 5;
         return 0;
     }
 
+    public static int moveAlarmSelector(int selector) {
+        if(selector == 5) return 6; // 시 일 경우
+        else if(selector == 6) return 12; // 분 일 경우
+        else if(selector == 12) return 13; // 일 일 경우
+        else if(selector == 13) return 14; // 월 일 경우
+        else if(selector == 14) return 15; // 화 일 경우
+        else if(selector == 15) return 16; // 수 일 경우
+        else if(selector == 16) return 17; // 목 일 경우
+        else if(selector == 17) return 18; // 금 일 경우
+        else if(selector == 18) return 5; // 토 일 경우
+
+        return 0;
+    }
+    public static boolean isAlarmDayOfWeek(int selector) {
+        //set alarm에서 B나 D버튼이 들어와서 시, 분의 경우 증감 혹은 요일의 경우 toggle을 해야 할 때,
+        //false인 경우 증감, true 인 경우 toggle을 하도록 한다.
+        if(selector == 5 || selector == 6) return false;
+        else return true;
+    }
 
 }

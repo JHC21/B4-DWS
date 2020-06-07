@@ -4,6 +4,7 @@ import controller.Utility;
 import controller.ClockSystem;
 import view.template.Flag;
 
+import java.time.LocalTime;
 import java.util.Arrays;
 
 public class ModeManager {
@@ -65,6 +66,7 @@ public class ModeManager {
         }
         return timeFormat;
     }
+
     public String[] setTimer(ClockSystem clockSystem) {
         long timerValue = clockSystem.getTimerSetted();
         String[] timeFormat = new String[3]; // 9는 임시 값
@@ -82,7 +84,8 @@ public class ModeManager {
 
         return timeFormat;
     }
-    public String[] displayStopWatch(ClockSystem colckSystem) {
+
+    public String[] displayStopWatch(ClockSystem clockSystem) {
         //S : stopwatch, L : Lap
         /*
         0 : S시
@@ -99,7 +102,7 @@ public class ModeManager {
         //activate에 대해 이야기 해 보아야 함(function list에 어떻게 표현해야 할 지)
         String[] timeFormat = new String[10]; // 리턴 값
 
-        Object[] stopwatchValue = colckSystem.getStopWatchTime(); // system으로부터 아래 값들을 가져옴
+        Object[] stopwatchValue = clockSystem.getStopWatchTime(); // system으로부터 아래 값들을 가져옴
         // 0 : stopwatchTime(long), 1 : lapTime(long), 2 : state(int)
 
         int[] stopwatchTime = Utility.milliToTimeFormat((long)stopwatchValue[0]); // long to timeFormat 변환
@@ -123,6 +126,41 @@ public class ModeManager {
             //timeFormat[9] = "ON"; // functionList에 어떻게 표시될까?
         }
 
+        return timeFormat;
+    }
+
+    public String[] displayAlarm(ClockSystem clockSystem, int alarmNo) {
+        /*
+        0 : 시
+        1 : 분
+        2 : AM/PM // 일단 UI의 역할로 넘겼습니다.
+        3 : 일
+        4 : 월
+        5 : 화
+        6 : 수
+        7 : 목
+        8 : 금
+        9 : 토
+        10 : activate
+        11 : alarm number
+         */
+        String[] timeFormat = new String[12];
+
+        // 0 : alarming day(boolean[7]), 1 : alarming time(LocalTime), 2 : state(0 : off, 1 : on)
+        Object[] alarmValue = clockSystem.getAlarm(alarmNo);
+
+        timeFormat[0] = String.format("%02d", ((LocalTime)alarmValue[1]).getHour());
+        timeFormat[1] = String.format("%02d", ((LocalTime)alarmValue[1]).getMinute());
+        if(((boolean[])alarmValue[0])[0]) timeFormat[3] = "일"; else timeFormat[3] = "false";
+        if(((boolean[])alarmValue[0])[1]) timeFormat[4] = "월"; else timeFormat[3] = "false";
+        if(((boolean[])alarmValue[0])[2]) timeFormat[5] = "화"; else timeFormat[3] = "false";
+        if(((boolean[])alarmValue[0])[3]) timeFormat[6] = "수"; else timeFormat[3] = "false";
+        if(((boolean[])alarmValue[0])[4]) timeFormat[7] = "목"; else timeFormat[3] = "false";
+        if(((boolean[])alarmValue[0])[5]) timeFormat[8] = "금"; else timeFormat[3] = "false";
+        if(((boolean[])alarmValue[0])[6]) timeFormat[9] = "토"; else timeFormat[3] = "false";
+        if((int)alarmValue[2] == 0) timeFormat[10] = "OFF";
+        else timeFormat[10] = "ON";
+        timeFormat[11] = String.format("%d", alarmNo);
         return timeFormat;
     }
 }

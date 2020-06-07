@@ -20,6 +20,7 @@ public class UI {
 
     // TODO: UI가 갖고 있는 현재 시간(long)
     Mode currentState;
+    int alarmNumber;
 
     public void checker(int[] value){
         //value에 따라 각각의 값들을 처리함
@@ -35,6 +36,7 @@ public class UI {
         int location = 0;
         int function_num = 0;
         int depth = 0;
+        this.alarmNumber = 0;
         while(true){
             // TODO: mode.mainCategory : 0~6까지 추가
             // 어떤 버튼이 눌렸는지를 여기서 받아와야함
@@ -47,10 +49,10 @@ public class UI {
             //    System.exit(0);
             //}
 
-
             //알람, 수면시간, 타이머가 울릴 시간인지 체크하고, 울릴 시간일 때 울리는 부분
             //여기서 alarm, sleeping, timer의 각각 on/off여부를 가져와야 함
             //즉 checker의 리턴 값을 만들고 매 루트마다 저장하여야 할 듯 합니다
+            //저장된 값들은 미래에 function list 표시를 위해 사용됩니다
             //checker(modeManager.checker(system));
 
 
@@ -71,10 +73,10 @@ public class UI {
                         displayManager.notDisplayIcon();
                         mode.enterSub();
                     }
-                    if (pressed.equals("B")) system.changeTimeFormat();
+                    if(pressed.equals("B")) system.changeTimeFormat();
                     // C버튼이 눌리는 처리는 맨 위에
 
-                } else if (mode.getSubCategory() == 1) {
+                } else if(mode.getSubCategory() == 1) {
                     displayManager.displaySelector();
                     displayManager.displayTime(modeManager.displayTime(system));
 
@@ -82,19 +84,19 @@ public class UI {
                     // system.getTime(), 시간제,  value[2~4]
                     // 을 던져주면, displayManager가 알아서 표시해주는거
 
-                    if (pressed.equals("A")) {
+                    if(pressed.equals("A")) {
                         mode.exitSub();
                         displayManager.displayIcon();
                         displayManager.setSelector(0);
                         displayManager.notDisplaySelector();
                     }
-                    if (pressed.equals("B")) {
+                    if(pressed.equals("B")) {
                         system.setTime(Flag.getTimeValue(displayManager.getSelector()));
                     }
-                    if (pressed.equals("D")) {
+                    if(pressed.equals("D")) {
                         system.setTime(-1 * Flag.getTimeValue(displayManager.getSelector()));
                     }
-                    if (pressed.equals("C")) {
+                    if(pressed.equals("C")) {
                         displayManager.setSelector(Flag.moveTimeSelector(displayManager.getSelector()));
                         //int 선택자 = displayManager에서 선택자를 가져오는거
                         //int 값 = displayManager에서 선택자에 해당하는 값을 가져옴
@@ -118,7 +120,7 @@ public class UI {
                         displayManager.notDisplayIcon();//on&off 관련인가요?
                         mode.enterSub();
                     }
-                    if (pressed.equals("B")) {
+                    if(pressed.equals("B")) {
                         //pause&restart
                         //예외 처리 필요할 듯
                         system.toggleTimerCounting();
@@ -139,15 +141,15 @@ public class UI {
                         displayManager.setSelector(0);
                         displayManager.notDisplaySelector();
                     }
-                    if (pressed.equals("B")) {
+                    if(pressed.equals("B")) {
                         //increase value
                         system.setTimer(Flag.getTimerValue(displayManager.getSelector()));
                     }
-                    if (pressed.equals("D")) {
+                    if(pressed.equals("D")) {
                         //decrease value
                         system.setTimer(-1 * Flag.getTimerValue(displayManager.getSelector()));
                     }
-                    if (pressed.equals("C")) {
+                    if(pressed.equals("C")) {
                         //change pointer position
                         displayManager.setSelector(Flag.moveTimerSelector(displayManager.getSelector()));
                         //int 선택자 = displayManager에서 선택자를 가져오는거
@@ -166,11 +168,11 @@ public class UI {
                         //Lap time
                         system.lapStopWatch();
                     }
-                    if (pressed.equals("B")) {
+                    if(pressed.equals("B")) {
                         //pause&active
                         system.toggleStopWatchState();
                     }
-                    if (pressed.equals("D")) {
+                    if(pressed.equals("D")) {
                         //reset&none
                         if((int)system.getStopWatchTime()[2] == 0) {//예외 처리
                             system.resetStopWatch();
@@ -181,23 +183,53 @@ public class UI {
                 //Alarm
                 if(mode.getSubCategory() == 0){
                     //display Alarm
+                    //timekeeping에서 timeformat을 가져오는 과정이 필요함
+                    displayManager.displayAlarm(modeManager.displayAlarm(system, this.alarmNumber));
                     if(pressed.equals("A")) {
+                        //set alarm
+                        displayManager.notDisplayIcon();
+                        mode.enterSub();
                     }
-                    if (pressed.equals("B")) {
-                    }
-                    if (pressed.equals("C")) {
+                    if(pressed.equals("B")) {
+                        //move to next alarm
+                        this.alarmNumber++;
+                        if(this.alarmNumber == 4) this.alarmNumber = 0;
                     }
                     if(pressed.equals("D")) {
+                        //toggle active/inactive
+                        system.toggleAlarmActivation(this.alarmNumber);
                     }
                 }else if(mode.getSubCategory() == 1){
                     //set Alarm
+                    displayManager.displaySelector();
+                    //timekeeping에서 timeformat을 가져와 alarmValue에 저장하는 과정이 필요함
+                    String[] alarmValue = modeManager.displayAlarm(system, this.alarmNumber);
+                    displayManager.displayAlarm(alarmValue);
                     if(pressed.equals("A")) {
+                        //display alarm
+                        mode.exitSub();
+                        displayManager.displayIcon(); //on&off 관련인가요?
+                        displayManager.setSelector(0);
+                        displayManager.notDisplaySelector();
                     }
-                    if (pressed.equals("B")) {
-                    }
-                    if (pressed.equals("C")) {
+                    if(pressed.equals("B")) {
+                        //increase value & toggle
+                        if(Flag.isAlarmDayOfWeek(displayManager.getSelector())) { // toggle
+                            system.setAlarm(this.alarmNumber, );
+                        }
+                        else { // increase value
+
+                        }
                     }
                     if(pressed.equals("D")) {
+                        //decrease value & toggle
+                    }
+                    if(pressed.equals("C")) {
+                        //change pointer position
+                        displayManager.setSelector(Flag.moveAlarmSelector(displayManager.getSelector()));
+                        //int 선택자 = displayManager에서 선택자를 가져오는거
+                        //int 값 = displayManager에서 선택자에 해당하는 값을 가져옴
+                        //displayManager.setValue(++displayManager.get선택자(), displayManager.get값())
                     }
                 }
             }else if(mode.getMainCategory() == 4){
@@ -206,11 +238,11 @@ public class UI {
                     //display globalTime  (global Time은 set이 없음)
                     if(pressed.equals("A")) {
                     }
-                    if (pressed.equals("B")) {
-                    }
-                    if (pressed.equals("C")) {
+                    if(pressed.equals("B")) {
                     }
                     if(pressed.equals("D")) {
+                    }
+                    if(pressed.equals("C")) {
                     }
                 }
             }else if(mode.getMainCategory() == 5){

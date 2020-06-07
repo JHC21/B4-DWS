@@ -385,6 +385,7 @@ public class DisplayManager extends JFrame{
         selector_label.setText(null);
     }
 
+    //String[]을 받아 display 하는 메소드들
     public void displayTime(String[] timeFormat){
         displays[0].display(timeFormat[0]);
         displays[1].display(timeFormat[1]);
@@ -395,7 +396,6 @@ public class DisplayManager extends JFrame{
         displays[6].display(timeFormat[4]);
         displays[7].display(timeFormat[5]);
     }
-
     public void displayTimer(String[] timeFormat) {
         /*
         0 : 시
@@ -410,7 +410,6 @@ public class DisplayManager extends JFrame{
         displays[8].display(timeFormat[3]); // counting
         displays[9].display(timeFormat[4]); // activate
     }
-
     public void displayStopWatch(String[] timeFormat) {
         //S : stopwatch, L : Lap
         /*
@@ -435,6 +434,34 @@ public class DisplayManager extends JFrame{
         //string 앞의 0까지 앞에서 해 줬다고 가정합니다
         String temp = String.format("%s:%s:%s:%s", timeFormat[4], timeFormat[5], timeFormat[6], timeFormat[7]);
         displays[10].display(temp); // Lap
+    }
+    public void displayAlarm(String[] timeFormat) {
+        /*
+        0 : 시
+        1 : 분
+        2 : AM/PM
+        3 : 일
+        4 : 월
+        5 : 화
+        6 : 수
+        7 : 목
+        8 : 금
+        9 : 토
+        10 : activate
+        11 : alarm number
+         */
+        displays[5].display(timeFormat[0]); // 시
+        displays[6].display(timeFormat[1]); // 분
+        displays[4].display(timeFormat[2]); // AM/PM
+        displays[12].display(timeFormat[3]); // 일
+        displays[13].display(timeFormat[4]); // 월
+        displays[14].display(timeFormat[5]); // 화
+        displays[15].display(timeFormat[6]); // 수
+        displays[16].display(timeFormat[7]); // 목
+        displays[17].display(timeFormat[8]); // 금
+        displays[18].display(timeFormat[9]); // 토
+        displays[9].display(timeFormat[10]); // activate
+        displays[19].display(timeFormat[11]); // alarm number
     }
 
     public String getValueFromCurrentSelector(){
