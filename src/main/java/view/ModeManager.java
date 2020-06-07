@@ -118,7 +118,6 @@ public class ModeManager {
 
         int[] stopwatchTime = Utility.milliToTimeFormat((long)stopwatchValue[0]); // long to timeFormat 변환
         int[] lapTime = Utility.milliToTimeFormat((long)stopwatchValue[1]); // long to timeFormat 변환
-        int temp = (int)stopwatchValue[2]; // state => 0 : pause, 1 : start
 
         timeFormat[0] = String.format("%02d",stopwatchTime[3]); // S시
         timeFormat[1] = String.format("%02d",stopwatchTime[4]); // S분

@@ -2,10 +2,6 @@ package controller.mode;
 
 import controller.Utility;
 
-import java.sql.Time;
-import java.time.Instant;
-import java.time.ZoneId;
-
 public class TimeKeeping {
     private boolean timeformat;     //true가 12시간제, false가 24시간제
     private long time;

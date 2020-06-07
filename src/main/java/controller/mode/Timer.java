@@ -106,7 +106,7 @@ public class Timer {
 
     }
 
-    public void changeTimerActivation(long systemTime){
+    public void changeTimerActivation(){
         if(this.state == 0){
             this.state = 1;
         }else if(this.state == 1){

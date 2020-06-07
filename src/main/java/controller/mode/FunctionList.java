@@ -1,8 +1,5 @@
 package controller.mode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class FunctionList {
     private int[] functions; //(0, 1, 2, 3, 4, 5)
 
@@ -17,7 +14,7 @@ public class FunctionList {
         //functions를 변경하는 메소드
 
         int dest = curPosition + movePosition;
-        int temp = 0;
+        int temp;
 
         if(dest < 0) dest = 5;
         if(dest > 5) dest = 0;

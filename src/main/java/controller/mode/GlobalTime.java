@@ -1,5 +1,4 @@
 package controller.mode;
-import controller.Utility;
 import java.time.LocalTime;
 
 public class GlobalTime {
@@ -7,7 +6,7 @@ public class GlobalTime {
     private long time;
     private int myTimeZone;
     private int anotherTimeZone;
-    private String[][] cityName =  { // UTC -12 ~ 14
+    private final String[][] cityName =  { // UTC -12 ~ 14
             {"베이커섬", "하울랜드섬", ""}, // UTC -12
             {"니우에", "미도웨이 제도", ""}, // UTC -11
             {"호놀룰루", "쿡 제도", "타히티"}, // UTC -10
@@ -37,7 +36,7 @@ public class GlobalTime {
             {"크리스마스섬", "", ""} // UTC +14
     };
 
-    public void GlobalTime() {
+    public GlobalTime() {
         this.anotherTimeZone = 0;
         this.myTimeZone = 0;
     }

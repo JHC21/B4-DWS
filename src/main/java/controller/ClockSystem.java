@@ -2,10 +2,7 @@ package controller;
 
 import controller.mode.*;
 
-import java.lang.reflect.Array;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ClockSystem {
     private SleepingTime sleepingTime;
@@ -114,7 +111,7 @@ public class ClockSystem {
         //changeTimerCounting()을 호출한다.
     }
     public void toggleTimerActivation() {
-        this.timer.changeTimerActivation(this.clock());
+        this.timer.changeTimerActivation();
         //changeTimerActivation(long clock)을 호출한다.
     }
 
@@ -199,16 +196,15 @@ public class ClockSystem {
         Object[] temp = new Object[2];
         temp[0] = currentTime;
         temp[1] = null;
-        Object[] sleepingTime = this.sleepingTime.calculateSleepingTime(temp);
 
-        return sleepingTime;
+        return this.sleepingTime.calculateSleepingTime(temp);
     }
     //Set Sleeping Time에서 호출하는 메소드
     public LocalTime[] getSleepingTimeValue(){
         //set sleeping time에서 UI에 뿌려질 정보를 전달해주는 메소드
         //getSleepTime(), getWakeUpTime()을 통해 수면시간, 기상시각을 보내줘야함.
 
-        LocalTime localTime[] = new LocalTime[2];
+        LocalTime[] localTime = new LocalTime[2];
         localTime[0] = this.sleepingTime.getSleepTime();
         localTime[1] = this.sleepingTime.getWakeUpTime();
         return localTime; // 0 : sleep time, 1 : wakeup time
