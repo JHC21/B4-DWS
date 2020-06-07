@@ -62,4 +62,6 @@ public class Alarm {
         //else{ 울리지 않음 return false; }
         // 0: 현재 안울림 & inactivate, 1: 현재 안울림 & activate, 2: 현재 울림
     }
+
+
 }

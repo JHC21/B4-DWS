@@ -345,7 +345,14 @@ public class UI {
                         LocalTime updateValue = LocalTime.of(0, 0);
 
                         if(12 <= tempSelector && tempSelector <= 18) { // toggle
-                            ((boolean[])alarmValue[3])[tempSelector - 12] = !((boolean[])alarmValue[3])[tempSelector - 12];
+                            //System.out.println(Integer.parseInt((String)alarmValue[5]));
+                            //System.out.println(Arrays.toString((boolean[])alarmValue[3]));
+                            if(Utility.checkAtLeastOne((boolean[])alarmValue[3])) {
+                                ((boolean[])alarmValue[3])[tempSelector - 12] = !((boolean[])alarmValue[3])[tempSelector - 12];
+                            }
+                            //System.out.println(Arrays.toString((boolean[])alarmValue[3]));
+                            //System.out.println("    ");
+
                         }
                         else { // increase value
                             if(pressed.equals("B")) { // increase value
