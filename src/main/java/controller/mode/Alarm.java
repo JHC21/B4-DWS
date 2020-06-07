@@ -37,7 +37,8 @@ public class Alarm {
 
     public void updateAlarmValue(boolean[] alarmingDay, LocalTime alarmingTime){
         this.alarmingDay = alarmingDay;
-        this.alarmingTime = alarmingTime;
+        this.alarmingTime = this.alarmingTime.plusHours(alarmingTime.getHour());
+        this.alarmingTime = this.alarmingTime.plusMinutes(alarmingTime.getMinute());
         //set alarm에서 알람의 값을 변경해주는 메소드, 받아온 값을 저장해줌
         //this.alarmingDay = alarmingDay;   this.alarmingTime = alarmingTime;
     }

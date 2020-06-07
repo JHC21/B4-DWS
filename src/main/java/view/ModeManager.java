@@ -167,8 +167,6 @@ public class ModeManager {
         else timeFormat[4] = "ON";
         timeFormat[5] = String.format("%d", alarmNo);
 
-        System.out.println(Arrays.toString(timeFormat));
-
         return timeFormat;
     }
 

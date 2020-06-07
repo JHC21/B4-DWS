@@ -219,7 +219,8 @@ public class UI {
                     }
                 }
             }else if(mode.getMainCategory() == 3){
-                if(displayManager.getSelector() < 12 || displayManager.getSelector() > 18) displayManager.setSelector(5);
+                int temp = displayManager.getSelector();
+                if(!((temp > 4 && temp < 19) && (temp < 7 || temp > 12))) displayManager.setSelector(12);
 
                 //Alarm
                 if(mode.getSubCategory() == 0){
@@ -258,31 +259,37 @@ public class UI {
 
                         //string을 다시 LocalTime으로 바꿈...ㅠㅠ
                         if(((String)alarmValue[2]).equals("  "))  // 24시간제
-                            updateValue.plusHours(Integer.parseInt((String)alarmValue[0]));
+                            updateValue = updateValue.plusHours(Integer.parseInt((String)alarmValue[0]));
                         else { // 12시간제
-                            if(((String)alarmValue[2]).equals("오후")) updateValue.plusHours((int)alarmValue[0] + 12);
-                            else updateValue.plusHours(Integer.parseInt((String)alarmValue[0]));
+                            if(((String)alarmValue[2]).equals("오후")) updateValue = updateValue.plusHours(Integer.parseInt((String) alarmValue[0]) + 12);
+                            else updateValue = updateValue.plusHours(Integer.parseInt((String)alarmValue[0]));
                         }
-                        updateValue.plusMinutes(Integer.parseInt((String)alarmValue[0]));
+                        updateValue = updateValue.plusMinutes(Integer.parseInt((String)alarmValue[0]));
 
                         if(12 <= tempSelector && tempSelector <= 18) { // toggle
                             ((boolean[])alarmValue[3])[tempSelector - 12] = !((boolean[])alarmValue[3])[tempSelector - 12];
                         }
                         else { // increase value
                             if(pressed.equals("B")) { // increase value
-                                if (tempSelector == 5) updateValue.plusHours(1);
-                                else updateValue.plusMinutes(1); // tempSelector == 6
+                                if (tempSelector == 5) {
+                                    updateValue = updateValue.plusHours(1);
+                                    System.out.println(updateValue);
+                                    System.out.println("PLUS Hour!");
+                                }
+                                else updateValue = updateValue.plusMinutes(1); // tempSelector == 6
                             }
                             else { // pressed.equals("D") decrease value
-                                if (tempSelector == 5) updateValue.minusHours(1);
-                                else updateValue.minusMinutes(1); // tempSelector == 6
+                                if (tempSelector == 5) updateValue = updateValue.minusHours(1);
+                                else updateValue = updateValue.minusMinutes(1); // tempSelector == 6
                             }
                         }
                         system.setAlarm(this.alarmNumber, (boolean[])alarmValue[3], updateValue);
                     }
                     if(pressed.equals("C")) {
                         //change pointer position
+                        System.out.print("before : " + displayManager.getSelector());
                         displayManager.setSelector(Flag.moveAlarmSelector(displayManager.getSelector()));
+                        System.out.print("  after : " + displayManager.getSelector() + "\n");
                         //int 선택자 = displayManager에서 선택자를 가져오는거
                         //int 값 = displayManager에서 선택자에 해당하는 값을 가져옴
                         //displayManager.setValue(++displayManager.get선택자(), displayManager.get값())
