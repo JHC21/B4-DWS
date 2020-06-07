@@ -6,6 +6,10 @@ public class StopWatch {
     private int state; //Stop watch가 동작하지 않을때 (Stop)0, 동작할때 (start/restart) 1
     private long lap;
 
+    public long getStartTime(){
+        return this.startTime;
+    }
+
     public StopWatch(){
         stackedTime = 0L;
         state = 0;
