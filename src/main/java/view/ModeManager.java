@@ -16,6 +16,8 @@ public class ModeManager {
         value[1] = clockSystem.getNowSleeping(currentTime);
         value[2] = clockSystem.getNowTimer(currentTime);
 
+        if(value[2] == 2) System.out.println("Timer Activated!");
+
         return value;
     }
 

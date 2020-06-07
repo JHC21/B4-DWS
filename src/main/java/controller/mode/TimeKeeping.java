@@ -26,7 +26,7 @@ public class TimeKeeping {
 
         Object[] value = new Object[2];
         if(Utility.millitoYear(this.time + clock) >= 2100){
-            time = (30 * 31557600000L - 21 * 3600000L) - clock;
+            time = (30 * 31557600000L - 12 * 3600000L) - clock;
         }
         value[0] = this.time + clock;
         value[1] = timeformat;

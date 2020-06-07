@@ -89,7 +89,7 @@ public class ClockSystem {
     //timer
     public Object[] getTimer(){
         Object[] value = new Object[2];
-        value[0] = this.timer.calculateTimerValue(this.clock()); // long
+        value[0] = this.timer.calculateTimerValue((long)this.getTime()[0]); // long
         value[1] = this.timer.getState(); // off : 0, on & stop : 1 , on & run : 2
         return value;
         /*startTime : 1시
@@ -109,7 +109,7 @@ public class ClockSystem {
         return this.timer.getSettedTime();
     }
     public void toggleTimerCounting() {
-        this.timer.changeTimerCounting(this.clock());
+        this.timer.changeTimerCounting((long)this.getTime()[0]);
         //changeTimerCounting()을 호출한다.
     }
     public void toggleTimerActivation() {
