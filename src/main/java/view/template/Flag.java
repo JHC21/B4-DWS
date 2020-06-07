@@ -127,6 +127,30 @@ public class Flag {
 
         return 0;
     }
+
+    public static int moveFunctionSelector(int selector){
+        if(selector == 27) return 28;
+        else if(selector == 28) return 29;
+        else if(selector == 29) return 30;
+        else if(selector == 30) return 31;
+        else if(selector == 31) return 32;
+        else if(selector == 32) return 27;
+
+        return 0;
+    }
+
+    public static int moveFunctionSelectorReverse(int selector){
+        if(selector == 27) return 32;
+        else if(selector == 28) return 27;
+        else if(selector == 29) return 28;
+        else if(selector == 30) return 29;
+        else if(selector == 31) return 30;
+        else if(selector == 32) return 31;
+
+        return 0;
+    }
+
+
     public static boolean isAlarmDayOfWeek(int selector) {
         //set alarm에서 B나 D버튼이 들어와서 시, 분의 경우 증감 혹은 요일의 경우 toggle을 해야 할 때,
         //false인 경우 증감, true 인 경우 toggle을 하도록 한다.

@@ -539,17 +539,81 @@ public class DisplayManager extends JFrame{
     }
 
     public void displayFunctionListEdit(){
-        displays[26].display("");
+        displays[26].display("의미없음");   //customize your own clock 보여줌
     }
 
     public void changeIconPosition(boolean left){
-        if(left){
+        int trueSelector = this.selector - 27;
+        Icon curIcon, targetIcon;
 
+        if(left){
+            //icon n n-1의 위치를 바꾸고
+            //n = 0이면, 0과 5
+            if(trueSelector == 0){
+                curIcon = labelIcons[0].getIcon();
+                targetIcon = labelIcons[5].getIcon();
+                labelIcons[0].setIcon(targetIcon);
+                labelIcons[5].setIcon(curIcon);
+            }else{
+                curIcon = labelIcons[trueSelector].getIcon();
+                targetIcon = labelIcons[trueSelector - 1].getIcon();
+                labelIcons[trueSelector].setIcon(targetIcon);
+                labelIcons[trueSelector - 1].setIcon(curIcon);
+            }
+        }else{
+            if(trueSelector == 5){
+                curIcon = labelIcons[0].getIcon();
+                targetIcon = labelIcons[5].getIcon();
+                labelIcons[0].setIcon(targetIcon);
+                labelIcons[5].setIcon(curIcon);
+            }else{
+                curIcon = labelIcons[trueSelector].getIcon();
+                targetIcon = labelIcons[trueSelector + 1].getIcon();
+                labelIcons[trueSelector].setIcon(targetIcon);
+                labelIcons[trueSelector + 1].setIcon(curIcon);
+            }
         }
+
+
     }
 
+    /**
+     *
+     * private ImageIcon[] getResizedIcon(){
+     *
+     *         icons = new ImageIcon[6];
+     *         for(int i = 0 ; i < 6 ; i++){
+     *             String iconFile = String.format("assets/%s.png", iconNames[i]);
+     *             ImageIcon originIcon = new ImageIcon(iconFile);
+     *             Image originImg = originIcon.getImage();
+     *             Image changedImg= originImg.getScaledInstance(30, 30, Image.SCALE_SMOOTH );
+     *             icons[i] = new ImageIcon(changedImg);
+     *         }
+     *         return icons;
+     *
+     *     }
+     *
+     *     private JLabel[] setIcons(ImageIcon[] icons){
+     *
+     *         labelIcons = new JLabel[6];
+     *
+     *         for(int i = 0 ; i < 6 ; i++){
+     *             labelIcons[i] = new JLabel(icons[i],SwingUtilities.CENTER);
+     *             labelIcons[i].setLayout(null);
+     *             labelIcons[i].setBounds(15+(i*28), 250, 100, 100);
+     *             //0 :15, 1: 43, 2: 71, 3:
+     *             labelIcons[i].setSize(30,30);
+     *             labelIcons[i].setVisible(true);
+     *         }
+     *         return labelIcons;
+     *     }
+     *
+     */
+
+
+
     public void cleanDisplay(){
-        for(int i = 0; i < 32; i++){
+        for(int i = 0; i < 27; i++){
             segments[i].setText(null);
         }
     }

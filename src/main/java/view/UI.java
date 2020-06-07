@@ -58,13 +58,15 @@ public class UI {
 
             //현재 카테고리가 display종류이고 C버튼이 눌렸을 때
             //function List에 질의해 다음 function을 가져옴 -> 이거만 따로 써줘야 할 필요가 있음
+            /*
             if(pressed.equals("C") && mode.getSubCategory() == 0){
                 mode.moveFunctionSelector();
                 mode.setMainCategory(system.getFunctionList()[mode.getFunctionSelector()]);
             }
-
+            */
 
             if (mode.getMainCategory() == 0) {
+                if(displayManager.getSelector() > 8) displayManager.setSelector(0);
                 // Timekeeping
                 if (mode.getSubCategory() == 0) {
                     displayManager.displayTime((String[])modeManager.displayTime(system)[0]);
@@ -253,22 +255,38 @@ public class UI {
                 }else if(mode.getSubCategory() == 1){
                     //set sleeping time
                 }
+
+
             }else if(mode.getMainCategory() == 6){
+                if(displayManager.getSelector() < 27) displayManager.setSelector(27);
                 //Function Change
                 if(mode.getSubCategory() == 0) {
                     //customize your own clock을 먼저 보여줘야한다.
                     displayManager.displayFunctionListEdit();
                     displayManager.displayIcon();
-                    displayManager.setSelector(27);
 
+                    //move selected item to left
                     if(pressed.equals("A")){
-                        //move selected item to left
-                    }if(pressed.equals("B")){
-                        //move selected item to right
-                    }if(pressed.equals("C")){
+                        displayManager.changeIconPosition(true);
+                        system.moveItem(displayManager.getSelector()-27, -1);
+                        displayManager.setSelector(Flag.moveFunctionSelectorReverse(displayManager.getSelector()));
+                        System.out.println(displayManager.getSelector());
+                    }
 
-                    }if(pressed.equals("D")){
+                    //move selected item to rightmost
+                    if(pressed.equals("B")){
+                        displayManager.changeIconPosition(false);
+                        system.moveItem(displayManager.getSelector()-27 , 1);
+                        displayManager.setSelector(Flag.moveFunctionSelector(displayManager.getSelector()));
+                        System.out.println(displayManager.getSelector());
+                    }
+                    if(pressed.equals("C")){
+                        displayManager.cleanDisplay();
+                        mode.setMainCategory(system.getFunctionList()[0]);
+                    }
 
+                    if(pressed.equals("D")){
+                        displayManager.setSelector(Flag.moveFunctionSelector(displayManager.getSelector()));
                     }
 
                     //display function list
