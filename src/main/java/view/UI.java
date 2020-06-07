@@ -282,21 +282,82 @@ public class UI {
                 //GlobalTime
                 if(mode.getSubCategory() == 0){
                     //display globalTime  (global Time은 set이 없음)
-                    if(pressed.equals("A")) {
+                    if(pressed.equals("A")) { // change pointer position
+                        displayManager.displaySelector(); // 먼저 선택자를 보여주고
+                        displayManager.setSelector(Flag.moveGlobalTimeSelector(displayManager.getSelector()));
                     }
-                    if(pressed.equals("B")) {
+                    if(pressed.equals("B")) { // increase value
+                        // 선택자가 현재 가리키고 있는 곳의 값을 1 증가
+                        int currentSelector = displayManager.getSelector(); // 선택자가 현재 가리키고 있는 곳을 알아옴
+                        if(currentSelector == 22) { // 내 도시
+                            system.setMyTimeZone(1);
+//                            system.setMyTimeZone(Flag.getGlobalTimeValue(displayManager.getSelector()));
+                        } else if(currentSelector == 24){ // 다른 도시
+                            system.setAnotherTimeZone(1);
+                        }
                     }
-                    if(pressed.equals("D")) {
-                    }
-                    if(pressed.equals("C")) {
+
+                    // C 버튼이 눌리는 경우는 function list로 이동하므로 위에서 이미 처리함
+
+                    if(pressed.equals("D")) { // decrease value
+                        // 선택자가 현재 가리키고 있는 곳의 값을 1 감소
+                        int currentSelector = displayManager.getSelector(); // 선택자가 현재 가리키고 있는 곳을 알아옴
+                        if(currentSelector == 22) {
+                            system.setMyTimeZone(-1);
+                        } else {
+                            system.setAnotherTimeZone(-1);
+                        }
                     }
                 }
             }else if(mode.getMainCategory() == 5){
                 //SleepingTime
                 if(mode.getSubCategory() == 0){
                     //display sleeping time
+                    // displayManager.displayTime(modeManager.displayTime(system));
+                    displayManager.displaySleepingTime(modeManager.displaySleepingTime(system));
+
+                    // Set sleeping time
+                    if(pressed.equals("A")){
+                        displayManager.notDisplayIcon();
+                        mode.enterSub();
+                    }
+
+                    // B버튼이 눌렸을 때는 아무것도 실행되지 않음
+
+                    // C버튼이 눌렸을 때는 맨 위에서 처리
+
+                    // Turn on/off (cheering message 수신 여부)
+                    if(pressed.equals("D")){
+                        system.toggleCheeringMessageReceiving();
+                    }
+
                 }else if(mode.getSubCategory() == 1){
                     //set sleeping time
+                    //Set sleeping time
+                    displayManager.displaySelector();
+                    displayManager.displaySleepingTime(modeManager.displaySleepingTimeValue(system));
+
+                    //Move to sleeping time
+                    if(pressed.equals("A")){
+                        mode.exitSub();
+                        displayManager.setSelector(21);
+                        displayManager.notDisplaySelector();
+                    }
+
+                    // Increase value
+                    if(pressed.equals("B")){
+                        system.setTime(Flag.getWakeUpSleepTimeValue(displayManager.getSelector()));
+                    }
+
+                    // Decrease value
+                    if(pressed.equals("D")){
+                        system.setTime(-1 * Flag.getWakeUpSleepTimeValue(displayManager.getSelector()));
+                    }
+
+                    // Change function position
+                    if(pressed.equals("C")){
+                        displayManager.setSelector(Flag.moveWakeUpSleepTimeSelector(displayManager.getSelector()));
+                    }
                 }
             }else if(mode.getMainCategory() == 6){
                 //Function Change
