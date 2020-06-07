@@ -45,7 +45,7 @@ public class Flag {
         //21: global time의 내도시 / 추천 수면시간 / 목표 기상시각
         //22: global time의 내도시 시간
         //23: global time의 남의도시 / 추천 수면시각2 / 최대 수면시간
-        //24: global time의 남의도시 시간 (시간제 포함) / 추천 수면시간2(시) / 최대 수면시간(시)
+        //24: global time의 남의도시 시간
         //25: Cheering message 전체
         //26: function list에서 customize own clock
         //27: global time의 내도시 / 추천 수면시간(분) / 목표 기상시각(분)
