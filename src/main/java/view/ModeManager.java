@@ -46,7 +46,6 @@ public class ModeManager {
 
     public String[] displayTimer(ClockSystem clockSystem){
         Object[] timer = clockSystem.getTimer(); // 0 : long, 1 : state
-        System.out.println(Arrays.toString(timer));
         String[] timeFormat = new String[5];
         /*
         0 : hour
@@ -62,7 +61,7 @@ public class ModeManager {
         timeFormat[2] = String.format("%02d", timerTime[5]); // second
 
         if((int)timer[1] == 0){
-            return new String[]{"false", "false", "false", "false", "false"};
+            return new String[]{"false", "false", "false", "false", "OFF"};
         }
 
         int temp = (int)timer[1];
@@ -128,7 +127,6 @@ public class ModeManager {
         timeFormat[6] = String.format("%02d",lapTime[5]); // L초
         timeFormat[7] = String.format("%03d",lapTime[6]); // Lms
         timeFormat[8] = String.valueOf((int)stopwatchValue[2]);
-        System.out.println(Arrays.toString(timeFormat));
 
         return timeFormat;
     }
@@ -160,14 +158,12 @@ public class ModeManager {
                 timeFormat[2] = "오전";
             }
         }else{
-            timeFormat[2] = null;
+            timeFormat[2] = "  ";
         }
         timeFormat[3] = alarmValue[0]; // boolean 배열
         if((int)alarmValue[2] == 0) timeFormat[4] = "OFF";
         else timeFormat[4] = "ON";
         timeFormat[5] = String.format("%d", alarmNo);
-
-        System.out.println(Arrays.toString(timeFormat));
 
         return timeFormat;
     }
@@ -249,39 +245,85 @@ public class ModeManager {
 
 
     public String[] displaySleepingTime(ClockSystem clockSystem){
+
         long currentTime = (long)clockSystem.getTime()[0];
+        boolean currentFormat = (boolean)clockSystem.getTime()[1];
+
         //LocalTime으로 받아옴(0: 추천 수면시간 1, 1: 추천 수면시간 2)
         Object[] sleepingTime = clockSystem.getSleepingTime(currentTime);
 
-        String[] timeFormat = new String[6];
+        String[] timeFormat = new String[8];
 
         LocalTime first = (LocalTime)sleepingTime[0];
         LocalTime second = (LocalTime)sleepingTime[1];
-        timeFormat[0] = "추천 수면시각1";
-        timeFormat[3] = "추천 수면시각2";
-        timeFormat[1] = Integer.toString(first.getHour());
-        timeFormat[2] = Integer.toString(first.getMinute());
-        timeFormat[4] = Integer.toString(second.getHour());
-        timeFormat[5] = Integer.toString(second.getMinute());
 
+        timeFormat[0] = "<html>추천<br>수면시각1</html>";
+        timeFormat[4] = "<html>추천<br>수면시각2</html>";
+        // timeFormat[1] => Timeformat
+        timeFormat[2] = String.format("%02d",first.getHour());
+        timeFormat[3] = String.format("%02d",first.getMinute());
+        // timeFormat[5] => Timeformat
+        timeFormat[6] = String.format("%02d",second.getHour());
+        timeFormat[7] = String.format("%02d",second.getMinute());
+
+        if(currentFormat){
+
+            int tmpFirstTime = Integer.parseInt(timeFormat[2]);
+            int tmpSecondTime = Integer.parseInt(timeFormat[6]);
+
+            if(tmpFirstTime > 12){
+                timeFormat[2] = String.format("%02d", tmpFirstTime - 12);
+                timeFormat[1] = "오후";
+            }else{
+                timeFormat[1] = "오전";
+            }
+
+            if(tmpSecondTime > 12){
+                timeFormat[6] = String.format("%02d", tmpFirstTime - 12);
+                timeFormat[5] = "오후";
+            }else{
+                timeFormat[5] = "오후";
+            }
+
+        }else{
+            timeFormat[5] = "  ";
+            timeFormat[1] = "  ";
+        }
         return timeFormat;
     }
 
     public String[] displaySleepingTimeValue(ClockSystem clockSystem){
-        String[] timeFormat = new String[6];
-
-        timeFormat[0] = "목표 기상시각";
-        timeFormat[3] = "최대 수면시간";
+        String[] timeFormat = new String[8];
 
         LocalTime[] sleepingTimeValue = clockSystem.getSleepingTimeValue();
+
+        boolean currentFormat = (boolean)clockSystem.getTime()[1];
+
+        timeFormat[0] = "<html>목표<br>기상시각</html>";
+        timeFormat[4] = "<html>최대<br>수면시각</html>";
 
         LocalTime wakeUp = sleepingTimeValue[0];
         LocalTime sleep =  sleepingTimeValue[1];
 
-        timeFormat[1] = Integer.toString(wakeUp.getHour());
-        timeFormat[2] = Integer.toString(wakeUp.getMinute());
-        timeFormat[4] = Integer.toString(sleep.getHour());
-        timeFormat[5] = Integer.toString(sleep.getMinute());
+        // timeFormat[1] => Timeformat
+        timeFormat[2] = String.format("%02d",wakeUp.getHour());
+        timeFormat[3] = String.format("%02d",wakeUp.getMinute());
+        // timeFormat[5] => Timeformat
+        timeFormat[6] = String.format("%02d",sleep.getHour());
+        timeFormat[7] = String.format("%02d",sleep.getMinute());
+
+        if(currentFormat){
+            int tmpTime = Integer.parseInt(timeFormat[2]);
+            if(tmpTime > 12){
+                timeFormat[2] = String.format("%02d", tmpTime - 12);
+                timeFormat[1] = "오후";
+            }else{
+                timeFormat[1] = "오전";
+            }
+        }else{
+            timeFormat[5] = "  ";
+            timeFormat[1] = "  ";
+        }
 
         return timeFormat;
 

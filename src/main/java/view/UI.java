@@ -8,6 +8,7 @@ import view.template.Mode;
 
 import javax.swing.*;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 
@@ -19,7 +20,11 @@ public class UI {
 
     MyMouseEvent event;
 
-    // TODO: UI가 갖고 있는 현재 시간(long)
+    int[] currentTimeInt = new int[8];
+    String[] currentTimeString = new String[9];
+    long currentTime;
+    long alarmTime;
+    long lastPressedTime;
     Mode currentState;
     int alarmNumber;
 
@@ -30,8 +35,10 @@ public class UI {
         int location = 0;
         int function_num = 0;
         int depth = 0;
-        int[] checkerList = new int[3];
+        int[] checkerList = {0, 0, 0};
         this.alarmNumber = 0;
+        alarmTime = 0;
+        lastPressedTime = 0;
         while(true){
             // TODO: mode.mainCategory : 0~6까지 추가
             // 어떤 버튼이 눌렸는지를 여기서 받아와야함
@@ -48,30 +55,51 @@ public class UI {
             //여기서 alarm, sleeping, timer의 각각 on/off여부를 가져와야 함
             //즉 checker의 리턴 값을 만들고 매 루트마다 저장하여야 할 듯 합니다
             //저장된 값들은 미래에 function list 표시를 위해 사용됩니다
-            String[] currentTimeFormat = Utility.millitoTimeFormat_test((long)system.getTime()[0]);
-            int[] currentTime = Utility.milliToTimeFormat((long)system.getTime()[0]);
+            currentTime = (long)system.getTime()[0];
+            if(!pressed.equals("default value")) {
+                lastPressedTime = currentTime;
+            }
+            if(checkerList[0] == 2) {
+                if(!pressed.equals("default value")) { // turn off alarm manually
+                    checkerList[0] = 1;
+                }
+                if(currentTime > alarmTime + 5000) { // turn off alarm automatically
+                    checkerList[0] = 1;
+                }
+                continue;
+            } // 여기에 알람 소리를 끄는 로직을 추가할 수 있을 듯
+            if(checkerList[1] == 2) {
+                if(!pressed.equals("default value")) { // turn off alarm manually
+                    checkerList[1] = 1;
+                }
+                if(currentTime > alarmTime + 20000) { // turn off alarm automatically
+                    checkerList[1] = 1;
+                }
+                continue;
+            } // 여기에 sleeping time소리를 끌 수 있는 로직을 추가할 수 있을 듯
+
+            currentTimeString = Utility.millitoTimeFormat_test(currentTime);
+            currentTimeInt = Utility.milliToTimeFormat(currentTime);
             checkerList = modeManager.checker(system);
             if(checkerList[0] == 2 || checkerList[1] == 2) { // show alarming, show cheering message
-                system.ringAlarm();
                 //String 형식은 "20 05 03 일    06:30"
                 //12시간제일때는 "20 05 03 일 AM 06:30"
                 String timeFormat;
                 if((boolean)system.getTime()[1]) { // 12시간제
-                    if(currentTime[3] < 12) timeFormat = "AM";
+                    if(currentTimeInt[3] < 12) timeFormat = "AM";
                     else timeFormat = "PM";
                 }
                 else {// 24시간제일 때는 AM/PM 표시 안함
                     timeFormat = "  ";
                 }
                 String temp = String.format("%s %s %s %s %s %s:%s",
-                        currentTimeFormat[0],
-                        currentTimeFormat[1],
-                        currentTimeFormat[2],
-                        currentTimeFormat[7],
+                        currentTimeString[0],
+                        currentTimeString[1],
+                        currentTimeString[2],
+                        currentTimeString[7],
                         timeFormat,
-                        currentTimeFormat[3],
-                        currentTimeFormat[4],
-                        currentTimeFormat[5]);
+                        currentTimeString[3],
+                        currentTimeString[4]);
 
                 if(checkerList[0] == 2) {
                     displayManager.displayShowAlarming(temp);
@@ -81,18 +109,32 @@ public class UI {
                     //displayManager.cheeringMessageShowAll(temp); 위의 displayShowAlarming()과 같은 메소드가 구현되어 있지 않음
                     system.ringSleepingTime();
                 }
+                continue;
             }
             else if(checkerList[2] == 2) { // ring timer
                 system.ringTimer();
             }
+            //여기까지 왔다는 것은 alarm이나 sleeping time이 울리지 않는다는 의미입니다.
             //이 부분을 통해 displayManager에서 function list를 표시합니다.
             //displayManager.displayFunctionList(system.getFunctionList(), checkerList);
+
+            //back to base
+            if(mode.getSubCategory() == 1) {
+                if(currentTime > lastPressedTime + 300000) {
+                    mode.exitSub();
+                }
+            }
+            if(mode.getMainCategory() == 6) {
+                if(currentTime > lastPressedTime + 300000) {
+                    mode.setMainCategory(system.getFunctionList()[0]);
+                }
+            }
 
 
             //현재 카테고리가 display종류이고 C버튼이 눌렸을 때
             //function List에 질의해 다음 function을 가져옴 -> 이거만 따로 써줘야 할 필요가 있음
 
-            if(pressed.equals("C") && mode.getSubCategory() == 0){
+            if(pressed.equals("C") && mode.getSubCategory() == 0 && mode.getMainCategory() != 6){
                 displayManager.cleanDisplay();
                 mode.moveFunctionSelector();
                 mode.setMainCategory(system.getFunctionList()[mode.getFunctionSelector()]);
@@ -107,6 +149,12 @@ public class UI {
                 }
             }
 
+            if(pressed.equals("E")){
+                displayManager.cleanDisplay();
+                mode.setMainCategory(6);
+                mode.setSubCategory(0);
+            }
+
 
             if (mode.getMainCategory() == 0) {
                 if(displayManager.getSelector() > 8) displayManager.setSelector(0);
@@ -116,6 +164,7 @@ public class UI {
 
                     if(pressed.equals("A")) {
                         displayManager.notDisplayIcon();
+                        displayManager.cleanDisplay();
                         mode.enterSub();
                     }
                     if(pressed.equals("B")) system.changeTimeFormat();
@@ -132,6 +181,7 @@ public class UI {
 
                     if(pressed.equals("A")) {
                         mode.exitSub();
+                        displayManager.cleanDisplay();
                         displayManager.displayIcon();
                         displayManager.setSelector(0);
                         displayManager.notDisplaySelector();
@@ -166,8 +216,13 @@ public class UI {
 
                     if(pressed.equals("A")) {
                         //set timer
-                        displayManager.notDisplayIcon();
-                        mode.enterSub();
+                        int timerState = (int)system.getTimer()[1];
+                        if(!(timerState == 0 || timerState == 2)){
+                            displayManager.notDisplayIcon();
+                            displayManager.cleanDisplay();
+                            mode.enterSub();
+                        }
+
                     }
                     if(pressed.equals("B")) {
                         //pause&restart
@@ -187,6 +242,7 @@ public class UI {
                         displayManager.displayIcon();
                         displayManager.setSelector(0);
                         displayManager.notDisplaySelector();
+                        displayManager.cleanDisplay();
                     }
                     if(pressed.equals("B")) {
                         //increase value
@@ -228,7 +284,8 @@ public class UI {
                     }
                 }
             }else if(mode.getMainCategory() == 3){
-                if(displayManager.getSelector() < 12 || displayManager.getSelector() > 18) displayManager.setSelector(5);
+                int temp = displayManager.getSelector();
+                if(!((temp > 4 && temp < 19) && (temp < 7 || temp > 12))) displayManager.setSelector(12);
 
                 //Alarm
                 if(mode.getSubCategory() == 0){
@@ -237,6 +294,7 @@ public class UI {
                     if(pressed.equals("A")) {
                         //set alarm
                         displayManager.notDisplayIcon();
+                        displayManager.cleanDisplay();
                         mode.enterSub();
                     }
                     if(pressed.equals("B")) {
@@ -259,39 +317,35 @@ public class UI {
                         displayManager.displayIcon();
                         displayManager.setSelector(0);
                         displayManager.notDisplaySelector();
+                        displayManager.cleanDisplay();
                     }
                     if(pressed.equals("B") || pressed.equals("D")) {
                         //increase/decrease value & toggle
                         int tempSelector = displayManager.getSelector();
                         LocalTime updateValue = LocalTime.of(0, 0);
 
-                        //string을 다시 LocalTime으로 바꿈...ㅠㅠ
-                        if(((String)alarmValue[2]).equals("  "))  // 24시간제
-                            updateValue.plusHours(Integer.parseInt((String)alarmValue[0]));
-                        else { // 12시간제
-                            if(((String)alarmValue[2]).equals("오후")) updateValue.plusHours((int)alarmValue[0] + 12);
-                            else updateValue.plusHours(Integer.parseInt((String)alarmValue[0]));
-                        }
-                        updateValue.plusMinutes(Integer.parseInt((String)alarmValue[0]));
-
                         if(12 <= tempSelector && tempSelector <= 18) { // toggle
                             ((boolean[])alarmValue[3])[tempSelector - 12] = !((boolean[])alarmValue[3])[tempSelector - 12];
                         }
                         else { // increase value
                             if(pressed.equals("B")) { // increase value
-                                if (tempSelector == 5) updateValue.plusHours(1);
-                                else updateValue.plusMinutes(1); // tempSelector == 6
+                                if (tempSelector == 5) {
+                                    updateValue = updateValue.plusHours(1);
+                                }
+                                else updateValue = updateValue.plusMinutes(1); // tempSelector == 6
                             }
                             else { // pressed.equals("D") decrease value
-                                if (tempSelector == 5) updateValue.minusHours(1);
-                                else updateValue.minusMinutes(1); // tempSelector == 6
+                                if (tempSelector == 5) updateValue = updateValue.minusHours(1);
+                                else updateValue = updateValue.minusMinutes(1); // tempSelector == 6
                             }
                         }
                         system.setAlarm(this.alarmNumber, (boolean[])alarmValue[3], updateValue);
                     }
                     if(pressed.equals("C")) {
                         //change pointer position
+                        // System.out.print("before : " + displayManager.getSelector());
                         displayManager.setSelector(Flag.moveAlarmSelector(displayManager.getSelector()));
+                        // System.out.print("  after : " + displayManager.getSelector() + "\n");
                         //int 선택자 = displayManager에서 선택자를 가져오는거
                         //int 값 = displayManager에서 선택자에 해당하는 값을 가져옴
                         //displayManager.setValue(++displayManager.get선택자(), displayManager.get값())
@@ -347,6 +401,9 @@ public class UI {
                 }
             }else if(mode.getMainCategory() == 5){
                 //SleepingTime
+                int getSelector = displayManager.getSelector();
+                if(getSelector != 22 && getSelector != 27 && getSelector != 24 && getSelector != 28){
+                    displayManager.setSelector(22); }
                 if(mode.getSubCategory() == 0){
                     //display sleeping time
                     // displayManager.displayTime(modeManager.displayTime(system));
@@ -354,8 +411,9 @@ public class UI {
 
                     // Set sleeping time
                     if(pressed.equals("A")){
-                        displayManager.notDisplayIcon();
                         mode.enterSub();
+                        displayManager.notDisplayIcon();
+                        displayManager.cleanDisplay();
                     }
 
                     // B버튼이 눌렸을 때는 아무것도 실행되지 않음
@@ -378,37 +436,52 @@ public class UI {
                         mode.exitSub();
                         displayManager.setSelector(21);
                         displayManager.notDisplaySelector();
+                        displayManager.displayIcon();
+                        displayManager.cleanDisplay();
                     }
 
                     // Increase value
                     if(pressed.equals("B")){
-                        system.setTime(Flag.getWakeUpSleepTimeValue(displayManager.getSelector()));
+
+                        if(getSelector == 22 || getSelector == 27){
+                            system.setSleepTime(Flag.getWakeUpSleepTimeValue(getSelector), 1);
+                        }else if(getSelector == 24 || getSelector == 28){
+                            system.setWakeUpTime(Flag.getWakeUpSleepTimeValue(getSelector), 1);
+                        }
+
                     }
 
                     // Decrease value
                     if(pressed.equals("D")){
-                        system.setTime(-1 * Flag.getWakeUpSleepTimeValue(displayManager.getSelector()));
+                        if(getSelector == 22 || getSelector == 27){
+                            system.setSleepTime(Flag.getWakeUpSleepTimeValue(getSelector), -1);
+                        }else if(getSelector == 24 || getSelector == 28) {
+                            system.setWakeUpTime(Flag.getWakeUpSleepTimeValue(getSelector), -1);
+                        }
                     }
 
-                    // Change function position
+                    // Change selector position
                     if(pressed.equals("C")){
-                        displayManager.setSelector(Flag.moveWakeUpSleepTimeSelector(displayManager.getSelector()));
+                        // System.out.println(getSelector);
+                        displayManager.setSelector(Flag.moveWakeUpSleepTimeSelector(getSelector));
                     }
                 }
 
 
             }else if(mode.getMainCategory() == 6){
-                if(displayManager.getSelector() < 27) displayManager.setSelector(27);
+                int getSelector = displayManager.getSelector();
+                if(getSelector < 31) displayManager.setSelector(31);
                 //Function Change
                 if(mode.getSubCategory() == 0) {
                     //customize your own clock을 먼저 보여줘야한다.
                     displayManager.displayFunctionListEdit();
                     displayManager.displayIcon();
+                    displayManager.displaySelector();
 
                     //move selected item to left
                     if(pressed.equals("A")){
                         displayManager.changeIconPosition(true);
-                        system.moveItem(displayManager.getSelector()-27, -1);
+                        system.moveItem(displayManager.getSelector()-31, -1);
                         displayManager.setSelector(Flag.moveFunctionSelectorReverse(displayManager.getSelector()));
                         System.out.println(displayManager.getSelector());
                     }
@@ -416,12 +489,14 @@ public class UI {
                     //move selected item to rightmost
                     if(pressed.equals("B")){
                         displayManager.changeIconPosition(false);
-                        system.moveItem(displayManager.getSelector()-27 , 1);
+                        system.moveItem(displayManager.getSelector()-31 , 1);
                         displayManager.setSelector(Flag.moveFunctionSelector(displayManager.getSelector()));
                         System.out.println(displayManager.getSelector());
                     }
                     if(pressed.equals("C")){
+                        displayManager.notDisplaySelector();
                         displayManager.cleanDisplay();
+                        System.out.println("TEST:" + Arrays.toString(system.getFunctionList()));
                         mode.setMainCategory(system.getFunctionList()[0]);
                     }
 

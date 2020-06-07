@@ -32,17 +32,21 @@ public class MyMouseEvent implements MouseListener {
         // System.out.println(pressedTime);
         this.pressed = (JButton)e.getSource();
     }
+
     public void mouseReleased(MouseEvent e) {
         // System.out.println("Mouse Released");
         releasedTime = System.currentTimeMillis();
         // System.out.println(releasedTime);
 
         time = releasedTime-pressedTime;
-        // System.out.println(time);
 
         this.pressed = (JButton) e.getSource();
 
         clickedButton = this.pressed.getActionCommand();
+
+        if(clickedButton.equals("C") && time > 2000){
+            clickedButton = "E";
+        }
 
         // TODO: mouseLongClicked 구현하기
         // if(time > 2000) mouseLongCicked();
