@@ -12,9 +12,10 @@ public class Utility {
 
     public static LocalTime milliToLocalTime(long time) {
         //long형식으로 들어온 시간에서 시각을 추출해서 return
-        int hour = milliToTimeFormat(time)[3];
-        int minute = milliToTimeFormat(time)[4];
-        int second = milliToTimeFormat(time)[5];
+        int[] temp = milliToTimeFormat(time);
+        int hour = temp[3];
+        int minute = temp[4];
+        int second = temp[5];
         LocalTime localTime = LocalTime.of(hour, minute, second);
         return localTime;
     }
