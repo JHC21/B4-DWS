@@ -26,7 +26,7 @@ public class FunctionList {
         this.functions[curPosition] = this.functions[dest];
         this.functions[dest] = temp;
 
-        System.out.print(Arrays.toString(this.functions));
+        //System.out.println(Arrays.toString(this.functions));
     }
     
     public int[] getFunctions() {

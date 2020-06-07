@@ -71,6 +71,7 @@ public class ClockSystem {
     //UI가 시스템에 요청하는 메소드. (Time Keeping에서 현재 시간의 값을 받아옴)
     //timeKeeping
     public Object[] getTime() {
+        //System.out.println(this.timeKeeping.getTime());
         return this.timeKeeping.calculateTime(this.clock());
         //현재 시간을 받아온다 (Time Keeping의 time과 System의 clock을 더해서 return
         //TimeKeeping.time + System.clock의 값과, TimeKeeping.timeformat을 return 해줘야 한다.
@@ -89,7 +90,7 @@ public class ClockSystem {
     //timer
     public Object[] getTimer(){
         Object[] value = new Object[2];
-        value[0] = this.timer.calculateTimerValue(this.clock()); // long
+        value[0] = this.timer.calculateTimerValue((long)this.getTime()[0]); // long
         value[1] = this.timer.getState(); // off : 0, on & stop : 1 , on & run : 2
         return value;
         /*startTime : 1시
@@ -109,7 +110,7 @@ public class ClockSystem {
         return this.timer.getSettedTime();
     }
     public void toggleTimerCounting() {
-        this.timer.changeTimerCounting(this.clock());
+        this.timer.changeTimerCounting((long)this.getTime()[0]);
         //changeTimerCounting()을 호출한다.
     }
     public void toggleTimerActivation() {

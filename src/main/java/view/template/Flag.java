@@ -90,12 +90,12 @@ public class Flag {
 
     public static long getTimerValue(int selector, long settedTime, int pmValue) {
         long diffValue = 0;
-        if(selector == 5) return diffValue = HOUR_MILLI;
-        else if(selector == 6) return diffValue = MINUTE_MILLI;
-        else if(selector == 7) return diffValue = SECOND_MILLI;
+        if(selector == 5) diffValue = HOUR_MILLI;
+        else if(selector == 6) diffValue = MINUTE_MILLI;
+        else if(selector == 7) diffValue = SECOND_MILLI;
 
         if(settedTime + (pmValue * diffValue) < 0) return 0;
-        else return diffValue;
+        else return diffValue * pmValue;
 
     }
 
