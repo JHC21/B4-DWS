@@ -361,6 +361,7 @@ public class UI {
                         mode.exitSub();
                         displayManager.setSelector(21);
                         displayManager.notDisplaySelector();
+                        displayManager.displayIcon();
                     }
 
                     // Increase value
@@ -378,7 +379,7 @@ public class UI {
                     if(pressed.equals("D")){
                         if(getSelector == 22 || getSelector == 27){
                             system.setSleepTime(Flag.getWakeUpSleepTimeValue(getSelector), -1);
-                        }else if(getSelector == 24 || getSelector == 28){
+                        }else if(getSelector == 24 || getSelector == 28) {
                             system.setWakeUpTime(Flag.getWakeUpSleepTimeValue(getSelector), -1);
                         }
                     }
