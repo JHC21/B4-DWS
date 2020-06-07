@@ -257,13 +257,13 @@ public class UI {
                         LocalTime updateValue = LocalTime.of(0, 0);
 
                         //string을 다시 LocalTime으로 바꿈...ㅠㅠ
-                        if(alarmValue[2] == null)  // 24시간제
-                            updateValue.plusHours((int)alarmValue[0]);
+                        if(((String)alarmValue[2]).equals("  "))  // 24시간제
+                            updateValue.plusHours(Integer.parseInt((String)alarmValue[0]));
                         else { // 12시간제
-                            if(alarmValue[2].equals("오후")) updateValue.plusHours((int)alarmValue[0] + 12);
-                            else updateValue.plusHours((int)alarmValue[0]);
+                            if(((String)alarmValue[2]).equals("오후")) updateValue.plusHours((int)alarmValue[0] + 12);
+                            else updateValue.plusHours(Integer.parseInt((String)alarmValue[0]));
                         }
-                        updateValue.plusMinutes((int)alarmValue[1]);
+                        updateValue.plusMinutes(Integer.parseInt((String)alarmValue[0]));
 
                         if(12 <= tempSelector && tempSelector <= 18) { // toggle
                             ((boolean[])alarmValue[3])[tempSelector - 12] = !((boolean[])alarmValue[3])[tempSelector - 12];
