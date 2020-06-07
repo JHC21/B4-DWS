@@ -1,7 +1,5 @@
 package controller.mode;
 
-import javax.management.remote.rmi._RMIConnection_Stub;
-
 public class Timer {
     private long startTime;
     private long settedTime;

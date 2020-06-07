@@ -119,48 +119,48 @@ public class ModeManager {
         timeFormat[7] = String.format("%3d",lapTime[6]); // Lms
         if(temp == 0) {
             timeFormat[8] = "OFF";
-            //timeFormat[9] = "OFF"; // functionList에 어떻게 표시될까?
+            //timeFormat[9] = "OFF";
         }
         else { // temp == 1
             timeFormat[8] = "ON";
-            //timeFormat[9] = "ON"; // functionList에 어떻게 표시될까?
+            //timeFormat[9] = "ON";
         }
 
         return timeFormat;
     }
 
-    public String[] displayAlarm(ClockSystem clockSystem, int alarmNo) {
+    public Object[] displayAlarm(ClockSystem clockSystem, int alarmNo) {
         /*
         0 : 시
         1 : 분
-        2 : AM/PM // 일단 UI의 역할로 넘겼습니다.
-        3 : 일
-        4 : 월
-        5 : 화
-        6 : 수
-        7 : 목
-        8 : 금
-        9 : 토
-        10 : activate
-        11 : alarm number
+        2 : AM/PM
+        3 : 요일 boolean 배열
+        4 : activate
+        5 : alarm number
          */
-        String[] timeFormat = new String[12];
+        Object[] timeFormat = new String[6];
 
+        // 0 : time(long), 1 : timeFormat
+        Object[] timeValue = clockSystem.getTime();
         // 0 : alarming day(boolean[7]), 1 : alarming time(LocalTime), 2 : state(0 : off, 1 : on)
         Object[] alarmValue = clockSystem.getAlarm(alarmNo);
 
         timeFormat[0] = String.format("%02d", ((LocalTime)alarmValue[1]).getHour());
         timeFormat[1] = String.format("%02d", ((LocalTime)alarmValue[1]).getMinute());
-        if(((boolean[])alarmValue[0])[0]) timeFormat[3] = "일"; else timeFormat[3] = "false";
-        if(((boolean[])alarmValue[0])[1]) timeFormat[4] = "월"; else timeFormat[3] = "false";
-        if(((boolean[])alarmValue[0])[2]) timeFormat[5] = "화"; else timeFormat[3] = "false";
-        if(((boolean[])alarmValue[0])[3]) timeFormat[6] = "수"; else timeFormat[3] = "false";
-        if(((boolean[])alarmValue[0])[4]) timeFormat[7] = "목"; else timeFormat[3] = "false";
-        if(((boolean[])alarmValue[0])[5]) timeFormat[8] = "금"; else timeFormat[3] = "false";
-        if(((boolean[])alarmValue[0])[6]) timeFormat[9] = "토"; else timeFormat[3] = "false";
-        if((int)alarmValue[2] == 0) timeFormat[10] = "OFF";
-        else timeFormat[10] = "ON";
-        timeFormat[11] = String.format("%d", alarmNo);
+        if((boolean)timeValue[1]){
+            int temp = Utility.milliToTimeFormat((long)timeValue[0])[3];
+            if(temp > 12){
+                timeFormat[0] = String.format("%02d", temp - 12);
+                timeFormat[2] = "오후";
+            }
+            else{timeFormat[2] = "오전";}
+        }else{
+            timeFormat[2] = null;
+        }
+        timeFormat[3] = alarmValue[0]; // boolean 배열
+        if((int)alarmValue[2] == 0) timeFormat[4] = "OFF";
+        else timeFormat[4] = "ON";
+        timeFormat[5] = String.format("%d", alarmNo);
         return timeFormat;
     }
 
