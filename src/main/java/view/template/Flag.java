@@ -63,6 +63,8 @@ public class Flag {
         int updatedYear;
         boolean yoonYear;
 
+        System.out.println("EnteredValue");
+
         yoonYear = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
 
         if(selector == 0){              //연일 때
@@ -81,7 +83,7 @@ public class Flag {
         else if(selector == 6) updateValue = MINUTE_MILLI;
         else if(selector == 7) updateValue = SECOND_MILLI;
 
-        System.out.println("Updated Value of : " + updateValue);
+        System.out.println("Updated Value of : " + (pmValue * updateValue));
 
         updatedYear = Utility.millitoYear((long)curTime[1] + (pmValue * updateValue));
         if(updatedYear < 2000 || updatedYear > 2099 ) return 0;

@@ -25,10 +25,10 @@ public class UI {
     long currentTime;
     long alarmTime;
     long lastPressedTime;
-    Mode currentState;
+    Mode mode;
     int alarmNumber;
 
-    public void systemWatching(Mode mode) throws Exception{
+    public void systemWatching() throws Exception{
 
         System.out.println(mode.getMainCategory());
         System.out.println(mode.getSubCategory());
@@ -43,6 +43,10 @@ public class UI {
             // TODO: mode.mainCategory : 0~6까지 추가
             // 어떤 버튼이 눌렸는지를 여기서 받아와야함
             String pressed = event.getPressed();
+
+            //if(!pressed.equals("default value")) System.out.println("Pressed : " + pressed + "  MainCategory : " + mode.getMainCategory() + "  SubCategory : " + mode.getSubCategory());
+
+            //if(pressed.equals("default value")) System.out.println("Pressed : " + pressed + "  MainCategory : " + mode.getMainCategory() + "  SubCategory : " + mode.getSubCategory());
 
 
             // System.out.println("Now, this is UI:" + pressed);
@@ -121,6 +125,8 @@ public class UI {
             //back to base
             if(mode.getSubCategory() == 1) {
                 if(currentTime > lastPressedTime + 300000) {
+                    System.out.println(currentTime + "   " + lastPressedTime);
+                    System.out.println("Entered exitsub");
                     mode.exitSub();
                 }
             }
@@ -135,6 +141,7 @@ public class UI {
             //function List에 질의해 다음 function을 가져옴 -> 이거만 따로 써줘야 할 필요가 있음
 
             if(pressed.equals("C") && mode.getSubCategory() == 0 && mode.getMainCategory() != 6){
+                System.out.println("Pressed C in Display XXX");
                 displayManager.cleanDisplay();
                 mode.moveFunctionSelector();
                 mode.setMainCategory(system.getFunctionList()[mode.getFunctionSelector()]);
@@ -155,6 +162,11 @@ public class UI {
                 mode.setMainCategory(6);
                 mode.setSubCategory(0);
             }
+
+
+            //if(!pressed.equals("default value")) System.out.println("SECOND Pressed : " + pressed + "  MainCategory : " + mode.getMainCategory() + "  SubCategory : " + mode.getSubCategory());
+
+            //if(pressed.equals("default value")) System.out.println("Pressed : " + pressed + "  MainCategory : " + mode.getMainCategory() + "  SubCategory : " + mode.getSubCategory());
 
 
             if (mode.getMainCategory() == 0) {
@@ -188,10 +200,17 @@ public class UI {
                         displayManager.notDisplaySelector();
                     }
                     if(pressed.equals("B")) {
-                        system.setTime(Flag.getTimeValue(displayManager.getSelector(), curTime, 1));
+                        //System.out.println("pressedB");
+                        long updateValue = Flag.getTimeValue(displayManager.getSelector(), curTime, 1);
+                        system.setTime(updateValue);
+                        lastPressedTime += updateValue;
+
                     }
                     if(pressed.equals("D")) {
-                        system.setTime(Flag.getTimeValue(displayManager.getSelector(), curTime, -1));
+                        //System.out.println("pressedD");
+                        long updateValue = Flag.getTimeValue(displayManager.getSelector(), curTime, -1);
+                        system.setTime(updateValue);
+                        lastPressedTime += updateValue;
                     }
                     if(pressed.equals("C")) {
                         displayManager.setSelector(Flag.moveTimeSelector(displayManager.getSelector()));
@@ -501,6 +520,11 @@ public class UI {
                 }
             }
 
+            //if(!pressed.equals("default value")) System.out.println("THIRD Pressed : " + pressed + "  MainCategory : " + mode.getMainCategory() + "  SubCategory : " + mode.getSubCategory());
+            //if(pressed.equals("default value")) System.out.println("Pressed : " + pressed + "  MainCategory : " + mode.getMainCategory() + "  SubCategory : " + mode.getSubCategory());
+
+
+            //Thread.sleep(1000);
         }
     }
 
@@ -515,9 +539,9 @@ public class UI {
         modeManager = new ModeManager();
         event = displayManager.myMouseEvent;
         system = new ClockSystem();
-        currentState = new Mode();
+        mode = new Mode();
 
-        systemWatching(currentState);
+        systemWatching();
 
     }
 }
