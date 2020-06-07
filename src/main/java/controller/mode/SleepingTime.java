@@ -68,20 +68,29 @@ public class SleepingTime {
         return localTime;
     }
 
-    public void updateWakeUpTime(LocalTime time){
+    public void updateWakeUpTime(int type, int value){
         //기상시각을 변경하는 메소드, UI에서 System을 거쳐 호출함
         //받아온 값을 토대로 this.wakeUpTime을 변경
-        this.wakeUpTime = time;
-
-        return;
+        if(type == 1){
+            if(value == 1) wakeUpTime = wakeUpTime.plusHours(1);
+            else wakeUpTime = wakeUpTime.minusHours(1);
+        }else if(type == 0){
+            if(value == 1) wakeUpTime = wakeUpTime.plusMinutes(1);
+            else wakeUpTime = wakeUpTime.minusMinutes(1);
+        }
     }
 
-    public void updateSleepTime(LocalTime time){
+    public void updateSleepTime(int type, int value){
         //수면시간을 변경하는 메소드, UI에서 System을 거쳐 호출함
         //받아온 값을 토대로 this.sleepTime을 변경
-        this.sleepTime = time;
+        if(type == 1){
+            if(value == 1) sleepTime = sleepTime.plusHours(1);
+            else sleepTime = sleepTime.minusHours(1);
+        }else if(type == 0){
+            if(value == 1) sleepTime = sleepTime.plusMinutes(1);
+            else sleepTime = sleepTime.minusMinutes(1);
+        }
 
-        return;
     }
 
     public void toggleSleepingTimeState(){

@@ -95,9 +95,9 @@ public class Flag {
         return 0;
     }
 
-    public static long getWakeUpSleepTimeValue(int selector){
-        if(selector == 22 || selector == 24) return HOUR_MILLI;
-        else if(selector == 27 || selector == 28) return MINUTE_MILLI;
+    public static int getWakeUpSleepTimeValue(int selector){
+        if(selector == 22 || selector == 24) return 1;
+        else if(selector == 27 || selector == 28) return 0;
         return 0;
     }
 

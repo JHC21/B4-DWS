@@ -325,9 +325,10 @@ public class UI {
                 }
             }else if(mode.getMainCategory() == 5){
                 //SleepingTime
-                if(displayManager.getSelector() != 22 || displayManager.getSelector() != 27 ||
-                        displayManager.getSelector() == 24 || displayManager.getSelector() != 28)
-                    displayManager.setSelector(22);
+                int getSelector = displayManager.getSelector();
+                System.out.println(getSelector);
+                if(getSelector != 22 && getSelector != 27 && getSelector != 24 && getSelector != 28){
+                    displayManager.setSelector(22); }
                 if(mode.getSubCategory() == 0){
                     //display sleeping time
                     // displayManager.displayTime(modeManager.displayTime(system));
@@ -364,18 +365,28 @@ public class UI {
 
                     // Increase value
                     if(pressed.equals("B")){
-                        system.setTime(Flag.getWakeUpSleepTimeValue(displayManager.getSelector()));
+
+                        if(getSelector == 22 || getSelector == 27){
+                            system.setSleepTime(Flag.getWakeUpSleepTimeValue(getSelector), 1);
+                        }else if(getSelector == 24 || getSelector == 28){
+                            system.setWakeUpTime(Flag.getWakeUpSleepTimeValue(getSelector), 1);
+                        }
+
                     }
 
                     // Decrease value
                     if(pressed.equals("D")){
-                        system.setTime(-1 * Flag.getWakeUpSleepTimeValue(displayManager.getSelector()));
+                        if(getSelector == 22 || getSelector == 27){
+                            system.setSleepTime(Flag.getWakeUpSleepTimeValue(getSelector), -1);
+                        }else if(getSelector == 24 || getSelector == 28){
+                            system.setWakeUpTime(Flag.getWakeUpSleepTimeValue(getSelector), -1);
+                        }
                     }
 
                     // Change function position
                     if(pressed.equals("C")){
-                        // System.out.println(displayManager.getSelector());
-                        displayManager.setSelector(Flag.moveWakeUpSleepTimeSelector(displayManager.getSelector()));
+                        // System.out.println(getSelector);
+                        displayManager.setSelector(Flag.moveWakeUpSleepTimeSelector(getSelector));
                     }
                 }
 

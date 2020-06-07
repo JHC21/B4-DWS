@@ -217,13 +217,13 @@ public class ClockSystem {
         // toggleSleepingTimeState()를 호출한다.
         this.sleepingTime.toggleSleepingTimeState();
     }
-    public void setWakeUpTime(LocalTime updateValue) {
+    public void setWakeUpTime(int type, int value) {
         // updateWakeUpTime(updateValue)를 실행한다.
-        this.sleepingTime.updateWakeUpTime(updateValue);
+        this.sleepingTime.updateWakeUpTime(type, value);
     }
-    public void setSleepTime(LocalTime updateValue) {
+    public void setSleepTime(int type, int value) {
         // updateSleepTime(updateValue)를 실행한다.
-        this.sleepingTime.updateSleepTime(updateValue);
+        this.sleepingTime.updateSleepTime(type, value);
     }
 
 
