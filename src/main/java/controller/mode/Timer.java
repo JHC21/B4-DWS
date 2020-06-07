@@ -33,14 +33,15 @@ public class Timer {
      */
 
     public Timer(){
-        this.settedTime = 60000L;
+        this.state = 0;
+        this.settedTime = 0L;
     }
 
 
     //결론을 내리면, getTimerValue는 System이 Timer로 현재 시간을 주면, Timer는 UI에 표시되어야 할 시간을 return한다.
     public long calculateTimerValue(long systemTime) {
         if(this.state == 2){ return this.settedTime - (systemTime - this.startTime + this.stackedTime); }
-        else if(this.state == 1){ return this.stackedTime; }
+        else if(this.state == 1){ return this.settedTime - this.stackedTime; }
         else{ return 0; }
     }
 
@@ -51,6 +52,7 @@ public class Timer {
     public void updateTimer(long time){
         if(this.state == 1){
             this.settedTime += time;
+            System.out.println(settedTime);
         }else{
             System.out.println("업데이트 상황이 아님");
         }

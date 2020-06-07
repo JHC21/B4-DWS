@@ -25,7 +25,7 @@ public class Utility {
     }
 
     public static int millitoYear(long time){
-        LocalDateTime currentLocalDateTime = Instant.ofEpochMilli(time).atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime currentLocalDateTime = Instant.ofEpochMilli(time).atZone(ZoneId.of("+0")).toLocalDateTime();
         return currentLocalDateTime.getYear();
     }
 
@@ -33,7 +33,7 @@ public class Utility {
         String[] timeFormat = new String[9];
         DayOfWeek temp;
 
-        LocalDateTime currentLocalDateTime = Instant.ofEpochMilli(time).atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime currentLocalDateTime = Instant.ofEpochMilli(time).atZone(ZoneId.of("+0")).toLocalDateTime();
 
         timeFormat[0] = String.valueOf(currentLocalDateTime.getYear()).substring(2, 4);
         timeFormat[1] = String.format("%02d", currentLocalDateTime.getMonthValue());
@@ -68,7 +68,7 @@ public class Utility {
         int[] timeFormat = new int[8];
         DayOfWeek temp;
 
-        LocalDateTime currentLocalDateTime = Instant.ofEpochMilli(time).atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime currentLocalDateTime = Instant.ofEpochMilli(time).atZone(ZoneId.of("+0")).toLocalDateTime();
 
         timeFormat[0] = currentLocalDateTime.getYear();
         timeFormat[1] = currentLocalDateTime.getMonthValue();

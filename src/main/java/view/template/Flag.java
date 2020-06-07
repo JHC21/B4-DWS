@@ -93,9 +93,9 @@ public class Flag {
     }
 
     public static long getTimerValue(int selector) {
-        if(selector == 0) return HOUR_MILLI;
-        else if(selector == 1) return MINUTE_MILLI;
-        else if(selector == 2) return SECOND_MILLI;
+        if(selector == 5) return HOUR_MILLI;
+        else if(selector == 6) return MINUTE_MILLI;
+        else if(selector == 7) return SECOND_MILLI;
         return 0;
     }
 

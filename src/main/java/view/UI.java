@@ -91,12 +91,13 @@ public class UI {
 
             //현재 카테고리가 display종류이고 C버튼이 눌렸을 때
             //function List에 질의해 다음 function을 가져옴 -> 이거만 따로 써줘야 할 필요가 있음
-            /*
+
             if(pressed.equals("C") && mode.getSubCategory() == 0){
+                displayManager.cleanDisplay();
                 mode.moveFunctionSelector();
                 mode.setMainCategory(system.getFunctionList()[mode.getFunctionSelector()]);
             }
-            */
+
 
             if (mode.getMainCategory() == 0) {
                 if(displayManager.getSelector() > 8) displayManager.setSelector(0);
@@ -134,6 +135,7 @@ public class UI {
                     }
                     if(pressed.equals("C")) {
                         displayManager.setSelector(Flag.moveTimeSelector(displayManager.getSelector()));
+
                         //int 선택자 = displayManager에서 선택자를 가져오는거
                         //int 값 = displayManager에서 선택자에 해당하는 값을 가져옴
                         //displayManager.setValue(++displayManager.get선택자(), displayManager.get값())
@@ -142,6 +144,8 @@ public class UI {
                     // 공통적으로 예외처리를 해줘야함 (displayManager에서)
                 }
             }else if(mode.getMainCategory() == 1){
+                if(displayManager.getSelector() < 5 || displayManager.getSelector() > 10) displayManager.setSelector(5);
+
                 //Timer
                 if(mode.getSubCategory() == 0){
                     //display Timer
@@ -193,6 +197,7 @@ public class UI {
 
                 }
             }else if(mode.getMainCategory() == 2){
+
                 //StopWatch
                 if(mode.getSubCategory() == 0) {
                     //display StopWatch  (stopWatch는 set이 없음)
@@ -214,6 +219,8 @@ public class UI {
                     }
                 }
             }else if(mode.getMainCategory() == 3){
+                if(displayManager.getSelector() < 12 || displayManager.getSelector() > 18) displayManager.setSelector(5);
+
                 //Alarm
                 if(mode.getSubCategory() == 0){
                     //display Alarm

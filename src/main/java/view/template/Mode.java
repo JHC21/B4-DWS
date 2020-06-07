@@ -13,7 +13,7 @@ public class Mode {
     // 0 : display
     // 1 : set
 
-    private int functionSelector = 6;
+    private int functionSelector;
 
 
     public int getMainCategory() {
@@ -57,7 +57,7 @@ public class Mode {
     }
 
     public Mode(){
-        mainCategory = 6;
+        mainCategory = 0;
         subCategory = 0;
     }
 

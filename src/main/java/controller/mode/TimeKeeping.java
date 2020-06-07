@@ -9,7 +9,7 @@ public class TimeKeeping {
     private long time;
 
     public TimeKeeping(){
-        time = 0;
+        time = 3600000L * 9 ;
         timeformat = true;
     }
 

@@ -10,6 +10,12 @@ public class Alarm {
     private LocalTime alarmingTime;
     private int state; //0일때가 꺼져있고, 1일때가 켜져있는 상태
 
+    public Alarm(){
+        alarmingDay = new boolean[]{true, true, true, true, true, true, true};
+        alarmingTime = LocalTime.of(8, 0);
+        state = 0;
+    }
+
     public boolean[] getAlarmingDay() {
         return this.alarmingDay;
     }

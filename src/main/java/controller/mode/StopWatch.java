@@ -6,6 +6,11 @@ public class StopWatch {
     private int state; //Stop watch가 동작하지 않을때 (Stop)0, 동작할때 (start/restart) 1
     private long lap;
 
+    public StopWatch(){
+        stackedTime = 0L;
+        state = 0;
+    }
+
 
     /*
     예를 들어, 1시에 설정된 스탑워치가 동작한다고 하면,

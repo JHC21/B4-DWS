@@ -11,6 +11,7 @@ public class ClockSystem {
     private SleepingTime sleepingTime;
     private FunctionList functionList;
     private TimeKeeping timeKeeping;
+    private GlobalTime globalTime;
     private Alarm[] alarms;
     private Timer timer;
     private StopWatch stopWatch;
@@ -20,6 +21,9 @@ public class ClockSystem {
         functionList = new FunctionList();
         timeKeeping = new TimeKeeping();
         alarms = new Alarm[4];
+        for(int i = 0; i < 4; i++){
+            alarms[i] = new Alarm();
+        }
         globalTime = new GlobalTime();
         timer = new Timer();
         stopWatch = new StopWatch();
