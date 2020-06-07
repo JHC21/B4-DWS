@@ -463,6 +463,38 @@ public class DisplayManager extends JFrame{
         displays[9].display(timeFormat[10]); // activate
         displays[19].display(timeFormat[11]); // alarm number
     }
+    public void displayGlobalTime(String[] timeFormat) {
+        /*
+        0: myTimeZone의 시간제
+        1: myTimeZone의 hour
+        2: myTimeZone의 minute
+        3: myTimeZone의 도시 1
+        4: myTimeZone의 도시 2
+        5: myTimeZone의 도시 3
+        6: anotherTimeZone의 시간제
+        7: anotherTimeZone의 hour
+        8: anotherTimeZone의 minute
+        9: anotherTimeZone의 도시 1
+        10: anotherTimeZone의 도시 2
+        11: anotherTimeZone의 도시 3
+        */
+
+        StringBuilder myCities = new StringBuilder(); // 내 도시의 도시들을 묶어서 전달
+        myCities.append(timeFormat[3] + "\r\n" + timeFormat[4] + "\r\n" + timeFormat[5] + "\r\n");
+        displays[21].display(myCities.toString());
+
+        StringBuilder myTime = new StringBuilder(); // 내 도시의 시간제, 시, 분을 묶어서 전달
+        myTime.append(timeFormat[0] + "\r\n" + timeFormat[1] + "\r\n" + timeFormat[2] + "\r\n");
+        displays[22].display(myTime.toString());
+
+        StringBuilder anotherCities = new StringBuilder(); // 다른 도시의 도시들을 묶어서 전달
+        anotherCities.append(timeFormat[9] + "\r\n" + timeFormat[10] + "\r\n" + timeFormat[11] + "\r\n");
+        displays[23].display(anotherCities.toString());
+
+        StringBuilder anotherTime = new StringBuilder(); // 다른 도시의 시간제, 시, 분을 묶어서 전달
+        anotherTime.append(timeFormat[6] + "\r\n" + timeFormat[7] + "\r\n" + timeFormat[8] + "\r\n");
+        displays[24].display(anotherTime.toString());
+    }
 
     public void displaySleepingTime(String[] timeformat){
 
