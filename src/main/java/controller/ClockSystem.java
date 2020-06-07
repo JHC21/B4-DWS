@@ -122,12 +122,15 @@ public class ClockSystem {
     public Object[] getStopWatchTime() {
         Object[] value = new Object[3];
         value[0] = this.stopWatch.calculateStopWatch(this.clock()); // long
-        //이 부분 Interactive diagram 수정해야 함(getLap)
         value[1] = this.stopWatch.getLap(); // long
         value[2] = this.stopWatch.getStopWatchState(); // int
         // calculateStopWatch(long clock)를 호출한다
         // getLap()을 호출한다
         // 위의 두 값을 배열로 묶어 리턴한다
+        if((long)value[0] > 86400000L) { // 24시간을 초과하였을 경우
+            toggleStopWatchState(); // counting을 멈추고(counting중에만 24시간을 넘어갈 수가 있다)
+            value[0] = 86400000L; // display에는 24시간 값으로 stopWatchTime을 설정해 버린다
+        }
 
         return value;
     }
