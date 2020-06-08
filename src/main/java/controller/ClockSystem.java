@@ -38,19 +38,14 @@ public class ClockSystem {
         int checker = 0; int checkPosition = 0;
         for(int i = 0; i < 4; i++){
             int val = this.alarms[i].checkAlarm(currentTime);
-            if(val > checker){
-                checker = val; checkPosition = i;
-            }
+            if(val == 2) return 2;
+            if(val == 1) checker = 1; // 1을 일단 저장하며 루프를 돈다
         }
 
-        if(checker == 0 || checker == 1){
-            return checker;
-        }else{
-            return checkPosition;
-        }
+        if(checker == 1) return 1; // activate한 알람이 하나 이상 있음
+        else return 0; // 하나도 activate하지 않음
 
         /*현재 알람 울림여부, 현재 알람 activate 여부*/
-        /*만약 알람이 울릴 경우 해당 알람의 넘버를 return하긴 하는데, 이건 좀 논의가 필요해보임 */
     }
     public int getNowSleeping(long currentTime) {
         // checkSleeping을 호출한다
