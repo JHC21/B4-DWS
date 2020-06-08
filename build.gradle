@@ -5,11 +5,21 @@ plugins {
 group 'painful.ooad'
 version '1.0-SNAPSHOT'
 
-compileJava{
-    options.encoding = 'UTF-8'
-    source 'assets/'
+jar{
+    manifest{
+        attributes 'Main-Class' : 'Main'
+    }
 }
 
+
+
+sourceSets {
+    main {
+        resources {
+            srcDirs "src/main/resources", "src/main/configs"
+        }
+    }
+}
 
 tasks.withType(JavaCompile){
     options.encoding = 'UTF-8'
