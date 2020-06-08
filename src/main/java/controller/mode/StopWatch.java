@@ -65,6 +65,7 @@ public class StopWatch {
         //this.status == 1일 때만 동작하게끔 예외처리
     }
 
+<<<<<<< HEAD
     public void setReset(long systemTime){
         if(this.state == 0){
             this.stackedTime = 0;
@@ -73,6 +74,10 @@ public class StopWatch {
         }else{
             System.out.println("동작하지 않음");
         }
+=======
+
+    public void setReset(){
+>>>>>>> master
         //UI에서 찍힐 값을 return해야 하므로, 0을 return하고
         //startTime, stackedTime을 0으로 초기화해주고
         //this.status를 0으로 비꿔준다 (1일때만 동작가능하게 예외처리)
