@@ -316,7 +316,7 @@ public class UI {
                     if(pressed.equals("B")) {
                         //move to next alarm
                         this.alarmNumber++;
-                        if(this.alarmNumber == 4) this.alarmNumber = 0;
+                        if(this.alarmNumber >= 4) this.alarmNumber = this.alarmNumber%4;
                     }
                     if(pressed.equals("D")) {
                         //toggle active/inactive

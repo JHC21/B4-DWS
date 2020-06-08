@@ -579,12 +579,12 @@ public class DisplayManager extends JFrame{
         else displays[4].display((String)timeFormat[2]); // AM/PM
 
         if(((boolean[])timeFormat[3])[0]) displays[12].display("일"); else displays[12].display("false");
-        if(((boolean[])timeFormat[3])[1]) displays[13].display("월"); else displays[12].display("false");
-        if(((boolean[])timeFormat[3])[2]) displays[14].display("화"); else displays[12].display("false");
-        if(((boolean[])timeFormat[3])[3]) displays[15].display("수"); else displays[12].display("false");
-        if(((boolean[])timeFormat[3])[4]) displays[16].display("목"); else displays[12].display("false");
-        if(((boolean[])timeFormat[3])[5]) displays[17].display("금"); else displays[12].display("false");
-        if(((boolean[])timeFormat[3])[6]) displays[18].display("토"); else displays[12].display("false");
+        if(((boolean[])timeFormat[3])[1]) displays[13].display("월"); else displays[13].display("false");
+        if(((boolean[])timeFormat[3])[2]) displays[14].display("화"); else displays[14].display("false");
+        if(((boolean[])timeFormat[3])[3]) displays[15].display("수"); else displays[15].display("false");
+        if(((boolean[])timeFormat[3])[4]) displays[16].display("목"); else displays[16].display("false");
+        if(((boolean[])timeFormat[3])[5]) displays[17].display("금"); else displays[17].display("false");
+        if(((boolean[])timeFormat[3])[6]) displays[18].display("토"); else displays[18].display("false");
         /*
         displays[12].display(timeFormat[3]); // 일
         displays[13].display(timeFormat[4]); // 월
