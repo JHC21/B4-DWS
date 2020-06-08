@@ -20,13 +20,11 @@ test {
     useJUnitPlatform()
 }
 
-tasks.withType(Test) {
-    scanForTestClasses = false
-    include "**/*Test.class" // whatever Ant pattern matches your test class files
-}
-
 dependencies {
     //testCompile group: 'junit', name: 'junit', version: '5.0'
-    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.0-M1'
+    // implementation roup: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.0-M1'
+    // testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.0-M1'
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.5.2")
 }
 
