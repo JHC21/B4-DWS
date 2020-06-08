@@ -1,4 +1,3 @@
-import view.MainTemplate;
 import view.UI;
 
 public class Main {

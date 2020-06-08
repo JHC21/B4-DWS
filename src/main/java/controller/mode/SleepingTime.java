@@ -43,7 +43,7 @@ public class SleepingTime {
         //그만큼이 valid한 sleeping time의 개수이다.
         validSleepingTimeAmount = (sleepTime.getHour() * HOUR_LONG + sleepTime.getMinute() * MINUTE_LONG) / (90 * MINUTE_LONG);
 
-        System.out.println(Arrays.toString(sleepingTimeMap));
+        //System.out.println(Arrays.toString(sleepingTimeMap));
 
         //기상 시각부터 유효한 sleeping time의 개수만큼 올라가면서 현재 조건에서 가능한 sleeping time을 모두 찾는다.
         //불가능한 경우 일단 0을 넣는다.

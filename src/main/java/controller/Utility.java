@@ -16,8 +16,7 @@ public class Utility {
         int hour = temp[3];
         int minute = temp[4];
         int second = temp[5];
-        LocalTime localTime = LocalTime.of(hour, minute, second);
-        return localTime;
+        return LocalTime.of(hour, minute, second);
     }
 
     public static int millitoYear(long time){
