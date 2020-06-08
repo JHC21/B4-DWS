@@ -6,10 +6,8 @@ import view.handler.MyMouseEvent;
 import view.template.Flag;
 import view.template.Mode;
 
-import javax.swing.*;
 import java.time.LocalTime;
 import java.util.Arrays;
-import java.util.logging.Logger;
 
 
 public class UI {
@@ -32,9 +30,6 @@ public class UI {
 
         System.out.println(mode.getMainCategory());
         System.out.println(mode.getSubCategory());
-        int location = 0;
-        int function_num = 0;
-        int depth = 0;
         int[] checkerList = {0, 0, 0};
         this.alarmNumber = 0;
         alarmTime = 0;
@@ -518,6 +513,7 @@ public class UI {
                         displayManager.cleanDisplay();
                         System.out.println("TEST:" + Arrays.toString(system.getFunctionList()));
                         mode.setMainCategory(system.getFunctionList()[0]);
+                        if(mode.getMainCategory() == 4) system.enterGlobalTime();
                     }
 
                     if(pressed.equals("D")){

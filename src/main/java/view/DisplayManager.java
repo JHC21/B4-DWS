@@ -5,8 +5,6 @@ import view.template.RoundJPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.util.Arrays;
 
 public class DisplayManager extends JFrame{
 
@@ -138,7 +136,6 @@ public class DisplayManager extends JFrame{
     }
     private void sleepingGlobalTimeMyText(String value){                             //21: global time의 내도시 / 추천 수면시간 / 목표 기상시각
         // String innerText = "<html>뉴욕<br>마이애미<br>토론토<br></html>";
-        String innerText = "<html>추천<br>수면시각1</html>";
         segments[21].setText(value);
     }
     private void sleepingGlobalTimeMyHour(String value){                             //22: global time의 내도시 시간 (시간제 포함) / 추천 수면시간1 / 목표 기상시각
@@ -147,7 +144,6 @@ public class DisplayManager extends JFrame{
     }
     private void sleepingGlobalTimeOtherText(String value){        //before : 23: global time의 남의도시 / 추천 수면시각2 / 최대 수면시간    after : 그냥 내도시시각 (Hour)
         //String innerText = "<html>뉴욕<br>마이애미<br>토론토<br></html>";
-        String innerText = "<html>추천<br>수면시각2</html>";
         segments[23].setText(value);
     }
     private void sleepingGlobalTimeOtherHour(String value){        //before : 24: global time의 남의도시 시간 (시간제 포함) / 추천 수면시간2 / 목표 기상시     after : 그냥 남의도시시각 (Hour)
@@ -165,6 +161,7 @@ public class DisplayManager extends JFrame{
                 "<div style='width:180px; height:30px; display:block; font-size:22px; text-align:center;'>" + value1 + "</div>" +
                 "<div style='width:180px; height:50px; display:block; font-size:27px; text-align:center;'><b style='font-size:22px;'>" + value2 + "</b>" + value3 + "</div>" +
                 "</div></html>";
+        segments[25].setText(innerText);
     }
     private void chstomizeOwnClock(String value){                    //26: function list에서 customize own clock
         String innerText = "<html><div style='text-align:center;'>Customize<br>Your Own Clock</div></html>";
@@ -188,7 +185,7 @@ public class DisplayManager extends JFrame{
     }
 
     interface DisplayAction{ void display(String value); }
-    private DisplayAction[] displays = new DisplayAction[]{
+    private final DisplayAction[] displays = new DisplayAction[]{
             this::timeKeepingYear,
             this::timeKeepingMonth,
             this::timeKeepingDay,
@@ -233,7 +230,6 @@ public class DisplayManager extends JFrame{
     // JPanel
     RoundJPanel outerPanel = new RoundJPanel();
     RoundJPanel innerPanel = new RoundJPanel();
-    JPanel functionPanel = new JPanel();
 
     // Color
     Color outerPanelColor = new java.awt.Color(220, 220, 220);
@@ -322,7 +318,7 @@ public class DisplayManager extends JFrame{
     }
 
     // setBound(x,y,width, height), font(bold(1), size), setSize(width, height), label
-    private int[][] jLabelData = new int[][]{
+    private final int[][] jLabelData = new int[][]{
             {60, 20, 50, 50, 25, 50, 50},       //0
             {100, 20, 50, 50, 25, 50, 50},      //1
             {140, 20, 50, 50, 25, 50, 50},      //2
@@ -514,14 +510,6 @@ public class DisplayManager extends JFrame{
         displays[7].display(timeFormat[5]);
     }
 
-    public String[] getDisplayedTime(){
-        String[] value = new String[8];
-        for(int i = 0; i < 8; i ++){
-            value[i] = segments[i].getText();
-        }
-        return value;
-    }
-
     public void displayTimer(String[] timeFormat) {
         /*
         0 : 시
@@ -585,7 +573,7 @@ public class DisplayManager extends JFrame{
          */
         displays[5].display((String)timeFormat[0]); // 시
         displays[6].display((String)timeFormat[1]); // 분
-        if(((String)timeFormat[2]).equals("  ")) {
+        if(timeFormat[2].equals("  ")) {
             displays[4].display("  ");
         }
         else displays[4].display((String)timeFormat[2]); // AM/PM
@@ -692,14 +680,6 @@ public class DisplayManager extends JFrame{
         displays[28].display(timeformat[7]); // 추천 수면시각2 (분)
         displays[9].display(timeformat[8]);
 
-    }
-
-    public String getValueFromCurrentSelector(){
-        return segments[selector].getText();
-    }
-
-    public void display(Object[] test){
-        //for test;
     }
 
     public void displayShowAlarming(String currentTime){

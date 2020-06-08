@@ -12,7 +12,6 @@ public class Flag {
     static final long MONTH29_MILLI = 2505600000L;
     static final long MONTH30_MILLI = 2592000000L;
     static final long MONTH31_MILLI = 2678400000L;
-    static final long MONTH_MILLI = 2629800000L;
     static final long YEAR365_MILLI = 31557600000L;
     static final long YEAR366_MILLI = 31644000000L;
 

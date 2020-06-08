@@ -118,7 +118,6 @@ public class ModeManager {
 
         int[] stopwatchTime = Utility.milliToTimeFormat((long)stopwatchValue[0]); // long to timeFormat 변환
         int[] lapTime = Utility.milliToTimeFormat((long)stopwatchValue[1]); // long to timeFormat 변환
-        int temp = (int)stopwatchValue[2]; // state => 0 : pause, 1 : start
 
         timeFormat[0] = String.format("%02d",stopwatchTime[3]); // S시
         timeFormat[1] = String.format("%02d",stopwatchTime[4]); // S분
@@ -250,6 +249,7 @@ public class ModeManager {
 
         long currentTime = (long)clockSystem.getTime()[0];
         boolean currentFormat = (boolean)clockSystem.getTime()[1];
+        boolean flag1 = false, flag2 = false;
 
         //LocalTime으로 받아옴(0: 추천 수면시간 1, 1: 추천 수면시간 2)
         Object[] sleepingTime = clockSystem.getSleepingTime(currentTime);
@@ -263,32 +263,40 @@ public class ModeManager {
         timeFormat[0] = "<html>추천<br>수면시각1</html>";
         timeFormat[4] = "<html>추천<br>수면시각2</html>";
         // timeFormat[1] => Timeformat
-        timeFormat[2] = String.format("%02d",first.getHour());
-        timeFormat[3] = String.format("%02d",first.getMinute());
+        if(first == null) {timeFormat[2] = ""; timeFormat[3] = ""; flag1 = true;}
+        else{
+            timeFormat[2] = String.format("%02d", first.getHour());
+            timeFormat[3] = String.format("%02d", first.getMinute());
+        }
         // timeFormat[5] => Timeformat
-        timeFormat[6] = String.format("%02d",second.getHour());
-        timeFormat[7] = String.format("%02d",second.getMinute());
+        if(second == null){timeFormat[6] = ""; timeFormat[7] = ""; flag2 = true;}
+        else {
+            timeFormat[6] = String.format("%02d", second.getHour());
+            timeFormat[7] = String.format("%02d", second.getMinute());
+        }
         // timeFormat[8]
 
         if(currentFormat){
+            if(!flag1) {
+                int tmpFirstTime = Integer.parseInt(timeFormat[2]);
 
-            int tmpFirstTime = Integer.parseInt(timeFormat[2]);
-            int tmpSecondTime = Integer.parseInt(timeFormat[6]);
-
-            if(tmpFirstTime > 12){
-                timeFormat[2] = String.format("%02d", tmpFirstTime - 12);
-                timeFormat[1] = "오후";
-            }else{
-                timeFormat[1] = "오전";
+                if (tmpFirstTime > 12) {
+                    timeFormat[2] = String.format("%02d", tmpFirstTime - 12);
+                    timeFormat[1] = "오후";
+                } else {
+                    timeFormat[1] = "오전";
+                }
             }
+            if(!flag2) {
+                int tmpSecondTime = Integer.parseInt(timeFormat[6]);
 
-            if(tmpSecondTime > 12){
-                timeFormat[6] = String.format("%02d", tmpFirstTime - 12);
-                timeFormat[5] = "오후";
-            }else{
-                timeFormat[5] = "오전";
+                if (tmpSecondTime > 12) {
+                    timeFormat[6] = String.format("%02d", tmpSecondTime - 12);
+                    timeFormat[5] = "오후";
+                } else {
+                    timeFormat[5] = "오전";
+                }
             }
-
         }else{
             timeFormat[5] = "  ";
             timeFormat[1] = "  ";

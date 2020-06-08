@@ -3,17 +3,15 @@ package controller.mode;
 import controller.Utility;
 
 import java.time.LocalTime;
-import java.util.Arrays;
-import java.util.WeakHashMap;
 
 public class SleepingTime {
     private LocalTime sleepTime;    //수면시간 (최대 12시간)
     private LocalTime wakeUpTime;   //기상시각
     private int status;         //0이면 inactive, 1이면 active상태.글 (1이면 cheering message를 받는 상태임)
 
-    static final long SECOND_LONG = 1000l;
-    static final long MINUTE_LONG = 60000l;
-    static final long HOUR_LONG = 3600000l;
+    static final long SECOND_LONG = 1000L;
+    static final long MINUTE_LONG = 60000L;
+    static final long HOUR_LONG = 3600000L;
 
     public SleepingTime(){
         this.sleepTime = LocalTime.of(7, 30);
@@ -29,7 +27,7 @@ public class SleepingTime {
         Object[] localTime = new Object[3];//{ *최적 수면시간 1, 최적 수면시간 2, cheering message 수신여부*/}
         long currentTime = (long)getTime[0];
         long wakeUpTimeLong;
-        long sleepingTimeMap[] = new long[9];
+        long[] sleepingTimeMap = new long[9];
         long validSleepingTimeAmount; // 현재 조건에서 sleeping time의 최대 개수
 
         //일어날 시간을 현재 시간에서 날짜 정보만 남긴다.
@@ -95,7 +93,6 @@ public class SleepingTime {
             if(value == 1) this.sleepTime = this.sleepTime.plusMinutes(1);
             else this.sleepTime = this.sleepTime.minusMinutes(1);
         }
-
         if(this.sleepTime.isAfter(LocalTime.of(12,0)))
             this.sleepTime = LocalTime.of(1, 30);
         if(this.sleepTime.isBefore(LocalTime.of(1,30)))
@@ -107,7 +104,6 @@ public class SleepingTime {
         if(this.status == 0) this.status = 1;
         else this.status = 0;
 
-        return;
     }
 
 
