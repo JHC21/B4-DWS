@@ -14,9 +14,9 @@ public class SleepingTime {
     static final long HOUR_LONG = 3600000L;
 
     public SleepingTime(){
-        this.sleepTime = LocalTime.of(5, 0);
-        this.wakeUpTime = LocalTime.of(9,0);
-        this.status = 1;
+        this.sleepTime = LocalTime.of(7, 30);
+        this.wakeUpTime = LocalTime.of(8,10);
+        this.status = 0;
     }
 
 
@@ -42,6 +42,8 @@ public class SleepingTime {
         //그만큼이 valid한 sleeping time의 개수이다.
         validSleepingTimeAmount = (sleepTime.getHour() * HOUR_LONG + sleepTime.getMinute() * MINUTE_LONG) / (90 * MINUTE_LONG);
 
+        System.out.println(Arrays.toString(sleepingTimeMap));
+
         //기상 시각부터 유효한 sleeping time의 개수만큼 올라가면서 현재 조건에서 가능한 sleeping time을 모두 찾는다.
         //불가능한 경우 일단 0을 넣는다.
         sleepingTimeMap[0] = 0; // 가능한 sleeping time이 2개 미만일 때 사용됨
@@ -56,7 +58,7 @@ public class SleepingTime {
         }
 
         for(int i = 8; i >= 1; i--) {
-            if(sleepingTimeMap[i] != 0 && sleepingTimeMap[i] > currentTime) {
+            if (sleepingTimeMap[i] != 0 && sleepingTimeMap[i] > currentTime) {
                 //유효한 sleeping time이며, 현재 시간이 sleeping time보다 처음 작다면 그것이 최적 수면 시간 1이다.
                 localTime[0] = Utility.milliToLocalTime(sleepingTimeMap[i]);
                 localTime[1] = Utility.milliToLocalTime(sleepingTimeMap[i - 1]);
@@ -85,16 +87,12 @@ public class SleepingTime {
         //수면시간을 변경하는 메소드, UI에서 System을 거쳐 호출함
         //받아온 값을 토대로 this.sleepTime을 변경
         if(type == 1){ //시
-            System.out.println(sleepTime);
             if(value == 1) this.sleepTime = this.sleepTime.plusHours(1);
             else this.sleepTime = sleepTime.minusHours(1);
         }else if(type == 0){ // 분
             if(value == 1) this.sleepTime = this.sleepTime.plusMinutes(1);
             else this.sleepTime = this.sleepTime.minusMinutes(1);
         }
-
-        System.out.println(this.sleepTime);
-
         if(this.sleepTime.isAfter(LocalTime.of(12,0)))
             this.sleepTime = LocalTime.of(1, 30);
         if(this.sleepTime.isBefore(LocalTime.of(1,30)))
