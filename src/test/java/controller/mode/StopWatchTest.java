@@ -1,7 +1,6 @@
 package controller.mode;
 
 import controller.ClockSystem;
-import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
@@ -9,14 +8,6 @@ public class StopWatchTest {
 
     ClockSystem clockSystem = new ClockSystem();
     StopWatch stopWatch = new StopWatch();
-
-    /*
-    @BeforeEach
-    public void 객체_초기화(){
-        clockSystem = new ClockSystem();
-        stopWatch = new StopWatch();
-    }
-     */
 
     private long startTime;
     private long stackedTime;

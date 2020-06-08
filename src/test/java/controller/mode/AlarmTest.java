@@ -1,12 +1,9 @@
 package controller.mode;
 
 import controller.ClockSystem;
-import controller.Utility;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import javax.annotation.processing.SupportedAnnotationTypes;
 import java.time.*;
 
 

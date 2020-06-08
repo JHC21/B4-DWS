@@ -9,14 +9,6 @@ public class TimerTest {
     ClockSystem clockSystem = new ClockSystem();
     Timer timer = new Timer();
 
-    /*
-    @BeforeEach
-    public void 객체_초기화(){
-        clockSystem = new ClockSystem();
-        timer = new Timer();
-    }
-     */
-
     private long startTime;
     private long settedTime = 120000L;
     private long stackedTime;

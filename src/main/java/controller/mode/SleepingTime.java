@@ -3,7 +3,6 @@ package controller.mode;
 import controller.Utility;
 
 import java.time.LocalTime;
-import java.util.Arrays;
 
 public class SleepingTime {
     private LocalTime sleepTime;    //수면시간 (최대 12시간)
