@@ -12,11 +12,9 @@ public class ModeManager {
     public int[] checker(ClockSystem clockSystem){
         long currentTime = (long)clockSystem.getTime()[0];
         int[] value = new int[3];
-        value[0] = clockSystem.getNowAlarm(currentTime);
+        value[0] = clockSystem.getNowAlarm(currentTime); // 0 : inactive, 1 : active, 2 : ringing
         value[1] = clockSystem.getNowSleeping(currentTime);
         value[2] = clockSystem.getNowTimer(currentTime);
-
-        if(value[2] == 2) System.out.println("Timer Activated!");
 
         return value;
     }

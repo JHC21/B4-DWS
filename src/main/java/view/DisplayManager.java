@@ -238,8 +238,9 @@ public class DisplayManager extends JFrame{
 
 
     // Icons
-    String[] iconNames = { "timekeeping_active", "timer_active", "stop_watch_active", "alarm_active",
-            "global_time_active", "sleeping_time_active" };
+
+    String[] iconNames = { "timekeeping_active.png", "timer_active.png", "stop_watch_active.png", "alarm_active.png",
+            "global_time_active.png", "sleeping_time_active.png" };
     ImageIcon[] icons;
     ImageIcon[] activatedIcons;
     JLabel[] labelIcons;
@@ -254,11 +255,12 @@ public class DisplayManager extends JFrame{
 
     private ImageIcon[] getResizedActivatedIcon(){
 
+
         activatedIcons = new ImageIcon[2];
-        String icon1 = String.format("assets/%s.png", "start_icon");
-        String icon2 = String.format("assets/%s.png", "pause_icon");
-        ImageIcon icon1ImageIcon = new ImageIcon(icon1);
-        ImageIcon icon2ImageIcon = new ImageIcon(icon2);
+        java.net.URL url1 = getClass().getClassLoader().getResource("start_icon.png");
+        java.net.URL url2 = getClass().getClassLoader().getResource("pause_icon.png");
+        ImageIcon icon1ImageIcon = new ImageIcon(url1);
+        ImageIcon icon2ImageIcon = new ImageIcon(url2);
         Image originIcon1 = icon1ImageIcon.getImage();
         Image originIcon2 = icon2ImageIcon.getImage();
         Image icon1Image = originIcon1.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
@@ -274,8 +276,8 @@ public class DisplayManager extends JFrame{
 
         icons = new ImageIcon[6];
         for(int i = 0 ; i < 6 ; i++){
-            String iconFile = String.format("assets/%s.png", iconNames[i]);
-            ImageIcon originIcon = new ImageIcon(iconFile);
+            java.net.URL url = getClass().getClassLoader().getResource(iconNames[i]);
+            ImageIcon originIcon = new ImageIcon(url);
             Image originImg = originIcon.getImage();
             Image changedImg= originImg.getScaledInstance(30, 30, Image.SCALE_SMOOTH );
             icons[i] = new ImageIcon(changedImg);
