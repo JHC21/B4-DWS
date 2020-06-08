@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>JAVA</ID>
-  <OriginalElement>controller.mode.Alarm</OriginalElement>
+  <OriginalElement />
   <nodes>
-    <node x="383.0" y="72.5">controller.mode.SleepingTime</node>
-    <node x="662.5" y="322.0">controller.System</node>
-    <node x="574.0" y="96.5">controller.mode.FunctionList</node>
-    <node x="1050.0" y="72.0">controller.mode.TimeKeeping</node>
-    <node x="768.0" y="12.0">controller.mode.StopWatch</node>
-    <node x="1489.0" y="0.0">controller.mode.Timer</node>
-    <node x="0.0" y="36.0">controller.mode.Alarm</node>
-    <node x="81.0" y="554.0">Main</node>
-    <node x="1275.0" y="60.5">controller.mode.GlobalTime</node>
+    <node x="1441.0" y="0.0">controller.mode.SleepingTime</node>
+    <node x="1186.0" y="1983.0">view.ModeManager</node>
+    <node x="1542.0" y="1983.0">controller.mode.TimeKeeping</node>
+    <node x="279.0" y="1983.0">controller.mode.StopWatch</node>
+    <node x="560.0" y="1983.0">controller.mode.Alarm</node>
+    <node x="2084.0" y="1983.0">view.handler.ButtonPressed</node>
+    <node x="1791.0" y="1983.0">controller.Utility</node>
+    <node x="285.0" y="2333.0">view.template.RoundJPanel</node>
+    <node x="905.0" y="1983.0">controller.mode.GlobalTime</node>
+    <node x="0.0" y="2333.0">view.ButtonHandler</node>
+    <node x="0.0" y="0.0">view.DisplayManager</node>
+    <node x="1756.0" y="0.0">view.UI</node>
+    <node x="1225.0" y="2333.0">MainTest</node>
+    <node x="2028.0" y="0.0">view.handler.MyMouseEvent</node>
+    <node x="818.0" y="0.0">controller.ClockSystem</node>
+    <node x="2360.0" y="1983.0">controller.mode.FunctionList</node>
+    <node x="554.0" y="2333.0">view.template.RoundJButton</node>
+    <node x="0.0" y="1983.0">controller.mode.Timer</node>
+    <node x="1020.0" y="2333.0">view.handler.DisplayManager</node>
+    <node x="1131.0" y="0.0">view.template.Flag</node>
+    <node x="409.0" y="0.0">view.MainTemplate</node>
+    <node x="823.0" y="2333.0">Main</node>
+    <node x="2308.0" y="0.0">view.template.Mode</node>
   </nodes>
   <notes />
   <edges />
-  <settings layout="Hierarchic Group" zoom="0.4930050363738109" x="883.5" y="359.0" />
-  <SelectedNodes>
-    <node>Main</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Group" zoom="0.40000000000000013" x="1502.833333333334" y="2185.142857142857" />
+  <SelectedNodes />
   <Categories>
     <Category>Fields</Category>
     <Category>Methods</Category>
