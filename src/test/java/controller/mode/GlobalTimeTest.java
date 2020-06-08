@@ -36,9 +36,9 @@ public class GlobalTimeTest {
         Object[] result1 = (Object[]) result[1];
         String[] otherCityName = (String[]) result1[2];
 
-        //UTC가 기본은 0으로 설정되어 있으므로, 0에 해당되는 도시인 런던, 암스테르담, 파리를 가져와야 함
-        //다른 도시의 UTC가 설정되지 않았으므로, 현재 도시와 같아야 함
-        Assertions.assertArrayEquals(new String[]{"런던", "암스테르담", "파리"}, myCityName);
+        //UTC가 기본은 9으로 설정되어 있으므로, 9에 해당되는 도시인 런던, 암스테르담, 파리를 가져와야 함
+        //다른 도시의 UTC는 0이므로, {"런던", "암스테르담", "파리"}와 같아야 함
+        Assertions.assertArrayEquals(new String[]{"도쿄", "서울", "평양"}, myCityName);
         Assertions.assertArrayEquals(new String[]{"런던", "암스테르담", "파리"}, otherCityName);
 
         //다른 도시의 UTC변경 -> 1 혹은 -1 만 넣어줄 수 있음
@@ -58,8 +58,8 @@ public class GlobalTimeTest {
         result0 = (Object[]) result[0];
         myCityName = (String[]) result0[2];
 
-        //내 도시는 UTC +3 이므로, 모스크바, 이스탄불, 나이로비 이어야 함
-        Assertions.assertArrayEquals(new String[]{"모스크바", "이스탄불", "나이로비"}, myCityName);
+        //내 도시는 UTC +12 이므로, 모스크바, 이스탄불, 나이로비 이어야 함
+        Assertions.assertArrayEquals(new String[]{"마셜 제도", "오클랜드", "투발루"}, myCityName);
 
     }
 }

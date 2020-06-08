@@ -514,6 +514,7 @@ public class UI {
                         System.out.println("TEST:" + Arrays.toString(system.getFunctionList()));
                         mode.setMainCategory(system.getFunctionList()[0]);
                         if(mode.getMainCategory() == 4) system.enterGlobalTime();
+                        mode.setFunctionSelector(0);
                     }
 
                     if(pressed.equals("D")){

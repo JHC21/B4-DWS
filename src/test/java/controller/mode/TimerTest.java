@@ -31,7 +31,7 @@ public class TimerTest {
          */
 
         long currentTime = (long)clockSystem.getTime()[0];
-        timer.changeTimerActivation(currentTime);
+        timer.changeTimerActivation();
         assertEquals(timer.getState(), 1);
 
         timer.updateTimer(this.settedTime);
@@ -47,7 +47,7 @@ public class TimerTest {
     public void 타이머_정지_테스트() throws Exception{
 
         long currentTime = (long)clockSystem.getTime()[0];
-        timer.changeTimerActivation(currentTime);
+        timer.changeTimerActivation();
 
         timer.updateTimer(this.settedTime);
 
@@ -72,7 +72,7 @@ public class TimerTest {
     @Test
     public void 타이머_재시작_테스트() throws Exception{
         long currentTime = (long)clockSystem.getTime()[0];
-        timer.changeTimerActivation(currentTime);
+        timer.changeTimerActivation();
 
         timer.updateTimer(this.settedTime);
 
