@@ -5,6 +5,7 @@ import view.template.RoundJPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class DisplayManager extends JFrame{
 
@@ -255,8 +256,8 @@ public class DisplayManager extends JFrame{
     private ImageIcon[] getResizedActivatedIcon(){
 
         activatedIcons = new ImageIcon[2];
-        String icon1 = String.format("assets/%s.png", "start_icon");
-        String icon2 = String.format("assets/%s.png", "pause_icon");
+        String icon1 = String.format("src/main/resources/%s.png", "start_icon");
+        String icon2 = String.format("src/main/resources/%s.png", "pause_icon");
         ImageIcon icon1ImageIcon = new ImageIcon(icon1);
         ImageIcon icon2ImageIcon = new ImageIcon(icon2);
         Image originIcon1 = icon1ImageIcon.getImage();
@@ -274,7 +275,7 @@ public class DisplayManager extends JFrame{
 
         icons = new ImageIcon[6];
         for(int i = 0 ; i < 6 ; i++){
-            String iconFile = String.format("assets/%s.png", iconNames[i]);
+            String iconFile = String.format("src/main/resources/%s.png", iconNames[i]);
             ImageIcon originIcon = new ImageIcon(iconFile);
             Image originImg = originIcon.getImage();
             Image changedImg= originImg.getScaledInstance(30, 30, Image.SCALE_SMOOTH );

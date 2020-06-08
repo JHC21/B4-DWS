@@ -5,7 +5,11 @@ plugins {
 group 'painful.ooad'
 version '1.0-SNAPSHOT'
 
-compileJava.options.encoding = 'UTF-8'
+compileJava{
+    options.encoding = 'UTF-8'
+    source 'assets/'
+}
+
 
 tasks.withType(JavaCompile){
     options.encoding = 'UTF-8'
