@@ -180,6 +180,7 @@ public class UI {
                     if(pressed.equals("A")) {
                         displayManager.notDisplayIcon();
                         displayManager.cleanDisplay();
+                        displayManager.setSelector(0);
                         mode.enterSub();
                     }
                     if(pressed.equals("B")) system.changeTimeFormat();
@@ -198,7 +199,7 @@ public class UI {
                         mode.exitSub();
                         displayManager.cleanDisplay();
                         displayManager.displayIcon(functionList, checkerList);
-                        displayManager.setSelector(0);
+                        displayManager.setSelector(21);
                         displayManager.notDisplaySelector();
                     }
                     if(pressed.equals("B")) {
