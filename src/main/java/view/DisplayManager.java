@@ -713,12 +713,6 @@ public class DisplayManager extends JFrame{
         }
     }
 
-    public void displayIcon(){
-        for(int i = 0; i < 6; i++){
-            labelIcons[i].setVisible(true);
-        }
-    }
-
     public void displayFunctionListEdit(String value, int[] functionList){
         displays[26].display(value);   //customize your own clock 보여줌
         for(int i = 0; i < 6; i++){
@@ -732,19 +726,16 @@ public class DisplayManager extends JFrame{
         int[] checker = new int[]{0, status[2], 0, status[0], 0, status[1]};
         for(int i = 0; i < 4; i++){
             int currentFunction = functionList[i];
-            if(currentFunction == 1 || currentFunction == 3 || currentFunction == 5){
-                labelIcons[i].setIcon(icons[currentFunction][checker[currentFunction]]);
-                labelIcons[i].setVisible(true);
-            }
-            System.out.println(i + iconNames[currentFunction][checker[currentFunction]]);
+            labelIcons[i].setIcon(icons[currentFunction][checker[currentFunction]]);
+            labelIcons[i].setVisible(true);
+            //System.out.println(i + iconNames[currentFunction][checker[currentFunction]]);
         }
         for(int i = 4; i < 6; i++){
             int currentFunction = functionList[i];
-            if(currentFunction == 1 || currentFunction == 3 || currentFunction == 5){
-                labelIcons[i].setIcon(icons[currentFunction][checker[currentFunction] + 2]);
-                labelIcons[i].setVisible(true);
-            }
-            System.out.println(i + iconNames[currentFunction][checker[currentFunction] + 2]);
+            labelIcons[i].setIcon(icons[currentFunction][checker[currentFunction] + 2]);
+            labelIcons[i].setVisible(true);
+            //System.out.println(i + iconNames[currentFunction][checker[currentFunction]]);
+            //System.out.println(i + iconNames[currentFunction][checker[currentFunction] + 2]);
         }
     }
 
