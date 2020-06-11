@@ -34,6 +34,7 @@ public class UI {
         System.out.println(mode.getMainCategory());
         System.out.println(mode.getSubCategory());
         int[] checkerList = {0, 0, 0};
+        int[] functionList = new int[]{0, 1, 2, 3, 4, 5};
         this.alarmNumber = 0;
         alarmTime = 0;
         lastPressedTime = 0;
@@ -41,6 +42,7 @@ public class UI {
             // TODO: mode.mainCategory : 0~6까지 추가
             // 어떤 버튼이 눌렸는지를 여기서 받아와야함
             String pressed = event.getPressed();
+            functionList = system.getFunctionList();
 
             //if(!pressed.equals("default value")) System.out.println("Pressed : " + pressed + "  MainCategory : " + mode.getMainCategory() + "  SubCategory : " + mode.getSubCategory());
 
@@ -67,7 +69,7 @@ public class UI {
                 if(!pressed.equals("default value") || currentTime > alarmTime + 5000) { // turn off alarm manually & automatically
                     checkerList[0] = 1;
                     buzzer.stopRingTimer();
-                    displayManager.displayIcon();
+                    displayManager.displayIcon(functionList, checkerList);
                     displayManager.cleanDisplay();
                 }
                 continue;
@@ -76,7 +78,7 @@ public class UI {
                 if(!pressed.equals("default value") || currentTime > alarmTime + 20000) { // turn off cheering message manually & automatically
                     checkerList[1] = 1;
                     buzzer.stopRingTimer();
-                    displayManager.displayIcon();
+                    displayManager.displayIcon(functionList, checkerList);
                     displayManager.cleanDisplay();
                 }
                 continue;
@@ -172,7 +174,7 @@ public class UI {
             //if(!pressed.equals("default value")) System.out.println("SECOND Pressed : " + pressed + "  MainCategory : " + mode.getMainCategory() + "  SubCategory : " + mode.getSubCategory());
 
             //if(pressed.equals("default value")) System.out.println("Pressed : " + pressed + "  MainCategory : " + mode.getMainCategory() + "  SubCategory : " + mode.getSubCategory());
-            int[] functionList = system.getFunctionList();
+
             //System.out.println(Arrays.toString(functionList) + Arrays.toString(checkerList));
 
             if (mode.getMainCategory() == 0) {
@@ -526,7 +528,7 @@ public class UI {
                         displayManager.changeIconPosition(false);
                         system.moveItem(displayManager.getSelector()-31 , 1);
                         displayManager.setSelector(Flag.moveFunctionSelector(displayManager.getSelector()));
-                        System.out.println(displayManager.getSelector());
+                        // System.out.println(displayManager.getSelector());
                     }
                     if(pressed.equals("C")){
                         displayManager.notDisplaySelector();
