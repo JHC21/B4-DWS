@@ -35,6 +35,8 @@ public class UI {
         System.out.println(mode.getSubCategory());
         int[] checkerList = {0, 0, 0};
         int[] functionList = new int[]{0, 1, 2, 3, 4, 5};
+        int curMainCategory = 0;
+        int curSubCategory = 0;
         this.alarmNumber = 0;
         alarmTime = 0;
         lastPressedTime = 0;
@@ -117,18 +119,18 @@ public class UI {
             //displayManager.displayFunctionList(system.getFunctionList(), checkerList);
 
             //back to base
-            if(mode.getSubCategory() == 1) {
+            if(curMainCategory == 1) {
                 if(currentTime > lastPressedTime + 300000) {
                     System.out.println(currentTime + "   " + lastPressedTime);
-                    displayManager.displayIcon();
+                    displayManager.displayIcon(functionList, checkerList);
                     displayManager.notDisplaySelector();
                     displayManager.cleanDisplay();
                     mode.exitSub();
                 }
             }
-            if(mode.getMainCategory() == 6) {
+            if(curMainCategory == 6) {
                 if(currentTime > lastPressedTime + 300000) {
-                    displayManager.displayIcon();
+                    displayManager.displayIcon(functionList, checkerList);
                     displayManager.notDisplaySelector();
                     displayManager.cleanDisplay();
                     mode.setMainCategory(system.getFunctionList()[0]);
@@ -139,7 +141,7 @@ public class UI {
             //현재 카테고리가 display종류이고 C버튼이 눌렸을 때
             //function List에 질의해 다음 function을 가져옴 -> 이거만 따로 써줘야 할 필요가 있음
 
-            if(pressed.equals("C") && mode.getSubCategory() == 0 && mode.getMainCategory() != 6){
+            if(pressed.equals("C") && curSubCategory == 0 && curMainCategory != 6){
                 System.out.println("Pressed C in Display XXX");
                 displayManager.cleanDisplay();
                 displayManager.notDisplaySelector();
@@ -147,7 +149,7 @@ public class UI {
                 mode.setMainCategory(system.getFunctionList()[mode.getFunctionSelector()]);
 
 
-                if(mode.getMainCategory() == 4) { // global time
+                if(curMainCategory == 4) { // global time
                     // 이름없는 system method
                     // 20번 ID에서 1,2 번 system operation을 여기서 해줘야 함
                     system.enterGlobalTime();
@@ -171,16 +173,16 @@ public class UI {
             }
 
 
-            //if(!pressed.equals("default value")) System.out.println("SECOND Pressed : " + pressed + "  MainCategory : " + mode.getMainCategory() + "  SubCategory : " + mode.getSubCategory());
-
-            //if(pressed.equals("default value")) System.out.println("Pressed : " + pressed + "  MainCategory : " + mode.getMainCategory() + "  SubCategory : " + mode.getSubCategory());
-
+            //if(!pressed.equals("default value")) System.out.println("SECOND Pressed : " + pressed + "  MainCategory : " + curMainCategory + "  SubCategory : " + curSubCategory);
+            //if(pressed.equals("default value")) System.out.println("Pressed : " + pressed + "  MainCategory : " + curMainCategory + "  SubCategory : " + curSubCategory);
             //System.out.println(Arrays.toString(functionList) + Arrays.toString(checkerList));
+            curMainCategory = mode.getMainCategory();
+            curSubCategory = mode.getSubCategory();
 
-            if (mode.getMainCategory() == 0) {
+            if (curMainCategory == 0) {
                 if(displayManager.getSelector() > 8) displayManager.setSelector(0);
                 // Timekeeping
-                if (mode.getSubCategory() == 0) {
+                if (curSubCategory == 0) {
                     displayManager.displayTime((String[])modeManager.displayTime(system)[0]);
                     displayManager.displayIcon(functionList, checkerList);
 
@@ -193,7 +195,7 @@ public class UI {
                     if(pressed.equals("B")) system.changeTimeFormat();
                     // C버튼이 눌리는 처리는 맨 위에
 
-                } else if(mode.getSubCategory() == 1) {
+                } else if(curSubCategory == 1) {
                     displayManager.displaySelector();
                     Object[] curTime = modeManager.displayTime(system);
                     displayManager.displayTime((String[])curTime[0]);
@@ -232,11 +234,11 @@ public class UI {
                     // Set Time
                     // 공통적으로 예외처리를 해줘야함 (displayManager에서)
                 }
-            }else if(mode.getMainCategory() == 1){
+            }else if(curMainCategory == 1){
                 if(displayManager.getSelector() < 5 || displayManager.getSelector() > 10) displayManager.setSelector(5);
 
                 //Timer
-                if(mode.getSubCategory() == 0){
+                if(curSubCategory == 0){
                     //display Timer
                     //화면 표시
                     displayManager.displayTimer(modeManager.displayTimer(system));
@@ -264,7 +266,7 @@ public class UI {
                         //active&inactive
                         system.toggleTimerActivation();
                     }
-                }else if(mode.getSubCategory() == 1){
+                }else if(curSubCategory == 1){
                     //set Timer
                     displayManager.displaySelector();
                     displayManager.setTimer(modeManager.setTimer(system));
@@ -293,10 +295,10 @@ public class UI {
                     }
 
                 }
-            }else if(mode.getMainCategory() == 2){
+            }else if(curMainCategory == 2){
 
                 //StopWatch
-                if(mode.getSubCategory() == 0) {
+                if(curSubCategory == 0) {
                     //display StopWatch  (stopWatch는 set이 없음)
                     displayManager.displayStopWatch(modeManager.displayStopWatch(system));
                     displayManager.displayIcon(functionList, checkerList);
@@ -316,12 +318,12 @@ public class UI {
                         }
                     }
                 }
-            }else if(mode.getMainCategory() == 3){
+            }else if(curMainCategory == 3){
                 int temp = displayManager.getSelector();
                 if(!((temp > 4 && temp < 19) && (temp < 7 || temp > 12))) displayManager.setSelector(12);
 
                 //Alarm
-                if(mode.getSubCategory() == 0){
+                if(curSubCategory == 0){
                     //display Alarm
                     displayManager.displayAlarm(modeManager.displayAlarm(system, this.alarmNumber));
                     displayManager.displayIcon(functionList, checkerList);
@@ -341,7 +343,7 @@ public class UI {
                         //toggle active/inactive
                         system.toggleAlarmActivation(this.alarmNumber);
                     }
-                }else if(mode.getSubCategory() == 1){
+                }else if(curSubCategory == 1){
                     //set Alarm
                     displayManager.displaySelector();
                     Object[] alarmValue = modeManager.displayAlarm(system, this.alarmNumber);
@@ -394,7 +396,7 @@ public class UI {
                         //displayManager.setValue(++displayManager.get선택자(), displayManager.get값())
                     }
                 }
-            } else if(mode.getMainCategory() == 4) {
+            } else if(curMainCategory == 4) {
                 //GlobalTime
 //                System.out.println("displayManager의 selector: " + displayManager.getSelector());
                 displayManager.displayGlobalTime(modeManager.displayGlobalTime(system));
@@ -407,7 +409,7 @@ public class UI {
                 }
                 displayManager.displaySelector();
 
-                if(mode.getSubCategory() == 0) {
+                if(curSubCategory == 0) {
                     // display globalTime  (global Time은 set이 없음)
                     if(pressed.equals("A")) { // change pointer position
                         displayManager.setSelector(Flag.moveGlobalTimeSelector(displayManager.getSelector()));
@@ -435,12 +437,12 @@ public class UI {
                         }
                     }
                 }
-            }else if(mode.getMainCategory() == 5){
+            }else if(curMainCategory == 5){
                 //SleepingTime
                 int getSelector = displayManager.getSelector();
                 if(getSelector != 22 && getSelector != 27 && getSelector != 24 && getSelector != 28){
                     displayManager.setSelector(22); }
-                if(mode.getSubCategory() == 0){
+                if(curSubCategory == 0){
                     //display sleeping time
                     // displayManager.displayTime(modeManager.displayTime(system));
                     displayManager.displaySleepingTime(modeManager.displaySleepingTime(system));
@@ -463,7 +465,7 @@ public class UI {
                         system.toggleCheeringMessageReceiving();
                     }
 
-                }else if(mode.getSubCategory() == 1){
+                }else if(curSubCategory == 1){
                     //set sleeping time
                     //Set sleeping time
                     displayManager.displaySelector();
@@ -507,11 +509,11 @@ public class UI {
                 }
 
 
-            }else if(mode.getMainCategory() == 6){
+            }else if(curMainCategory == 6){
                 int getSelector = displayManager.getSelector();
                 if(getSelector < 31) displayManager.setSelector(31);
                 //Function Change
-                if(mode.getSubCategory() == 0) {
+                if(curSubCategory == 0) {
                     //customize your own clock을 먼저 보여줘야한다.
                     displayManager.displayFunctionListEdit(customText.toString(), functionList);
                     displayManager.displaySelector();
@@ -536,7 +538,7 @@ public class UI {
                         displayManager.displayIcon(functionList, checkerList);
                         System.out.println("TEST:" + Arrays.toString(system.getFunctionList()));
                         mode.setMainCategory(system.getFunctionList()[0]);
-                        if(mode.getMainCategory() == 4) system.enterGlobalTime();
+                        if(mode.getMainCategory() == 4) system.enterGlobalTime();   //바뀐 이후의 값을 바로 알아내야 하기에 여긴 mode.getMainCategory를 사용함
                         mode.setFunctionSelector(0);
                     }
 
@@ -548,8 +550,8 @@ public class UI {
                 }
             }
 
-            //if(!pressed.equals("default value")) System.out.println("THIRD Pressed : " + pressed + "  MainCategory : " + mode.getMainCategory() + "  SubCategory : " + mode.getSubCategory());
-            //if(pressed.equals("default value")) System.out.println("Pressed : " + pressed + "  MainCategory : " + mode.getMainCategory() + "  SubCategory : " + mode.getSubCategory());
+            //if(!pressed.equals("default value")) System.out.println("THIRD Pressed : " + pressed + "  MainCategory : " + mode.getMainCategory() + "  SubCategory : " + curSubCategory);
+            //if(pressed.equals("default value")) System.out.println("Pressed : " + pressed + "  MainCategory : " + mode.getMainCategory() + "  SubCategory : " + curSubCategory);
 
 
             //Thread.sleep(1000);
