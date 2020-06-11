@@ -197,13 +197,14 @@ public class UI {
 
             //if(pressed.equals("default value")) System.out.println("Pressed : " + pressed + "  MainCategory : " + mode.getMainCategory() + "  SubCategory : " + mode.getSubCategory());
             int[] functionList = system.getFunctionList();
-
+            //System.out.println(Arrays.toString(functionList) + Arrays.toString(checkerList));
 
             if (mode.getMainCategory() == 0) {
                 if(displayManager.getSelector() > 8) displayManager.setSelector(0);
                 // Timekeeping
                 if (mode.getSubCategory() == 0) {
                     displayManager.displayTime((String[])modeManager.displayTime(system)[0]);
+                    displayManager.displayIcon(functionList, checkerList);
 
                     if(pressed.equals("A")) {
                         displayManager.notDisplayIcon();
@@ -260,6 +261,7 @@ public class UI {
                     //display Timer
                     //화면 표시
                     displayManager.displayTimer(modeManager.displayTimer(system));
+                    displayManager.displayIcon(functionList, checkerList);
                     // timer의 actiavte 관련은 checker() 가 할 수 있을 듯?
                     // 혹은 timer, alarm, sleeping time에 대해 check하는 과정을 삽입해야 함
                     // 아직 안함
@@ -317,6 +319,7 @@ public class UI {
                 if(mode.getSubCategory() == 0) {
                     //display StopWatch  (stopWatch는 set이 없음)
                     displayManager.displayStopWatch(modeManager.displayStopWatch(system));
+                    displayManager.displayIcon(functionList, checkerList);
 
                     if(pressed.equals("A")) {
                         //Lap time
@@ -341,6 +344,7 @@ public class UI {
                 if(mode.getSubCategory() == 0){
                     //display Alarm
                     displayManager.displayAlarm(modeManager.displayAlarm(system, this.alarmNumber));
+                    displayManager.displayIcon(functionList, checkerList);
                     if(pressed.equals("A")) {
                         //set alarm
                         displayManager.notDisplayIcon();
@@ -414,6 +418,7 @@ public class UI {
                 //GlobalTime
 //                System.out.println("displayManager의 selector: " + displayManager.getSelector());
                 displayManager.displayGlobalTime(modeManager.displayGlobalTime(system));
+                displayManager.displayIcon(functionList, checkerList);
 
                 // 엉뚱한 곳에 selector가 있으면 selector를 내 도시에 맞춰주기
                 if(displayManager.getSelector() != 21 && displayManager.getSelector() != 23) {
@@ -459,6 +464,7 @@ public class UI {
                     //display sleeping time
                     // displayManager.displayTime(modeManager.displayTime(system));
                     displayManager.displaySleepingTime(modeManager.displaySleepingTime(system));
+                    displayManager.displayIcon(functionList, checkerList);
 
                     // Set sleeping time
                     if(pressed.equals("A")){
@@ -527,7 +533,6 @@ public class UI {
                 if(mode.getSubCategory() == 0) {
                     //customize your own clock을 먼저 보여줘야한다.
                     displayManager.displayFunctionListEdit(customText.toString(), functionList);
-                    displayManager.displayIcon(functionList, checkerList);
                     displayManager.displaySelector();
 
                     //move selected item to left
@@ -547,6 +552,7 @@ public class UI {
                     if(pressed.equals("C")){
                         displayManager.notDisplaySelector();
                         displayManager.cleanDisplay();
+                        displayManager.displayIcon(functionList, checkerList);
                         System.out.println("TEST:" + Arrays.toString(system.getFunctionList()));
                         mode.setMainCategory(system.getFunctionList()[0]);
                         if(mode.getMainCategory() == 4) system.enterGlobalTime();

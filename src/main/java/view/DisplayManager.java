@@ -245,7 +245,7 @@ public class DisplayManager extends JFrame{
     String[][] iconNames = {
             /* 0 */{"timekeeping_active.png", "timekeeping_active.png", "timekeeping_grey.png", "timekeeping_grey.png"},
             /* 1 */{"timer_inactive.png", "timer_active.png", "timer_grey_inactive.png", "timer_grey_active.png"},
-            /* 2 */{"stop_watch_inactive.png", "stop_watch_active.png", "stop_watch_grey_inactive.png", "stop_watch_grey_inactive.png"},
+            /* 2 */{"stop_watch_active.png", "stop_watch_active.png", "stop_watch_grey_inactive.png", "stop_watch_grey_inactive.png"},
             /* 3 */{"alarm_inactive.png", "alarm_active.png", "alarm_grey_inactive.png", "alarm_grey_active.png"},
             /* 4 */{"global_time_active.png", "global_time_active.png", "global_time_grey_active.png", "global_time_grey_active.png"},
             /* 5 */{"sleeping_time_inactive.png", "sleeping_time_active.png", "sleeping_time_grey_inactive.png", "sleeping_time_grey_active.png"}
@@ -266,8 +266,8 @@ public class DisplayManager extends JFrame{
 
 
         activatedIcons = new ImageIcon[2];
-        java.net.URL url1 = getClass().getClassLoader().getResource("start_icon.png");
-        java.net.URL url2 = getClass().getClassLoader().getResource("pause_icon.png");
+        java.net.URL url1 = getClass().getClassLoader().getResource("start.png");
+        java.net.URL url2 = getClass().getClassLoader().getResource("pause.png");
         ImageIcon icon1ImageIcon = new ImageIcon(url1);
         ImageIcon icon2ImageIcon = new ImageIcon(url2);
         Image originIcon1 = icon1ImageIcon.getImage();
@@ -286,6 +286,7 @@ public class DisplayManager extends JFrame{
         icons = new ImageIcon[6][4];
         for(int i = 0; i < 6; i++){
             for(int j = 0; j < 4; j++){
+                System.out.println(iconNames[i][j]);
                 java.net.URL url = getClass().getClassLoader().getResource(iconNames[i][j]);
                 ImageIcon originIcon = new ImageIcon(url);
                 Image originImg = originIcon.getImage();
@@ -302,8 +303,8 @@ public class DisplayManager extends JFrame{
         labelIcons = new JLabel[6];
 
         for(int i = 0 ; i < 6 ; i++){
-            if(i < 5) labelIcons[i] = new JLabel(icons[i][1],SwingUtilities.CENTER);
-            else labelIcons[i] = new JLabel(icons[i][3],SwingUtilities.CENTER);
+            if(i < 4) labelIcons[i] = new JLabel(icons[i][0],SwingUtilities.CENTER);
+            else labelIcons[i] = new JLabel(icons[i][2],SwingUtilities.CENTER);
             labelIcons[i].setLayout(null);
             labelIcons[i].setBounds(15+(i*28), 250, 100, 100);
             //0 :15, 1: 43, 2: 71, 3:
@@ -735,6 +736,7 @@ public class DisplayManager extends JFrame{
                 labelIcons[i].setIcon(icons[currentFunction][checker[currentFunction]]);
                 labelIcons[i].setVisible(true);
             }
+            System.out.println(i + iconNames[currentFunction][checker[currentFunction]]);
         }
         for(int i = 4; i < 6; i++){
             int currentFunction = functionList[i];
@@ -742,6 +744,7 @@ public class DisplayManager extends JFrame{
                 labelIcons[i].setIcon(icons[currentFunction][checker[currentFunction] + 2]);
                 labelIcons[i].setVisible(true);
             }
+            System.out.println(i + iconNames[currentFunction][checker[currentFunction] + 2]);
         }
     }
 
