@@ -58,7 +58,7 @@ public class SleepingTime {
         }
 
         for(int i = 8; i >= 1; i--) {
-            if (sleepingTimeMap[i] != 0 && sleepingTimeMap[i] > currentTime) {
+            if (sleepingTimeMap[i] != 0 && sleepingTimeMap[i] > currentTime - 1000) {
                 //유효한 sleeping time이며, 현재 시간이 sleeping time보다 처음 작다면 그것이 최적 수면 시간 1이다.
                 localTime[0] = Utility.milliToLocalTime(sleepingTimeMap[i]);
                 localTime[1] = Utility.milliToLocalTime(sleepingTimeMap[i - 1]);
