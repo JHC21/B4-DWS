@@ -3,6 +3,7 @@ package view;
 import controller.ClockSystem;
 import controller.Utility;
 import view.handler.MyMouseEvent;
+import view.template.Buzzer;
 import view.template.Flag;
 import view.template.Mode;
 
@@ -15,7 +16,7 @@ public class UI {
     DisplayManager displayManager;
     ModeManager modeManager;
     ClockSystem system;
-
+    Buzzer buzzer;
     MyMouseEvent event;
 
     int[] currentTimeInt = new int[8];
@@ -61,18 +62,22 @@ public class UI {
             if(checkerList[0] == 2) {
                 if(!pressed.equals("default value")) { // turn off alarm manually
                     checkerList[0] = 1;
+                    // buzzer.stopRingTimer();
                 }
                 if(currentTime > alarmTime + 5000) { // turn off alarm automatically
                     checkerList[0] = 1;
+                    // buzzer.stopRingTimer();
                 }
                 continue;
             } // 여기에 알람 소리를 끄는 로직을 추가할 수 있을 듯
             if(checkerList[1] == 2) {
                 if(!pressed.equals("default value")) { // turn off alarm manually
                     checkerList[1] = 1;
+                    // buzzer.stopRingTimer();
                 }
                 if(currentTime > alarmTime + 20000) { // turn off alarm automatically
                     checkerList[1] = 1;
+                    // buzzer.stopRingTimer();
                 }
                 continue;
             } // 여기에 sleeping time소리를 끌 수 있는 로직을 추가할 수 있을 듯
@@ -104,15 +109,19 @@ public class UI {
                     displayManager.cleanDisplay();
                     displayManager.displayShowAlarming(temp);
                     system.ringAlarm();
+                    buzzer.ringTimer();
                 }
                 else if(checkerList[1] == 2) {
                     displayManager.displayCheeringMessage(temp); //위의 displayShowAlarming()과 같은 메소드가 구현되어 있지 않음
                     system.ringSleepingTime();
+                    buzzer.ringTimer();
                 }
                 continue;
             }
             else if(checkerList[2] == 2) { // ring timer
                 system.ringTimer();
+                buzzer.ringTimer();
+                buzzer.stopRingTimer();
             }
             //여기까지 왔다는 것은 alarm이나 sleeping time이 울리지 않는다는 의미입니다.
             //이 부분을 통해 displayManager에서 function list를 표시합니다.
@@ -548,6 +557,7 @@ public class UI {
         event = displayManager.myMouseEvent;
         system = new ClockSystem();
         mode = new Mode();
+        buzzer = new Buzzer();
 
         systemWatching();
 
