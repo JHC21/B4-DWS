@@ -242,9 +242,15 @@ public class DisplayManager extends JFrame{
 
     // Icons
 
-    String[] iconNames = { "timekeeping_active.png", "timer_active.png", "stop_watch_active.png", "alarm_active.png",
-            "global_time_active.png", "sleeping_time_active.png" };
-    ImageIcon[] icons;
+    String[][] iconNames = {
+            /* 0 */{"timekeeping_active.png", "timekeeping_active.png", "timekeeping_grey.png", "timekeeping_grey.png"},
+            /* 1 */{"timer_inactive.png", "timer_active.png", "timer_grey_inactive.png", "timer_grey_active.png"},
+            /* 2 */{"stop_watch_inactive.png", "stop_watch_active.png", "stop_watch_grey_inactive.png", "stop_watch_grey_inactive.png"},
+            /* 3 */{"alarm_inactive.png", "alarm_active.png", "alarm_grey_inactive.png", "alarm_grey_active.png"},
+            /* 4 */{"global_time_active.png", "global_time_active.png", "global_time_grey_active.png", "global_time_grey_active.png"},
+            /* 5 */{"sleeping_time_inactive.png", "sleeping_time_active.png", "sleeping_time_grey_inactive.png", "sleeping_time_grey_active.png"}
+    };
+    ImageIcon[][] icons;
     ImageIcon[] activatedIcons;
     JLabel[] labelIcons;
 
@@ -275,26 +281,29 @@ public class DisplayManager extends JFrame{
     }
 
 
-    private ImageIcon[] getResizedIcon(){
+    private ImageIcon[][] getResizedIcon(){
 
-        icons = new ImageIcon[6];
-        for(int i = 0 ; i < 6 ; i++){
-            java.net.URL url = getClass().getClassLoader().getResource(iconNames[i]);
-            ImageIcon originIcon = new ImageIcon(url);
-            Image originImg = originIcon.getImage();
-            Image changedImg= originImg.getScaledInstance(30, 30, Image.SCALE_SMOOTH );
-            icons[i] = new ImageIcon(changedImg);
+        icons = new ImageIcon[6][4];
+        for(int i = 0; i < 6; i++){
+            for(int j = 0; j < 4; j++){
+                java.net.URL url = getClass().getClassLoader().getResource(iconNames[i][j]);
+                ImageIcon originIcon = new ImageIcon(url);
+                Image originImg = originIcon.getImage();
+                Image changedImg= originImg.getScaledInstance(30, 30, Image.SCALE_SMOOTH );
+                icons[i][j] = new ImageIcon(changedImg);
+            }
         }
         return icons;
 
     }
 
-    private JLabel[] setIcons(ImageIcon[] icons){
+    private JLabel[] setIcons(ImageIcon[][] icons){
 
         labelIcons = new JLabel[6];
 
         for(int i = 0 ; i < 6 ; i++){
-            labelIcons[i] = new JLabel(icons[i],SwingUtilities.CENTER);
+            if(i < 5) labelIcons[i] = new JLabel(icons[i][1],SwingUtilities.CENTER);
+            else labelIcons[i] = new JLabel(icons[i][3],SwingUtilities.CENTER);
             labelIcons[i].setLayout(null);
             labelIcons[i].setBounds(15+(i*28), 250, 100, 100);
             //0 :15, 1: 43, 2: 71, 3:
@@ -709,9 +718,33 @@ public class DisplayManager extends JFrame{
         }
     }
 
-    public void displayFunctionListEdit(String value){
+    public void displayFunctionListEdit(String value, int[] functionList){
         displays[26].display(value);   //customize your own clock 보여줌
+        for(int i = 0; i < 6; i++){
+            labelIcons[i].setIcon(icons[functionList[i]][1]);
+        }
     }
+
+    public void displayIcon(int[] functionList, int[] status){
+        //status가 Alarm, SleepingTime, Timer
+        //timer:1, alarm:3, sleepingTime:5
+        int[] checker = new int[]{0, status[2], 0, status[0], 0, status[1]};
+        for(int i = 0; i < 4; i++){
+            int currentFunction = functionList[i];
+            if(currentFunction == 1 || currentFunction == 3 || currentFunction == 5){
+                labelIcons[i].setIcon(icons[currentFunction][checker[currentFunction]]);
+                labelIcons[i].setVisible(true);
+            }
+        }
+        for(int i = 4; i < 6; i++){
+            int currentFunction = functionList[i];
+            if(currentFunction == 1 || currentFunction == 3 || currentFunction == 5){
+                labelIcons[i].setIcon(icons[currentFunction][checker[currentFunction] + 2]);
+                labelIcons[i].setVisible(true);
+            }
+        }
+    }
+
 
     public void changeIconPosition(boolean left){
         int trueSelector = this.selector - 31;
