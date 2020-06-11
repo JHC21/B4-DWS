@@ -21,11 +21,10 @@ public class UI {
     Buzzer buzzer;
     MyMouseEvent event;
 
-    int[] currentTimeInt = new int[8];
-    String[] currentTimeString = new String[9];
     long currentTime;
-    long alarmTime;
-    long lastPressedTime;
+    boolean currentTimeFormat; // true : 12시간제, false : 24시간제
+    long alarmTime; // 알람이 울리게 된 시간. showAlarming, showCheeringMessage이전에 불리며, turn off automatically를 위해 사용된다.
+    long lastPressedTime; // back to base의 조건으로 사용된다
     Mode mode;
     int alarmNumber;
     StringBuilder customText = new StringBuilder(customize);
@@ -57,77 +56,49 @@ public class UI {
             //여기서 alarm, sleeping, timer의 각각 on/off여부를 가져와야 함
             //즉 checker의 리턴 값을 만들고 매 루트마다 저장하여야 할 듯 합니다
             //저장된 값들은 미래에 function list 표시를 위해 사용됩니다
-            currentTime = (long)system.getTime()[0];
+            Object[] tempGetTime = system.getTime();
+            currentTime = (long)tempGetTime[0];
+            currentTimeFormat = (boolean)tempGetTime[1];
+
             if(!pressed.equals("default value")) {
                 lastPressedTime = currentTime;
             }
             if(checkerList[0] == 2) {
-                if(!pressed.equals("default value")) { // turn off alarm manually
-                    checkerList[0] = 1;
-                    buzzer.stopRingTimer();
-                    displayManager.displayIcon();
-                    displayManager.cleanDisplay();
-                }
-                if(currentTime > alarmTime + 5000) { // turn off alarm automatically
+                if(!pressed.equals("default value") || currentTime > alarmTime + 5000) { // turn off alarm manually & automatically
                     checkerList[0] = 1;
                     buzzer.stopRingTimer();
                     displayManager.displayIcon();
                     displayManager.cleanDisplay();
                 }
                 continue;
-            } // 여기에 알람 소리를 끄는 로직을 추가할 수 있을 듯
+            }
             if(checkerList[1] == 2) {
-                if(!pressed.equals("default value")) { // turn off cheering message manually
-                    checkerList[1] = 1;
-                    buzzer.stopRingTimer();
-                    displayManager.displayIcon();
-                    displayManager.cleanDisplay();
-                }
-                if(currentTime > alarmTime + 20000) { // turn off cheering message automatically
+                if(!pressed.equals("default value") || currentTime > alarmTime + 20000) { // turn off cheering message manually & automatically
                     checkerList[1] = 1;
                     buzzer.stopRingTimer();
                     displayManager.displayIcon();
                     displayManager.cleanDisplay();
                 }
                 continue;
-            } // 여기에 sleeping time소리를 끌 수 있는 로직을 추가할 수 있을 듯
+            }
 
-            currentTimeString = Utility.millitoTimeFormat_test(currentTime);
-            currentTimeInt = Utility.milliToTimeFormat(currentTime);
             checkerList = modeManager.checker(system);
             if(checkerList[0] == 2 || checkerList[1] == 2) { // show alarming, show cheering message
                 //String 형식은 "20 05 03 일    06:30"
                 //12시간제일때는 "20 05 03 일 AM 06:30"
-                String timeFormat;
-                if((boolean)system.getTime()[1]) { // 12시간제
-                    if(currentTimeInt[3] < 12) timeFormat = "오전";
-                    else timeFormat = "오후";
-                }
-                else {// 24시간제일 때는 AM/PM 표시 안함
-                    timeFormat = "  ";
-                }
-                String temp = String.format("%s %s %s %s %s %s:%s",
-                        currentTimeString[0],
-                        currentTimeString[1],
-                        currentTimeString[2],
-                        currentTimeString[7],
-                        timeFormat,
-                        currentTimeString[3],
-                        currentTimeString[4]);
+
+                String temp = Utility.alarmCheeringFormatting(currentTime, currentTimeFormat);
+
+                displayManager.notDisplayIcon();
+                displayManager.cleanDisplay();
+                buzzer.ringTimer();
+                alarmTime = currentTime;
 
                 if(checkerList[0] == 2) {
-                    displayManager.notDisplayIcon();
-                    displayManager.cleanDisplay();
-                    buzzer.ringTimer();
-                    alarmTime = currentTime;
                     displayManager.displayShowAlarming(temp);
                     system.ringAlarm();
                 }
                 else if(checkerList[1] == 2) {
-                    displayManager.notDisplayIcon();
-                    displayManager.cleanDisplay();
-                    buzzer.ringTimer();
-                    alarmTime = currentTime;
                     displayManager.displayCheeringMessage(temp);
                     system.ringSleepingTime();
                 }
@@ -269,6 +240,7 @@ public class UI {
                         if(!(timerState == 0 || timerState == 2)){
                             displayManager.notDisplayIcon();
                             displayManager.cleanDisplay();
+                            displayManager.setSelector(0);
                             mode.enterSub();
                         }
 
@@ -289,7 +261,7 @@ public class UI {
                         //display timer
                         mode.exitSub();
                         displayManager.displayIcon();
-                        displayManager.setSelector(0);
+                        displayManager.setSelector(21);
                         displayManager.notDisplaySelector();
                         displayManager.cleanDisplay();
                     }
@@ -365,7 +337,7 @@ public class UI {
                         //display alarm
                         mode.exitSub();
                         displayManager.displayIcon();
-                        displayManager.setSelector(0);
+                        displayManager.setSelector(21);
                         displayManager.notDisplaySelector();
                         displayManager.cleanDisplay();
                     }
@@ -461,9 +433,10 @@ public class UI {
 
                     // Set sleeping time
                     if(pressed.equals("A")){
-                        mode.enterSub();
+                        displayManager.setSelector(21);
                         displayManager.notDisplayIcon();
                         displayManager.cleanDisplay();
+                        mode.enterSub();
                     }
 
                     // B버튼이 눌렸을 때는 아무것도 실행되지 않음

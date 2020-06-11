@@ -91,4 +91,32 @@ public class Utility {
         }
         return counter > 1;
     }
+
+    public static String alarmCheeringFormatting(long currentTime, boolean currentTimeFormat) {
+        //String 형식은 "20 05 03 일    06:30"
+        //12시간제일때는 "20 05 03 일 AM 06:30"
+
+        String[] currentTimeString = Utility.millitoTimeFormat_test(currentTime);
+        int[] currentTimeInt = Utility.milliToTimeFormat(currentTime);
+
+        String timeFormat;
+        if(currentTimeFormat) { // 12시간제
+            if(currentTimeInt[3] < 12) timeFormat = "오전";
+            else timeFormat = "오후";
+        }
+        else {// 24시간제일 때는 AM/PM 표시 안함
+            timeFormat = "  ";
+        }
+        String temp = String.format("%s %s %s %s %s %s:%s",
+                currentTimeString[0],
+                currentTimeString[1],
+                currentTimeString[2],
+                currentTimeString[7],
+                timeFormat,
+                currentTimeString[3],
+                currentTimeString[4]);
+
+        return temp;
+
+    }
 }
