@@ -162,6 +162,7 @@ public class UI {
             if(pressed.equals("E")){
                 int temp = 0;
                 displayManager.cleanDisplay();
+                customText = new StringBuilder(customize);
                 for(int i = 0; i < customText.length(); i++) {
                     if(customText.charAt(i) != ' ') {
                         temp = (int)(Math.random() * 2);
