@@ -120,12 +120,17 @@ public class UI {
             if(mode.getSubCategory() == 1) {
                 if(currentTime > lastPressedTime + 300000) {
                     System.out.println(currentTime + "   " + lastPressedTime);
-                    System.out.println("Entered exitsub");
+                    displayManager.displayIcon();
+                    displayManager.notDisplaySelector();
+                    displayManager.cleanDisplay();
                     mode.exitSub();
                 }
             }
             if(mode.getMainCategory() == 6) {
                 if(currentTime > lastPressedTime + 300000) {
+                    displayManager.displayIcon();
+                    displayManager.notDisplaySelector();
+                    displayManager.cleanDisplay();
                     mode.setMainCategory(system.getFunctionList()[0]);
                 }
             }
@@ -182,6 +187,7 @@ public class UI {
                     if(pressed.equals("A")) {
                         displayManager.notDisplayIcon();
                         displayManager.cleanDisplay();
+                        displayManager.setSelector(0);
                         mode.enterSub();
                     }
                     if(pressed.equals("B")) system.changeTimeFormat();
@@ -200,7 +206,7 @@ public class UI {
                         mode.exitSub();
                         displayManager.cleanDisplay();
                         displayManager.displayIcon(functionList, checkerList);
-                        displayManager.setSelector(0);
+                        displayManager.setSelector(21);
                         displayManager.notDisplaySelector();
                     }
                     if(pressed.equals("B")) {
