@@ -61,18 +61,26 @@ public class UI {
             if(checkerList[0] == 2) {
                 if(!pressed.equals("default value")) { // turn off alarm manually
                     checkerList[0] = 1;
+                    displayManager.displayIcon();
+                    displayManager.cleanDisplay();
                 }
                 if(currentTime > alarmTime + 5000) { // turn off alarm automatically
                     checkerList[0] = 1;
+                    displayManager.displayIcon();
+                    displayManager.cleanDisplay();
                 }
                 continue;
             } // 여기에 알람 소리를 끄는 로직을 추가할 수 있을 듯
             if(checkerList[1] == 2) {
-                if(!pressed.equals("default value")) { // turn off alarm manually
+                if(!pressed.equals("default value")) { // turn off cheering message manually
                     checkerList[1] = 1;
+                    displayManager.displayIcon();
+                    displayManager.cleanDisplay();
                 }
-                if(currentTime > alarmTime + 20000) { // turn off alarm automatically
+                if(currentTime > alarmTime + 20000) { // turn off cheering message automatically
                     checkerList[1] = 1;
+                    displayManager.displayIcon();
+                    displayManager.cleanDisplay();
                 }
                 continue;
             } // 여기에 sleeping time소리를 끌 수 있는 로직을 추가할 수 있을 듯
@@ -102,10 +110,15 @@ public class UI {
 
                 if(checkerList[0] == 2) {
                     displayManager.cleanDisplay();
+                    alarmTime = currentTime;
+                    displayManager.notDisplayIcon();
                     displayManager.displayShowAlarming(temp);
                     system.ringAlarm();
                 }
                 else if(checkerList[1] == 2) {
+                    displayManager.cleanDisplay();
+                    alarmTime = currentTime;
+                    displayManager.notDisplayIcon();
                     displayManager.displayCheeringMessage(temp); //위의 displayShowAlarming()과 같은 메소드가 구현되어 있지 않음
                     system.ringSleepingTime();
                 }
