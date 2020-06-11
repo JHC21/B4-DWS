@@ -70,7 +70,7 @@ public class UI {
             if(checkerList[0] == 2) {
                 if(!pressed.equals("default value") || currentTime > alarmTime + 5000) { // turn off alarm manually & automatically
                     checkerList[0] = 1;
-                    buzzer.stopRingTimer();
+                    //buzzer.stopRingTimer();
                     buzzer.stopT();
                     displayManager.displayIcon(functionList, checkerList);
                     displayManager.cleanDisplay();
@@ -80,7 +80,8 @@ public class UI {
             if(checkerList[1] == 2) {
                 if(!pressed.equals("default value") || currentTime > alarmTime + 20000) { // turn off cheering message manually & automatically
                     checkerList[1] = 1;
-                    buzzer.stopRingTimer();
+                    //buzzer.stopRingTimer();
+                    buzzer.stopT();
                     displayManager.displayIcon(functionList, checkerList);
                     displayManager.cleanDisplay();
                 }
@@ -96,7 +97,6 @@ public class UI {
 
                 displayManager.notDisplayIcon();
                 displayManager.cleanDisplay();
-                //buzzer.ringTimer();
                 buzzer.start();
                 alarmTime = currentTime;
 
@@ -112,7 +112,7 @@ public class UI {
             }
             else if(checkerList[2] == 2) { // ring timer
                 system.ringTimer();
-                buzzer.run(1);
+                buzzer.beeep();
                 //buzzer.ringTimer();
                 //buzzer.stopRingTimer();
             }

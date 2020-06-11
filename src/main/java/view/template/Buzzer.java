@@ -6,11 +6,12 @@ import java.awt.Toolkit;
 
 public class Buzzer extends Thread{
 
-    private Clip timerRing;
+    //private Clip timerRing;
 
     private Toolkit toolkit = Toolkit.getDefaultToolkit();
     private boolean flag = false;
 
+    /*
     public Buzzer() throws Exception{
         URL url = this.getClass().getClassLoader().getResource("ringsound.wav");
         AudioInputStream timerAudio = AudioSystem.getAudioInputStream(url);
@@ -28,6 +29,7 @@ public class Buzzer extends Thread{
     public void stopRingTimer(){
         this.timerRing.stop();
     }
+     */
 
     public void run() {
         this.flag = true;
@@ -43,7 +45,7 @@ public class Buzzer extends Thread{
         }
     }
 
-    public void run(int i) {
+    public void beeep() {
         toolkit.beep();
     }
 
