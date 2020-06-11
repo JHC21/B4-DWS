@@ -13,6 +13,8 @@ import java.util.Arrays;
 
 public class UI {
 
+    static final String customize = "customize your own watch";
+
     DisplayManager displayManager;
     ModeManager modeManager;
     ClockSystem system;
@@ -26,6 +28,7 @@ public class UI {
     long lastPressedTime;
     Mode mode;
     int alarmNumber;
+    StringBuilder customText = new StringBuilder(customize);
 
     public void systemWatching() throws Exception{
 
@@ -43,7 +46,6 @@ public class UI {
             //if(!pressed.equals("default value")) System.out.println("Pressed : " + pressed + "  MainCategory : " + mode.getMainCategory() + "  SubCategory : " + mode.getSubCategory());
 
             //if(pressed.equals("default value")) System.out.println("Pressed : " + pressed + "  MainCategory : " + mode.getMainCategory() + "  SubCategory : " + mode.getSubCategory());
-
 
             // System.out.println("Now, this is UI:" + pressed);
             // if(pressed.equals("B")){
@@ -178,7 +180,14 @@ public class UI {
             }
 
             if(pressed.equals("E")){
+                int temp = 0;
                 displayManager.cleanDisplay();
+                for(int i = 0; i < customText.length(); i++) {
+                    if(customText.charAt(i) != ' ') {
+                        temp = (int)(Math.random() * 2);
+                        if(temp == 1) customText.setCharAt(i, (char)(customText.charAt(i) - ('a' - 'A')));
+                    }
+                }
                 mode.setMainCategory(6);
                 mode.setSubCategory(0);
             }
@@ -516,7 +525,7 @@ public class UI {
                 //Function Change
                 if(mode.getSubCategory() == 0) {
                     //customize your own clock을 먼저 보여줘야한다.
-                    displayManager.displayFunctionListEdit();
+                    displayManager.displayFunctionListEdit(customText.toString());
                     displayManager.displayIcon();
                     displayManager.displaySelector();
 

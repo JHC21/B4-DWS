@@ -163,8 +163,11 @@ public class DisplayManager extends JFrame{
                 "</div></html>";
         segments[25].setText(innerText);
     }
-    private void chstomizeOwnClock(String value){                    //26: function list에서 customize own clock
-        String innerText = "<html><div style='text-align:center;'>Customize<br>Your Own Clock</div></html>";
+    private void customizeOwnClock(String value){                    //26: function list에서 customize own clock
+
+        String[] texts = value.split(" ");
+
+        String innerText = "<html><div style='text-align:center;'>" + texts[0] + "<br>" + texts[1] + " " + texts[2] + " " + texts[3] + "</div></html>";
         segments[26].setText(innerText);
     }
 
@@ -212,7 +215,7 @@ public class DisplayManager extends JFrame{
             this::sleepingGlobalTimeOtherText,
             this::sleepingGlobalTimeOtherHour,
             this::cheeringMessageShowAll,
-            this::chstomizeOwnClock,
+            this::customizeOwnClock,
             this::myTimeMinute,
             this::otherTimeMinute,
             this::myTimeTimeFormat,
@@ -706,8 +709,8 @@ public class DisplayManager extends JFrame{
         }
     }
 
-    public void displayFunctionListEdit(){
-        displays[26].display("의미없음");   //customize your own clock 보여줌
+    public void displayFunctionListEdit(String value){
+        displays[26].display(value);   //customize your own clock 보여줌
     }
 
     public void changeIconPosition(boolean left){
