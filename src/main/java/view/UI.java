@@ -27,21 +27,26 @@ public class UI {
     long lastPressedTime; // back to base의 조건으로 사용된다
     Mode mode;
     int alarmNumber;
-    StringBuilder customText = new StringBuilder(customize);
+    StringBuilder customText = new StringBuilder(customize); // customize your own watch를 랜덤으로 구현하기 위한 변수 공간이다.
+    int[] checkerList = {0, 0, 0}; // 0: alarm, 1: sleeping time, 2: timer
+    int[] functionList = {0, 1, 2, 3, 4, 5};
 
     public void systemWatching() throws Exception{
 
         System.out.println(mode.getMainCategory());
         System.out.println(mode.getSubCategory());
-        int[] checkerList = {0, 0, 0};
-        int[] functionList = new int[]{0, 1, 2, 3, 4, 5};
         int curMainCategory = 0;
         int curSubCategory = 0;
         this.alarmNumber = 0;
         alarmTime = 0;
         lastPressedTime = 0;
 
+        displayManager.setSelector(21); // 기본값을 global time의 selector로 두고 있다
+
+        // buzzer를 일단 start 시킨다. 이후 이 thread는 wait 상태에 돌입하고, 우리가 사용할 때 notify시키면 된다.
+        // buzzer를 끌 때는 buzzer.pauseThread()를 호출하면 된다.
         buzzer.start();
+
 
         while(true){
             // TODO: mode.mainCategory : 0~6까지 추가
@@ -121,16 +126,11 @@ public class UI {
             //displayManager.displayFunctionList(system.getFunctionList(), checkerList);
 
             //back to base
-            if(curMainCategory == 1) {
-                if(currentTime > lastPressedTime + 300000) {
-                    displayManager.displayIcon(functionList, checkerList);
-                    displayManager.notDisplaySelector();
-                    displayManager.cleanDisplay();
-                    mode.exitSub();
+            if(currentTime > lastPressedTime + 300000) {
+                if (curMainCategory == 1) {
+                    this.exitingSub();
                 }
-            }
-            if(curMainCategory == 6) {
-                if(currentTime > lastPressedTime + 300000) {
+                if (curMainCategory == 6) {
                     displayManager.displayIcon(functionList, checkerList);
                     displayManager.notDisplaySelector();
                     displayManager.cleanDisplay();
@@ -182,17 +182,14 @@ public class UI {
             curSubCategory = mode.getSubCategory();
 
             if (curMainCategory == 0) {
-                if(displayManager.getSelector() > 8) displayManager.setSelector(0);
+                //if(displayManager.getSelector() > 8) displayManager.setSelector(0);
                 // Timekeeping
                 if (curSubCategory == 0) {
                     displayManager.displayTime((String[])modeManager.displayTime(system)[0]);
                     displayManager.displayIcon(functionList, checkerList);
 
                     if(pressed.equals("A")) {
-                        displayManager.notDisplayIcon();
-                        displayManager.cleanDisplay();
-                        displayManager.setSelector(0);
-                        mode.enterSub();
+                        this.enteringSub(0);
                     }
                     if(pressed.equals("B")) system.changeTimeFormat();
                     // C버튼이 눌리는 처리는 맨 위에
@@ -207,17 +204,13 @@ public class UI {
                     // 을 던져주면, displayManager가 알아서 표시해주는거
 
                     if(pressed.equals("A")) {
-                        mode.exitSub();
-                        displayManager.cleanDisplay();
-                        displayManager.displayIcon(functionList, checkerList);
-                        displayManager.setSelector(21);
-                        displayManager.notDisplaySelector();
+                        this.exitingSub();
                     }
                     if(pressed.equals("B")) {
                         //System.out.println("pressedB");
                         long updateValue = Flag.getTimeValue(displayManager.getSelector(), curTime, 1);
                         system.setTime(updateValue);
-                        lastPressedTime += updateValue;
+                        lastPressedTime += updateValue; // 시간이 변하는 만큼 lastPressedTime을 같이 맞춰 주어야 back to base가 잘못 발동되지 않는다
 
                     }
                     if(pressed.equals("D")) {
@@ -234,10 +227,9 @@ public class UI {
                         //displayManager.setValue(++displayManager.get선택자(), displayManager.get값())
                     }
                     // Set Time
-                    // 공통적으로 예외처리를 해줘야함 (displayManager에서)
                 }
             }else if(curMainCategory == 1){
-                if(displayManager.getSelector() < 5 || displayManager.getSelector() > 10) displayManager.setSelector(5);
+                //if(displayManager.getSelector() < 5 || displayManager.getSelector() > 10) displayManager.setSelector(5);
 
                 //Timer
                 if(curSubCategory == 0){
@@ -245,18 +237,11 @@ public class UI {
                     //화면 표시
                     displayManager.displayTimer(modeManager.displayTimer(system));
                     displayManager.displayIcon(functionList, checkerList);
-                    // timer의 actiavte 관련은 checker() 가 할 수 있을 듯?
-                    // 혹은 timer, alarm, sleeping time에 대해 check하는 과정을 삽입해야 함
-                    // 아직 안함
 
                     if(pressed.equals("A")) {
                         //set timer
-                        int timerState = (int)system.getTimer()[1];
-                        if(!(timerState == 0 || timerState == 2)){
-                            displayManager.notDisplayIcon();
-                            displayManager.cleanDisplay();
-                            displayManager.setSelector(0);
-                            mode.enterSub();
+                        if(checkerList[2] == 1){ // active 상태인 경우만 set으로 넘어갈 수 있음
+                            this.enteringSub(5);
                         }
 
                     }
@@ -274,11 +259,7 @@ public class UI {
                     displayManager.setTimer(modeManager.setTimer(system));
                     if(pressed.equals("A")) {
                         //display timer
-                        mode.exitSub();
-                        displayManager.displayIcon(functionList, checkerList);
-                        displayManager.setSelector(21);
-                        displayManager.notDisplaySelector();
-                        displayManager.cleanDisplay();
+                        this.exitingSub();
                     }
                     if(pressed.equals("B")) {
                         //increase value
@@ -298,7 +279,6 @@ public class UI {
 
                 }
             }else if(curMainCategory == 2){
-
                 //StopWatch
                 if(curSubCategory == 0) {
                     //display StopWatch  (stopWatch는 set이 없음)
@@ -321,9 +301,6 @@ public class UI {
                     }
                 }
             }else if(curMainCategory == 3){
-                int temp = displayManager.getSelector();
-                if(!((temp > 4 && temp < 19) && (temp < 7 || temp > 12))) displayManager.setSelector(12);
-
                 //Alarm
                 if(curSubCategory == 0){
                     //display Alarm
@@ -331,10 +308,7 @@ public class UI {
                     displayManager.displayIcon(functionList, checkerList);
                     if(pressed.equals("A")) {
                         //set alarm
-                        displayManager.notDisplayIcon();
-                        displayManager.cleanDisplay();
-                        displayManager.setSelector(12);
-                        mode.enterSub();
+                        this.enteringSub(12);
                     }
                     if(pressed.equals("B")) {
                         //move to next alarm
@@ -352,11 +326,7 @@ public class UI {
                     displayManager.setAlarm(alarmValue);
                     if(pressed.equals("A")) {
                         //display alarm
-                        mode.exitSub();
-                        displayManager.displayIcon(functionList, checkerList);
-                        displayManager.setSelector(21);
-                        displayManager.notDisplaySelector();
-                        displayManager.cleanDisplay();
+                        this.exitingSub();
                     }
                     if(pressed.equals("B") || pressed.equals("D")) {
                         //increase/decrease value & toggle
@@ -385,14 +355,12 @@ public class UI {
                                 else updateValue = updateValue.minusMinutes(1); // tempSelector == 6
                             }
                         }
-                        System.out.println("updateValueHour: " + updateValue.getHour() + '\n' + "updateValueMin: " + updateValue.getMinute());
+                        //System.out.println("updateValueHour: " + updateValue.getHour() + '\n' + "updateValueMin: " + updateValue.getMinute());
                         system.setAlarm(this.alarmNumber, (boolean[])alarmValue[3], updateValue);
                     }
                     if(pressed.equals("C")) {
                         //change pointer position
-                        // System.out.print("before : " + displayManager.getSelector());
                         displayManager.setSelector(Flag.moveAlarmSelector(displayManager.getSelector()));
-                        // System.out.print("  after : " + displayManager.getSelector() + "\n");
                         //int 선택자 = displayManager에서 선택자를 가져오는거
                         //int 값 = displayManager에서 선택자에 해당하는 값을 가져옴
                         //displayManager.setValue(++displayManager.get선택자(), displayManager.get값())
@@ -400,16 +368,18 @@ public class UI {
                 }
             } else if(curMainCategory == 4) {
                 //GlobalTime
-//                System.out.println("displayManager의 selector: " + displayManager.getSelector());
+                //System.out.println("displayManager의 selector: " + displayManager.getSelector());
+                displayManager.displaySelector();
                 displayManager.displayGlobalTime(modeManager.displayGlobalTime(system));
                 displayManager.displayIcon(functionList, checkerList);
 
-                // 엉뚱한 곳에 selector가 있으면 selector를 내 도시에 맞춰주기
+                /*
+                // 엉뚱한 곳에 selector가 있으면 selector를 내 도시에 맞춰 주기
                 if(displayManager.getSelector() != 21 && displayManager.getSelector() != 23) {
                     displayManager.setSelector(21);
                     System.out.println("set selector to 21");
                 }
-                displayManager.displaySelector();
+                 */
 
                 if(curSubCategory == 0) {
                     // display globalTime  (global Time은 set이 없음)
@@ -442,8 +412,8 @@ public class UI {
             }else if(curMainCategory == 5){
                 //SleepingTime
                 int getSelector = displayManager.getSelector();
-                if(getSelector != 22 && getSelector != 27 && getSelector != 24 && getSelector != 28){
-                    displayManager.setSelector(22); }
+                //if(getSelector != 22 && getSelector != 27 && getSelector != 24 && getSelector != 28){
+                    //displayManager.setSelector(22); }
                 if(curSubCategory == 0){
                     //display sleeping time
                     // displayManager.displayTime(modeManager.displayTime(system));
@@ -452,10 +422,7 @@ public class UI {
 
                     // Set sleeping time
                     if(pressed.equals("A")){
-                        displayManager.setSelector(21);
-                        displayManager.notDisplayIcon();
-                        displayManager.cleanDisplay();
-                        mode.enterSub();
+                        this.enteringSub(21);
                     }
 
                     // B버튼이 눌렸을 때는 아무것도 실행되지 않음
@@ -475,11 +442,7 @@ public class UI {
 
                     //Move to sleeping time
                     if(pressed.equals("A")){
-                        mode.exitSub();
-                        displayManager.setSelector(21);
-                        displayManager.notDisplaySelector();
-                        displayManager.displayIcon(functionList, checkerList);
-                        displayManager.cleanDisplay();
+                        this.exitingSub();
                     }
 
                     // Increase value
@@ -536,6 +499,7 @@ public class UI {
                     }
                     if(pressed.equals("C")){
                         displayManager.notDisplaySelector();
+                        displayManager.setSelector(21);
                         displayManager.cleanDisplay();
                         displayManager.displayIcon(functionList, checkerList);
                         System.out.println("TEST:" + Arrays.toString(system.getFunctionList()));
@@ -560,10 +524,6 @@ public class UI {
         }
     }
 
-    public void initTemplate(){
-
-    }
-
     public UI() throws Exception{
         // currentState = "DISPLAY_TIME";
 
@@ -576,6 +536,21 @@ public class UI {
 
         systemWatching();
 
+    }
+
+    public void enteringSub(int selector) {
+        displayManager.notDisplayIcon();
+        displayManager.setSelector(selector);
+        displayManager.cleanDisplay();
+        displayManager.displaySelector();
+        mode.enterSub();
+    }
+    public void exitingSub() {
+        displayManager.notDisplaySelector();
+        displayManager.setSelector(21);
+        displayManager.cleanDisplay();
+        displayManager.displayIcon(functionList, checkerList);
+        mode.exitSub();
     }
 }
 
