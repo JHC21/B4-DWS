@@ -152,7 +152,7 @@ public class DisplayManager extends JFrame{
 
     }
     private void cheeringMessageShowAll(String value){               //25: Cheering message 전체
-        String temp = cheeringMessages[(int)Math.random() * cheeringMessages.length];
+        String temp = cheeringMessages[(int)(Math.random() * cheeringMessages.length)];
         String value1 = value.substring(0,10); // year month day dayOfWeek
         String value2 = value.substring(11, 13); // timeFormat
         String value3 = value.substring(14); // hour minute
