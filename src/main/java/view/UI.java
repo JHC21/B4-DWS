@@ -71,6 +71,7 @@ public class UI {
                 if(!pressed.equals("default value") || currentTime > alarmTime + 5000) { // turn off alarm manually & automatically
                     checkerList[0] = 1;
                     buzzer.stopRingTimer();
+                    buzzer.stopT();
                     displayManager.displayIcon(functionList, checkerList);
                     displayManager.cleanDisplay();
                 }
@@ -95,7 +96,8 @@ public class UI {
 
                 displayManager.notDisplayIcon();
                 displayManager.cleanDisplay();
-                buzzer.ringTimer();
+                //buzzer.ringTimer();
+                buzzer.start();
                 alarmTime = currentTime;
 
                 if(checkerList[0] == 2) {
@@ -110,7 +112,8 @@ public class UI {
             }
             else if(checkerList[2] == 2) { // ring timer
                 system.ringTimer();
-                buzzer.ringTimer();
+                buzzer.run(1);
+                //buzzer.ringTimer();
                 //buzzer.stopRingTimer();
             }
 
@@ -121,7 +124,6 @@ public class UI {
             //back to base
             if(curMainCategory == 1) {
                 if(currentTime > lastPressedTime + 300000) {
-                    System.out.println(currentTime + "   " + lastPressedTime);
                     displayManager.displayIcon(functionList, checkerList);
                     displayManager.notDisplaySelector();
                     displayManager.cleanDisplay();
