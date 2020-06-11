@@ -196,6 +196,7 @@ public class UI {
             //if(!pressed.equals("default value")) System.out.println("SECOND Pressed : " + pressed + "  MainCategory : " + mode.getMainCategory() + "  SubCategory : " + mode.getSubCategory());
 
             //if(pressed.equals("default value")) System.out.println("Pressed : " + pressed + "  MainCategory : " + mode.getMainCategory() + "  SubCategory : " + mode.getSubCategory());
+            int[] functionList = system.getFunctionList();
 
 
             if (mode.getMainCategory() == 0) {
@@ -224,7 +225,7 @@ public class UI {
                     if(pressed.equals("A")) {
                         mode.exitSub();
                         displayManager.cleanDisplay();
-                        displayManager.displayIcon();
+                        displayManager.displayIcon(functionList, checkerList);
                         displayManager.setSelector(0);
                         displayManager.notDisplaySelector();
                     }
@@ -288,7 +289,7 @@ public class UI {
                     if(pressed.equals("A")) {
                         //display timer
                         mode.exitSub();
-                        displayManager.displayIcon();
+                        displayManager.displayIcon(functionList, checkerList);
                         displayManager.setSelector(0);
                         displayManager.notDisplaySelector();
                         displayManager.cleanDisplay();
@@ -364,7 +365,7 @@ public class UI {
                     if(pressed.equals("A")) {
                         //display alarm
                         mode.exitSub();
-                        displayManager.displayIcon();
+                        displayManager.displayIcon(functionList, checkerList);
                         displayManager.setSelector(0);
                         displayManager.notDisplaySelector();
                         displayManager.cleanDisplay();
@@ -486,7 +487,7 @@ public class UI {
                         mode.exitSub();
                         displayManager.setSelector(21);
                         displayManager.notDisplaySelector();
-                        displayManager.displayIcon();
+                        displayManager.displayIcon(functionList, checkerList);
                         displayManager.cleanDisplay();
                     }
 
@@ -525,8 +526,8 @@ public class UI {
                 //Function Change
                 if(mode.getSubCategory() == 0) {
                     //customize your own clock을 먼저 보여줘야한다.
-                    displayManager.displayFunctionListEdit(customText.toString());
-                    displayManager.displayIcon();
+                    displayManager.displayFunctionListEdit(customText.toString(), functionList);
+                    displayManager.displayIcon(functionList, checkerList);
                     displayManager.displaySelector();
 
                     //move selected item to left
