@@ -3,6 +3,7 @@ package view;
 import controller.ClockSystem;
 import controller.Utility;
 import view.handler.MyMouseEvent;
+import view.template.Buzzer;
 import view.template.Flag;
 import view.template.Mode;
 
@@ -15,7 +16,7 @@ public class UI {
     DisplayManager displayManager;
     ModeManager modeManager;
     ClockSystem system;
-
+    Buzzer buzzer;
     MyMouseEvent event;
 
     int[] currentTimeInt = new int[8];
@@ -61,24 +62,28 @@ public class UI {
             if(checkerList[0] == 2) {
                 if(!pressed.equals("default value")) { // turn off alarm manually
                     checkerList[0] = 1;
+                    // buzzer.stopRingTimer();
                     displayManager.displayIcon();
                     displayManager.cleanDisplay();
                 }
                 if(currentTime > alarmTime + 5000) { // turn off alarm automatically
                     checkerList[0] = 1;
+                    // buzzer.stopRingTimer();
                     displayManager.displayIcon();
                     displayManager.cleanDisplay();
                 }
                 continue;
             } // 여기에 알람 소리를 끄는 로직을 추가할 수 있을 듯
             if(checkerList[1] == 2) {
-                if(!pressed.equals("default value")) { // turn off cheering message manually
+                if(!pressed.equals("default value")) { // turn off alarm manually
                     checkerList[1] = 1;
+                    // buzzer.stopRingTimer();
                     displayManager.displayIcon();
                     displayManager.cleanDisplay();
                 }
-                if(currentTime > alarmTime + 20000) { // turn off cheering message automatically
+                if(currentTime > alarmTime + 20000) { // turn off alarm automatically
                     checkerList[1] = 1;
+                    // buzzer.stopRingTimer();
                     displayManager.displayIcon();
                     displayManager.cleanDisplay();
                 }
@@ -109,23 +114,25 @@ public class UI {
                         currentTimeString[4]);
 
                 if(checkerList[0] == 2) {
-                    displayManager.cleanDisplay();
-                    alarmTime = currentTime;
                     displayManager.notDisplayIcon();
+                    displayManager.cleanDisplay();
                     displayManager.displayShowAlarming(temp);
                     system.ringAlarm();
+                    buzzer.ringTimer();
                 }
                 else if(checkerList[1] == 2) {
-                    displayManager.cleanDisplay();
-                    alarmTime = currentTime;
                     displayManager.notDisplayIcon();
+                    displayManager.cleanDisplay();
                     displayManager.displayCheeringMessage(temp); //위의 displayShowAlarming()과 같은 메소드가 구현되어 있지 않음
                     system.ringSleepingTime();
+                    buzzer.ringTimer();
                 }
                 continue;
             }
             else if(checkerList[2] == 2) { // ring timer
                 system.ringTimer();
+                buzzer.ringTimer();
+                buzzer.stopRingTimer();
             }
             //여기까지 왔다는 것은 alarm이나 sleeping time이 울리지 않는다는 의미입니다.
             //이 부분을 통해 displayManager에서 function list를 표시합니다.
@@ -561,6 +568,7 @@ public class UI {
         event = displayManager.myMouseEvent;
         system = new ClockSystem();
         mode = new Mode();
+        buzzer = new Buzzer();
 
         systemWatching();
 
