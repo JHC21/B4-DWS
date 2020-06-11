@@ -31,10 +31,26 @@ public class Buzzer extends Thread{
     }
      */
 
-    public void run() {
-        this.flag = true;
+    public synchronized void threadWait() {
+        try {
+            this.wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
-        while(this.flag) {
+    public synchronized void threadNotify() {
+        this.notify();
+    }
+
+    public void run() {
+        this.flag = false;
+
+        while(true) {
+            if(!this.flag) {
+                threadWait();
+                this.flag = true;
+            }
             toolkit.beep();
             try {
                 Thread.sleep(1000);
@@ -43,6 +59,7 @@ public class Buzzer extends Thread{
             }
 
         }
+
     }
 
     public void beeep() {
@@ -50,7 +67,7 @@ public class Buzzer extends Thread{
     }
 
 
-    public void stopT() {
+    public void pauseThread() {
         this.flag = false;
     }
 

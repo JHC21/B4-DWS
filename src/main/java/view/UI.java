@@ -40,6 +40,9 @@ public class UI {
         this.alarmNumber = 0;
         alarmTime = 0;
         lastPressedTime = 0;
+
+        buzzer.start();
+
         while(true){
             // TODO: mode.mainCategory : 0~6까지 추가
             // 어떤 버튼이 눌렸는지를 여기서 받아와야함
@@ -70,8 +73,7 @@ public class UI {
             if(checkerList[0] == 2) {
                 if(!pressed.equals("default value") || currentTime > alarmTime + 5000) { // turn off alarm manually & automatically
                     checkerList[0] = 1;
-                    //buzzer.stopRingTimer();
-                    buzzer.stopT();
+                    buzzer.pauseThread();
                     displayManager.displayIcon(functionList, checkerList);
                     displayManager.cleanDisplay();
                 }
@@ -80,8 +82,7 @@ public class UI {
             if(checkerList[1] == 2) {
                 if(!pressed.equals("default value") || currentTime > alarmTime + 20000) { // turn off cheering message manually & automatically
                     checkerList[1] = 1;
-                    //buzzer.stopRingTimer();
-                    buzzer.stopT();
+                    buzzer.pauseThread();
                     displayManager.displayIcon(functionList, checkerList);
                     displayManager.cleanDisplay();
                 }
@@ -97,7 +98,7 @@ public class UI {
 
                 displayManager.notDisplayIcon();
                 displayManager.cleanDisplay();
-                buzzer.start();
+                buzzer.threadNotify();
                 alarmTime = currentTime;
 
                 if(checkerList[0] == 2) {
@@ -113,8 +114,6 @@ public class UI {
             else if(checkerList[2] == 2) { // ring timer
                 system.ringTimer();
                 buzzer.beeep();
-                //buzzer.ringTimer();
-                //buzzer.stopRingTimer();
             }
 
             //여기까지 왔다는 것은 alarm이나 sleeping time이 울리지 않는다는 의미입니다.
