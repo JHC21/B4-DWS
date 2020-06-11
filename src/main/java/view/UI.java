@@ -101,11 +101,12 @@ public class UI {
                         currentTimeString[4]);
 
                 if(checkerList[0] == 2) {
+                    displayManager.cleanDisplay();
                     displayManager.displayShowAlarming(temp);
                     system.ringAlarm();
                 }
                 else if(checkerList[1] == 2) {
-                    //displayManager.cheeringMessageShowAll(temp); 위의 displayShowAlarming()과 같은 메소드가 구현되어 있지 않음
+                    displayManager.displayCheeringMessage(temp); //위의 displayShowAlarming()과 같은 메소드가 구현되어 있지 않음
                     system.ringSleepingTime();
                 }
                 continue;
@@ -311,6 +312,7 @@ public class UI {
                         //set alarm
                         displayManager.notDisplayIcon();
                         displayManager.cleanDisplay();
+                        displayManager.setSelector(12);
                         mode.enterSub();
                     }
                     if(pressed.equals("B")) {
@@ -362,6 +364,7 @@ public class UI {
                                 else updateValue = updateValue.minusMinutes(1); // tempSelector == 6
                             }
                         }
+                        System.out.println("updateValueHour: " + updateValue.getHour() + '\n' + "updateValueMin: " + updateValue.getMinute());
                         system.setAlarm(this.alarmNumber, (boolean[])alarmValue[3], updateValue);
                     }
                     if(pressed.equals("C")) {

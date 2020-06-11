@@ -12,7 +12,7 @@ public class Alarm {
 
     public Alarm(){
         alarmingDay = new boolean[]{true, true, true, true, true, true, true};
-        alarmingTime = LocalTime.of(8, 0);
+        alarmingTime = LocalTime.of(8, 0, 0);
         state = 0;
     }
 
@@ -29,10 +29,13 @@ public class Alarm {
     }
 
     public void changeAlarmActivation(){
-        if(this.state == 1) this.state = 0;
+        if(this.state == 1) {
+            this.state = 0;
+        }
         else /*if state == 0*/ this.state = 1;
         //Alarm의 상태를 변경, active/inactive 상태 toggle
         //this.activated를 0~1 로 변경.
+        System.out.println(this.state);
     }
 
     public void updateAlarmValue(boolean[] alarmingDay, LocalTime alarmingTime){
@@ -41,6 +44,14 @@ public class Alarm {
         this.alarmingTime = this.alarmingTime.plusMinutes(alarmingTime.getMinute());
         //set alarm에서 알람의 값을 변경해주는 메소드, 받아온 값을 저장해줌
         //this.alarmingDay = alarmingDay;   this.alarmingTime = alarmingTime;
+
+        System.out.print("alariming Day: ");
+        for(int i = 0; i < 7; i++) {
+            System.out.print(this.alarmingDay[0] + " ");
+        }
+        System.out.println('\n');
+        System.out.println("alarmingTime: " + this.alarmingTime.getHour() + " : " + this.alarmingTime.getMinute());
+
     }
 
     public int checkAlarm(long time){
@@ -51,7 +62,11 @@ public class Alarm {
         if(this.state == 0){
             return state;
         }else{
-            if(this.alarmingDay[alarmingDay] && this.alarmingTime == alarmingTime){
+            //System.out.println("today alarmon:" + this.alarmingDay[alarmingDay]);
+            //System.out.println("alarmingTime: " + this.alarmingTime.getHour() + " : " + this.alarmingTime.getMinute() + " : " + this.alarmingTime.getSecond() + " : " + this.alarmingTime.getNano());
+            //System.out.println("nowSecond:    " + alarmingTime.getHour() + " : " + alarmingTime.getMinute() + " : " + alarmingTime.getSecond()+ " : " + alarmingTime.getNano());
+            if(this.alarmingDay[alarmingDay] && this.alarmingTime.equals(alarmingTime)){
+                System.out.println("checkAlarm says now state: " + 2);
                 return 2;
             }else{
                 return 1;

@@ -690,6 +690,10 @@ public class DisplayManager extends JFrame{
         displays[20].display(currentTime);
     }
 
+    public void displayCheeringMessage(String currentTime) {
+        displays[25].display(currentTime);
+    }
+
     public void notDisplayIcon(){
         for(int i = 0; i < 6; i ++){
             labelIcons[i].setVisible(false);

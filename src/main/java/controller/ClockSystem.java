@@ -35,7 +35,7 @@ public class ClockSystem {
     //getNow 시리즈
     public int getNowAlarm(long currentTime) {
         // checkAlarm을 각각 알람마다 호출한다.(for문)
-        int checker = 0; int checkPosition = 0;
+        int checker = 0;
         for(int i = 0; i < 4; i++){
             int val = this.alarms[i].checkAlarm(currentTime);
             if(val == 2) return 2;

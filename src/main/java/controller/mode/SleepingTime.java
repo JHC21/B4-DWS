@@ -122,7 +122,7 @@ public class SleepingTime {
         //LocalTime currentLocalTime = Instant.ofEpochMilli(currentTime).atZone(ZoneId.systemDefault()).toLocalTime();
         LocalTime currentLocalTime = Utility.milliToLocalTime(currentTime);
 
-        if(currentLocalTime == sleepingTime) return 2;
+        if(currentLocalTime.equals(sleepingTime)) return 2;
         else return 1;
 
         //0: 현재 안울림 & inactivate, 1: 현재 안울림 & activate, 2: 현재 울림
