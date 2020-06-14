@@ -9,26 +9,24 @@ import java.awt.*;
 public class DisplayManager extends JFrame{
 
     static final String[] cheeringMessages = {
-            "<div style='height:80px; text-align:center; display:block;'>이제 잘 시간이에요<br>오늘도 수고 많았어요^^b</div>",
-            "<div style='height:80px; text-align:center; display:block;'>혹시 야근인가요? ㅠㅠbr>퇴근까지 힘내 보아요!</div>",
-            "<div style='height:80px; text-align:center; display:block;'>공부도 일단 꿀잠 자고<br>이어서 하는 건 어때요?</div>",
-            "<div style='height:80px; text-align:center; display:block;'>이제 잘 시간입니다!<br>개운한 내일을 위한 수면!</div>",
-            "<div style='height:80px; text-align:center; display:block;'>못 자더라도 좌절 마세요<br>더 나은 내일을 위한 과정입니다!</div>",
-            "<div style='height:80px; text-align:center; display:block;'>꿈꿀 시간인가요,<br>꿈을 이루는 시간인가요?</div>",
-            "<div style='height:80px; text-align:center; display:block;'>잠을 자도, 잠을 못 자도,<br>지금은 미래를 위한 시간입니다!</div>",
-            "<div style='height:80px; text-align:center; display:block;'>당신의 빛나는<br>내일을 응원합니다!</div>",
-            "<div style='height:80px; text-align:center; display:block;'>질 좋은 잠도<br>미래를 위한 투자입니다!</div>",
-            "<div style='height:80px; text-align:center; display:block;'>잠 잘 시간이에요!<br>오늘 하루는 어땠나요?</div>",
-            "<div style='height:80px; text-align:center; display:block;'>좋은 하루 보내셨나요?<br>언제나 당신을 응원합니다!</div>",
-            "<div style='height:80px; text-align:center; display:block;'>잘 시간이에요<br>휴식은 당신의 연료가 됩니다!</div>",
-            "<div style='height:80px; text-align:center; display:block;'>잘 시간입니다!<br>당신의 온전한 재충전을 바랍니다</div>",
-            "<div style='height:80px; text-align:center; display:block;'>잠에 들 시간이군요<br>건강한 내일을 위해서!</div>",
-            "<div style='height:80px; text-align:center; display:block;'>힘든 하루였나요...?<br>잘 될 거에요. 힘내세요!</div>",
-            "<div style='height:80px; text-align:center; display:block;'>좋은 하루의 끝은<br>좋은 내일의 시작입니다</div>",
-            "<div style='height:80px; text-align:center; display:block;'>누구나 수면은 필수!<br>규칙적인 수면을 놓치지 마세요</div>",
-            "<div style='height:80px; text-align:center; display:block;'>행복한 잠에 빠져,<br>개운하게 내일을 시작해요!</div>",
-            "<div style='height:80px; text-align:center; display:block;'>언제나 당신의 미래와<br>당신의 수면을 응원합니다!</div>",
-            "<div style='height:80px; text-align:center; display:block;'>오늘도 수고 많았어요!<br>오늘의 마무리를 할 시간입니다!</div>"
+            "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>이제 잘 시간이에요<br>오늘도 수고 많았어요^^b</div>",
+            "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>혹시 야근인가요? ㅠㅠbr>퇴근까지 힘내 보아요!</div>",
+            "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>공부도 일단 꿀잠 자고<br>이어서 하는 건 어때요?</div>",
+            "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>이제 잘 시간입니다!<br>개운한 내일을 위한 수면!</div>",
+            "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>꿈꿀 시간인가요,<br>꿈을 이루는 시간인가요?</div>",
+            "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>당신의 빛나는<br>내일을 응원합니다!</div>",
+            "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>질 좋은 잠도<br>미래를 위한 투자입니다!</div>",
+            "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>잠 잘 시간이에요!<br>오늘 하루는 어땠나요?</div>",
+            "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>좋은 하루 보내셨나요?<br>언제나 당신을 응원합니다!</div>",
+            "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>잘 시간이에요<br>휴식은 당신의 연료가 됩니다!</div>",
+            "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>잘 시간입니다!<br>당신의 온전한 재충전을 바랍니다</div>",
+            "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>잠에 들 시간이군요<br>건강한 내일을 위해서!</div>",
+            "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>힘든 하루였나요...?<br>잘 될 거에요. 힘내세요!</div>",
+            "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>좋은 하루의 끝은<br>좋은 내일의 시작입니다</div>",
+            "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>누구나 수면은 필수!<br>규칙적인 수면을 놓치지 마세요</div>",
+            "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>행복한 잠에 빠져,<br>개운하게 내일을 시작해요!</div>",
+            "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>언제나 당신의 미래와<br>당신의 수면을 응원합니다!</div>",
+            "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>오늘도 수고 많았어요!<br>오늘의 마무리를 할 시간입니다!</div>"
     };
 
 
@@ -152,7 +150,8 @@ public class DisplayManager extends JFrame{
 
     }
     private void cheeringMessageShowAll(String value){               //25: Cheering message 전체
-        String temp = cheeringMessages[(int)(Math.random() * cheeringMessages.length)];
+        // String temp = cheeringMessages[(int)(Math.random() * cheeringMessages.length)];
+        String temp = cheeringMessages[4];
         String value1 = value.substring(0,10); // year month day dayOfWeek
         String value2 = value.substring(11, 13); // timeFormat
         String value3 = value.substring(14); // hour minute

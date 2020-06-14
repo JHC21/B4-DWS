@@ -19,19 +19,22 @@ public class ModeManager {
         return value;
     }
 
-
-    // TODO: 버튼확인
     public Object[] displayTime(ClockSystem clockSystem){
         Object[] value = new Object[2];
         Object[] time = clockSystem.getTime();
         String[] timeFormat = Utility.millitoTimeFormat_test((long)time[0]);
         if((Boolean) time[1]){
             int temp = Integer.parseInt(timeFormat[3]);
-            if(temp > 12){
-                timeFormat[3] = String.format("%02d", temp - 12);
+            if(temp >= 12){
+                int timeTemp = temp == 12 ? 12 : temp-12;
+                timeFormat[3] = String.format("%02d", timeTemp);
                 timeFormat[8] = "오후";
+            }else {
+                int timeTemp = temp == 0 ? 12 : temp;
+                timeFormat[8] = "오전";
+                timeFormat[3] = String.format("%02d", timeTemp);
             }
-            else{timeFormat[8] = "오전";}
+
         }else{
             timeFormat[8] = "  ";
         }
@@ -303,8 +306,8 @@ public class ModeManager {
             timeFormat[1] = "  ";
         }
 
-        if(turned == 0) timeFormat[8] = "OFF";
-        else if(turned == 1) timeFormat[8] = "ON";
+        if(turned == 0) timeFormat[8] = "0";
+        else if(turned == 1) timeFormat[8] = "1";
 
         return timeFormat;
     }
