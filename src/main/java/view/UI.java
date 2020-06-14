@@ -295,7 +295,7 @@ public class UI {
                     }
                     if(pressed.equals("D")) {
                         //reset&none
-                        if((int)system.getStopWatchTime()[2] == 0) {//예외 처리
+                        if(system.checkStopWatchState() == 1) {//예외 처리
                             system.resetStopWatch();
                         }
                     }

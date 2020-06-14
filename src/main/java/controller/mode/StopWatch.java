@@ -93,6 +93,10 @@ public class StopWatch {
     }
 
     public int getStopWatchState() {
-        return this.state;
+        if(this.state == 1) return 2; // running
+        else {
+            if(this.stackedTime == 0) return 0; // reset
+            else return 1; // pause
+        }
     }
 }
