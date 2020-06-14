@@ -158,7 +158,7 @@ public class DisplayManager extends JFrame{
         String value3 = value.substring(14); // hour minute
         String innerText = "<html><div style='border:1px solid red width:80 height:80' >" +
                 temp +
-                "<div style='width:180px; height:30px; display:block; font-size:22px; text-align:center;'>" + value1 + "</div>" +
+                "<div style='width:180px; height:30px; display:block; font-size:20px; text-align:center;'>" + value1 + "</div>" +
                 "<div style='width:180px; height:50px; display:block; font-size:27px; text-align:center;'><b style='font-size:22px;'>" + value2 + "</b>" + value3 + "</div>" +
                 "</div></html>";
         segments[25].setText(innerText);
@@ -227,7 +227,7 @@ public class DisplayManager extends JFrame{
     // JButtons
     String[] btnNames = { "A", "B", "C", "D"};
     JButton[] buttons = new JButton[btnNames.length];
-    int[] btnX = new int[]{60, 400, 60, 400};
+    int[] btnX = new int[]{55, 400, 55, 400};
     int[] btnY = new int[]{125, 125, 275, 275};
 
     // JPanel
@@ -338,7 +338,7 @@ public class DisplayManager extends JFrame{
             {100, 20, 50, 50, 25, 50, 50},      //1
             {140, 20, 50, 50, 25, 50, 50},      //2
             {180, 20, 50, 50, 25, 50, 50},      //3
-            {20, 130, 50, 50, 25, 50, 50},      //4
+            {20, 130, 50, 50, 20, 50, 50},      //4
             {70, 80, 100, 150, 50, 100, 150},   //5
             {140, 80, 150, 150, 50, 150, 150},  //6
             {205, 140, 40, 40, 30, 40, 40},     //7
@@ -356,13 +356,13 @@ public class DisplayManager extends JFrame{
             {215, 70, 50, 50, 23, 50, 50},      //19
             {20, 0, 200, 300, 20, 200, 300},    //20
 
-            {20, 40, 110, 110, 15, 110, 110},   //21
+            {20, 40, 110, 110, 13, 110, 110},   //21
             {150, 40, 100, 150, 30, 100, 100},  //22(시1)
-            {20, 140, 100, 150, 15, 100, 100},  //23
+            {20, 140, 100, 150, 13, 100, 100},  //23
             {150, 140, 100, 150, 30, 100, 100},  //24(시2)
 
             {20, 0, 200, 300, 20, 200, 300},    //25
-            {20, 0, 250, 300, 30, 400, 200},    //26
+            {30, 0, 250, 300, 25, 400, 200},    //26
 
             {200, 40, 100, 150, 30, 100, 100},  //27(분1)
             {200, 140, 100, 150, 30, 100, 100}, //28(분2)
@@ -428,7 +428,7 @@ public class DisplayManager extends JFrame{
 
         for(int i = 0 ; i < 4 ; i ++){
             buttons[i] = new JButton(btnNames[i]);
-            buttons[i].setBounds(btnX[i], btnY[i], 40, 100);
+            buttons[i].setBounds(btnX[i], btnY[i], 45, 100);
             buttons[i].setBackground(outerPanelColor);
             buttons[i].setOpaque(true);
             buttons[i].setBorderPainted(true);
