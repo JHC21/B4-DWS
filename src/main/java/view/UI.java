@@ -422,7 +422,7 @@ public class UI {
 
                     // Set sleeping time
                     if(pressed.equals("A")){
-                        this.enteringSub(21);
+                        this.enteringSub(22);
                     }
 
                     // B버튼이 눌렸을 때는 아무것도 실행되지 않음
