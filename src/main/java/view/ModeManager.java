@@ -306,8 +306,8 @@ public class ModeManager {
             timeFormat[1] = "  ";
         }
 
-        if(turned == 0) timeFormat[8] = "OFF";
-        else if(turned == 1) timeFormat[8] = "ON";
+        if(turned == 0) timeFormat[8] = "0";
+        else if(turned == 1) timeFormat[8] = "1";
 
         return timeFormat;
     }
