@@ -93,7 +93,7 @@ public class Flag {
         else if(selector == 6) diffValue = MINUTE_MILLI;
         else if(selector == 7) diffValue = SECOND_MILLI;
 
-        if(settedTime + (pmValue * diffValue) < 0) return 0;
+        if(settedTime + (pmValue * diffValue) < 0) return DAY_MILLI + (pmValue * diffValue);
         else return diffValue * pmValue;
 
     }
