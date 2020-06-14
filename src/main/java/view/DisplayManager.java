@@ -75,7 +75,7 @@ public class DisplayManager extends JFrame{
     private void timerStopWatchAlarmSleepingActivationState(String value){   //9 : Timer/Stopwatch/Alarm/Sleeping Time activation (시계 우하단)
         if(value.equals("false")) segments[9].setText(null);
         else if(value.equals("1") || value.equals("2")) segments[9].setText("ON");
-        else{segments[9].setText(value);}
+        else{segments[9].setText("OFF");}
     }
     private void stopWatchLap(String value){                         //10: Stop watch의 Lap
         segments[10].setText(value);
@@ -572,7 +572,7 @@ public class DisplayManager extends JFrame{
         displays[11].display(timeFormat[3]); // Sms
         displays[8].display(timeFormat[8]); //pause&start
         //System.out.println(timeFormat[8]);
-        displays[9].display("1"); // actiavte
+        displays[9].display(timeFormat[9]); // actiavte
         //string 앞의 0까지 앞에서 해 줬다고 가정합니다
         String temp = String.format("%s:%s:%s:%s", timeFormat[4], timeFormat[5], timeFormat[6], timeFormat[7]);
         displays[10].display(temp); // Lap

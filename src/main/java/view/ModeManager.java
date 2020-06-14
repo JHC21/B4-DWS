@@ -112,7 +112,7 @@ public class ModeManager {
         9 : activate
          */
         //activate에 대해 이야기 해 보아야 함(function list에 어떻게 표현해야 할 지)
-        String[] timeFormat = new String[9]; // 리턴 값
+        String[] timeFormat = new String[10]; // 리턴 값
 
         Object[] stopwatchValue = clockSystem.getStopWatchTime(); // system으로부터 아래 값들을 가져옴
         // 0 : stopwatchTime(long), 1 : lapTime(long), 2 : state(int)
@@ -128,7 +128,10 @@ public class ModeManager {
         timeFormat[5] = String.format("%02d",lapTime[4]); // L분
         timeFormat[6] = String.format("%02d",lapTime[5]); // L초
         timeFormat[7] = String.format("%03d",lapTime[6]); // Lms
-        timeFormat[8] = String.valueOf((int)stopwatchValue[2]);
+        if((int)stopwatchValue[2] == 2) timeFormat[8] = "1";
+        else timeFormat[8] = "0";
+        timeFormat[9] = String.valueOf((int)stopwatchValue[2]);
+
 
         return timeFormat;
     }

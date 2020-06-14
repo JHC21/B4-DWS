@@ -122,7 +122,10 @@ public class ClockSystem {
         // 위의 두 값을 배열로 묶어 리턴한다
         if((long)value[0] > 86400000L) { // 24시간을 초과하였을 경우
             toggleStopWatchState(); // counting을 멈추고(counting중에만 24시간을 넘어갈 수가 있다)
-            value[0] = 86400000L; // display에는 24시간 값으로 stopWatchTime을 설정해 버린다
+            resetStopWatch();
+            value[0] = 0L;
+            value[1] = 0L;
+            value[2] = 0;
         }
 
         return value;
