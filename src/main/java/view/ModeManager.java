@@ -166,8 +166,7 @@ public class ModeManager {
             timeFormat[2] = "  ";
         }
         timeFormat[3] = alarmValue[0]; // boolean 배열
-        if((int)alarmValue[2] == 0) timeFormat[4] = "OFF";
-        else timeFormat[4] = "ON";
+        timeFormat[4] = String.valueOf(alarmValue[2]);
         timeFormat[5] = String.format("%d", alarmNo);
 
         return timeFormat;
