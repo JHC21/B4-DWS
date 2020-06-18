@@ -80,6 +80,7 @@ public class UI {
                     checkerList[0] = 1;
                     buzzer.pauseThread();
                     displayManager.displayIcon(functionList, checkerList);
+                    displayManager.displaySelector();
                     displayManager.cleanDisplay();
                 }
                 continue;
@@ -89,6 +90,7 @@ public class UI {
                     checkerList[1] = 1;
                     buzzer.pauseThread();
                     displayManager.displayIcon(functionList, checkerList);
+                    displayManager.displaySelector();
                     displayManager.cleanDisplay();
                 }
                 continue;
@@ -101,6 +103,7 @@ public class UI {
 
                 String temp = Utility.alarmCheeringFormatting(currentTime, currentTimeFormat);
 
+                displayManager.notDisplaySelector();
                 displayManager.notDisplayIcon();
                 displayManager.cleanDisplay();
                 buzzer.threadNotify();
@@ -127,7 +130,7 @@ public class UI {
 
             //back to base
             if(currentTime > lastPressedTime + 300000) {
-                if (curMainCategory == 1) {
+                if (curSubCategory == 1) {
                     this.exitingSub();
                 }
                 if (curMainCategory == 6) {
