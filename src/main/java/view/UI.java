@@ -14,7 +14,7 @@ import java.util.Random;
 
 public class UI {
 
-    private static final String CUSTOMIZE = "customize your own watch";
+    private final String CUSTOMIZE = "customize your own watch";
 
     DisplayManager displayManager;
     ModeManager modeManager;
