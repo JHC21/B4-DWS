@@ -265,8 +265,8 @@ public class DisplayManager extends JFrame{
 
 
         activatedIcons = new ImageIcon[2];
-        java.net.URL url1 = getClass().getClassLoader().getResource("start.png");
-        java.net.URL url2 = getClass().getClassLoader().getResource("pause.png");
+        java.net.URL url1 = Thread.currentThread().getContextClassLoader().getResource("start.png");
+        java.net.URL url2 =Thread.currentThread().getContextClassLoader().getResource("pause.png");
         ImageIcon icon1ImageIcon = new ImageIcon(url1);
         ImageIcon icon2ImageIcon = new ImageIcon(url2);
         Image originIcon1 = icon1ImageIcon.getImage();
