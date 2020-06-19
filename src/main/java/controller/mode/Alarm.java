@@ -3,6 +3,7 @@ package controller.mode;
 import controller.Utility;
 
 import java.time.LocalTime;
+import java.util.Arrays;
 
 public class Alarm {
     private boolean[] alarmingDay;
@@ -39,6 +40,7 @@ public class Alarm {
     }
 
     public void updateAlarmValue(boolean[] alarmingDay, LocalTime alarmingTime){
+        this.alarmingDay = Arrays.copyOf(alarmingDay, alarmingDay.length);
         this.alarmingDay = alarmingDay;
         this.alarmingTime = this.alarmingTime.plusHours(alarmingTime.getHour());
         this.alarmingTime = this.alarmingTime.plusMinutes(alarmingTime.getMinute());
