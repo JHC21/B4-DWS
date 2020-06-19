@@ -1,5 +1,7 @@
 package controller.mode;
 
+import java.util.Arrays;
+
 public class FunctionList {
     private int[] functions; //(0, 1, 2, 3, 4, 5)
 
@@ -27,7 +29,7 @@ public class FunctionList {
     }
     
     public int[] getFunctions() {
-        return this.functions;
+        return Arrays.copyOf(this.functions, this.functions.length);
     }
 
 

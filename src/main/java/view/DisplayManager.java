@@ -65,9 +65,9 @@ public class DisplayManager extends JFrame{
         else{segments[7].setText(value);}
     }
     private void timerStopWatchCountingState(String value){          //8 : Timer/Stopwatch counting (시계 우상단)
-        //System.out.println("THIs is : " + value);
-        if(value.equals("false")) segments[8].setText(null);
-        else if(value.equals("OFF") || value.equals("0")) segments[8].setIcon(activatedIcons[1]);
+        //System.out.println(value);
+        if(value.equals("false")) segments[8].setIcon(null);
+        else if(value.equals("1")) segments[8].setIcon(activatedIcons[1]);
         else segments[8].setIcon(activatedIcons[0]);
     }
     private void timerStopWatchAlarmSleepingActivationState(String value){   //9 : Timer/Stopwatch/Alarm/Sleeping Time activation (시계 우하단)
@@ -123,9 +123,11 @@ public class DisplayManager extends JFrame{
             String value1 = value.substring(0, 10);
             String value2 = value.substring(11, 13);
             String value3 = value.substring(13, 19);
+            java.net.URL url = Thread.currentThread().getContextClassLoader().getResource("alarm_active.png");
+            System.out.println(url);
             String innerText = "<html><div style='border:1px solid red width:80 height:80' >" +
                     "<div style='padding:0 50px 0 50px; display:block;'>" +
-                    "<img src='file:assets/alarm_active.png' width=100 height=100></div>" +
+                    "<img src='" + url + "' width=100 height=100></div>" +
                     "<div style='width:180px; height:30px; display:block; font-size:22px; text-align:center;'>"+ value1 +"</div>" +
                     "<div style='width:180px; height:50px; display:block; font-size:27px; text-align:center;'><b style='font-size:22px;'>"+value2+"</b>"+value3+"</div>" +
                     "</div></html>";
@@ -535,7 +537,7 @@ public class DisplayManager extends JFrame{
         displays[5].display(timeFormat[0]); // 시
         displays[6].display(timeFormat[1]); // 분
         displays[7].display(timeFormat[2]); // 초
-        displays[8].display(timeFormat[3]); // counting
+        displays[8].display(timeFormat[3]); // counting 0, 1, 2
         displays[9].display(timeFormat[4]); // activate
     }
     public void setTimer(String[] timeFormat) {
@@ -569,7 +571,7 @@ public class DisplayManager extends JFrame{
         displays[6].display(timeFormat[1]); // S분
         displays[7].display(timeFormat[2]); // S초
         displays[11].display(timeFormat[3]); // Sms
-        displays[8].display(timeFormat[8]); //pause&start
+        displays[8].display(timeFormat[8]); //pause&start 1, 2
         //System.out.println(timeFormat[8]);
         displays[9].display(timeFormat[9]); // actiavte
         //string 앞의 0까지 앞에서 해 줬다고 가정합니다
