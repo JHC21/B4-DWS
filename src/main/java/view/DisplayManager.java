@@ -65,9 +65,9 @@ public class DisplayManager extends JFrame{
         else{segments[7].setText(value);}
     }
     private void timerStopWatchCountingState(String value){          //8 : Timer/Stopwatch counting (시계 우상단)
-        //System.out.println("THIs is : " + value);
-        if(value.equals("false")) segments[8].setText(null);
-        else if(value.equals("OFF") || value.equals("0")) segments[8].setIcon(activatedIcons[1]);
+        //System.out.println(value);
+        if(value.equals("false")) segments[8].setIcon(null);
+        else if(value.equals("1")) segments[8].setIcon(activatedIcons[1]);
         else segments[8].setIcon(activatedIcons[0]);
     }
     private void timerStopWatchAlarmSleepingActivationState(String value){   //9 : Timer/Stopwatch/Alarm/Sleeping Time activation (시계 우하단)
@@ -537,7 +537,7 @@ public class DisplayManager extends JFrame{
         displays[5].display(timeFormat[0]); // 시
         displays[6].display(timeFormat[1]); // 분
         displays[7].display(timeFormat[2]); // 초
-        displays[8].display(timeFormat[3]); // counting
+        displays[8].display(timeFormat[3]); // counting 0, 1, 2
         displays[9].display(timeFormat[4]); // activate
     }
     public void setTimer(String[] timeFormat) {
@@ -571,7 +571,7 @@ public class DisplayManager extends JFrame{
         displays[6].display(timeFormat[1]); // S분
         displays[7].display(timeFormat[2]); // S초
         displays[11].display(timeFormat[3]); // Sms
-        displays[8].display(timeFormat[8]); //pause&start
+        displays[8].display(timeFormat[8]); //pause&start 1, 2
         //System.out.println(timeFormat[8]);
         displays[9].display(timeFormat[9]); // actiavte
         //string 앞의 0까지 앞에서 해 줬다고 가정합니다

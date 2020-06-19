@@ -68,13 +68,7 @@ public class ModeManager {
         }
 
         int temp = (int)timer[1];
-        if(temp == 2) { // on & activate
-            timeFormat[3] = "ON";
-        }
-        else {
-            //off or inactivate
-            timeFormat[3] = "OFF";
-        }
+        timeFormat[3] = String.valueOf(temp);
         timeFormat[4] = String.valueOf(timer[1]);
         return timeFormat;
     }
@@ -128,8 +122,8 @@ public class ModeManager {
         timeFormat[5] = String.format("%02d",lapTime[4]); // L분
         timeFormat[6] = String.format("%02d",lapTime[5]); // L초
         timeFormat[7] = String.format("%03d",lapTime[6]); // Lms
-        if((int)stopwatchValue[2] == 2) timeFormat[8] = "1";
-        else timeFormat[8] = "0";
+        if((int)stopwatchValue[2] == 2) timeFormat[8] = "2";
+        else timeFormat[8] = "1";
         timeFormat[9] = String.valueOf((int)stopwatchValue[2]);
 
 
