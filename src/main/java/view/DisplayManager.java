@@ -249,7 +249,7 @@ public class DisplayManager extends JFrame{
             /* 4 */{"global_time_active.png", "global_time_active.png", "global_time_grey_active.png", "global_time_grey_active.png"},
             /* 5 */{"sleeping_time_inactive.png", "sleeping_time_active.png", "sleeping_time_grey_inactive.png", "sleeping_time_grey_active.png"}
     };
-    ImageIcon[][] icons;
+    ImageIcon[][] clockIcons;
     ImageIcon[] activatedIcons;
     JLabel[] labelIcons;
 
@@ -282,7 +282,7 @@ public class DisplayManager extends JFrame{
 
     private ImageIcon[][] getResizedIcon(){
 
-        icons = new ImageIcon[6][4];
+        clockIcons = new ImageIcon[6][4];
         for(int i = 0; i < 6; i++){
             for(int j = 0; j < 4; j++){
                 System.out.println(iconNames[i][j]);
@@ -290,10 +290,10 @@ public class DisplayManager extends JFrame{
                 ImageIcon originIcon = new ImageIcon(url);
                 Image originImg = originIcon.getImage();
                 Image changedImg= originImg.getScaledInstance(30, 30, Image.SCALE_SMOOTH );
-                icons[i][j] = new ImageIcon(changedImg);
+                clockIcons[i][j] = new ImageIcon(changedImg);
             }
         }
-        return icons;
+        return clockIcons;
 
     }
 
@@ -322,8 +322,8 @@ public class DisplayManager extends JFrame{
         innerPanel.setBackground(innerPanelColor);
 
         activatedIcons = getResizedActivatedIcon();
-        icons = getResizedIcon();
-        labelIcons = setIcons(icons);
+        clockIcons = getResizedIcon();
+        labelIcons = setIcons(clockIcons);
 
         for(JLabel icon: labelIcons)
             innerPanel.add(icon);
@@ -715,7 +715,7 @@ public class DisplayManager extends JFrame{
     public void displayFunctionListEdit(String value, int[] functionList){
         displays[26].display(value);   //customize your own clock 보여줌
         for(int i = 0; i < 6; i++){
-            labelIcons[i].setIcon(icons[functionList[i]][1]);
+            labelIcons[i].setIcon(clockIcons[functionList[i]][1]);
         }
     }
 
@@ -725,13 +725,13 @@ public class DisplayManager extends JFrame{
         int[] checker = new int[]{0, status[2], 0, status[0], 0, status[1]};
         for(int i = 0; i < 4; i++){
             int currentFunction = functionList[i];
-            labelIcons[i].setIcon(icons[currentFunction][checker[currentFunction]]);
+            labelIcons[i].setIcon(clockIcons[currentFunction][checker[currentFunction]]);
             labelIcons[i].setVisible(true);
             //System.out.println(i + iconNames[currentFunction][checker[currentFunction]]);
         }
         for(int i = 4; i < 6; i++){
             int currentFunction = functionList[i];
-            labelIcons[i].setIcon(icons[currentFunction][checker[currentFunction] + 2]);
+            labelIcons[i].setIcon(clockIcons[currentFunction][checker[currentFunction] + 2]);
             labelIcons[i].setVisible(true);
             //System.out.println(i + iconNames[currentFunction][checker[currentFunction]]);
             //System.out.println(i + iconNames[currentFunction][checker[currentFunction] + 2]);
