@@ -65,7 +65,8 @@ public class Timer {
         if(this.state == 2){
             // System.out.println(this.settedTime + " " + this.stackedTime + " " + this.startTime + " " + systemTime);
             // System.out.println(Math.ceil(this.settedTime/1000) + "  " + Math.ceil((systemTime - this.startTime + this.stackedTime)/1000));
-            if(Math.ceil(this.settedTime/1000) == Math.ceil((systemTime - this.startTime + this.stackedTime)/1000)){
+            if(Math.ceil((double)(this.settedTime/1000))
+                    == Math.ceil((double)((systemTime - this.startTime + this.stackedTime)/1000))){
                 //타이머가 울릴 때
                 this.state = 1;
                 this.startTime = systemTime;
