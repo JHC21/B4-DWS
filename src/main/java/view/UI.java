@@ -16,21 +16,21 @@ public class UI {
 
     private static final String CUSTOMIZE = "customize your own watch";
 
-    DisplayManager displayManager;
-    ModeManager modeManager;
-    ClockSystem system;
-    Buzzer buzzer;
-    MyMouseEvent event;
+    private DisplayManager displayManager;
+    private ModeManager modeManager;
+    private ClockSystem system;
+    private Buzzer buzzer;
+    private MyMouseEvent event;
 
-    long currentTime;
-    boolean currentTimeFormat; // true : 12시간제, false : 24시간제
-    long alarmTime; // 알람이 울리게 된 시간. showAlarming, showCheeringMessage이전에 불리며, turn off automatically를 위해 사용된다.
-    long lastPressedTime; // back to base의 조건으로 사용된다
-    Mode mode;
-    int alarmNumber;
-    StringBuilder customText = new StringBuilder(CUSTOMIZE); // customize your own watch를 랜덤으로 구현하기 위한 변수 공간이다.
-    int[] checkerList = {0, 0, 0}; // 0: alarm, 1: sleeping time, 2: timer
-    int[] functionList = {0, 1, 2, 3, 4, 5};
+    private long currentTime;
+    private boolean currentTimeFormat; // true : 12시간제, false : 24시간제
+    private long alarmTime; // 알람이 울리게 된 시간. showAlarming, showCheeringMessage이전에 불리며, turn off automatically를 위해 사용된다.
+    private long lastPressedTime; // back to base의 조건으로 사용된다
+    private Mode mode;
+    private int alarmNumber;
+    private StringBuilder customText = new StringBuilder(CUSTOMIZE); // customize your own watch를 랜덤으로 구현하기 위한 변수 공간이다.
+    private int[] checkerList = {0, 0, 0}; // 0: alarm, 1: sleeping time, 2: timer
+    private int[] functionList = {0, 1, 2, 3, 4, 5};
 
     public void systemWatching() throws Exception{
 
