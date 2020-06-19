@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class DisplayManager extends JFrame{
 
-    static final String[] cheeringMessages = {
+    private static final String[] cheeringMessages = {
             "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>이제 잘 시간이에요<br>오늘도 수고 많았어요^^b</div>",
             "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>혹시 야근인가요? ㅠㅠbr>퇴근까지 힘내 보아요!</div>",
             "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>공부도 일단 꿀잠 자고<br>이어서 하는 건 어때요?</div>",
@@ -223,27 +223,27 @@ public class DisplayManager extends JFrame{
             this::otherTimeTimeFormat,
     };
 
-    int selector = 0;
+    private int selector = 0;
 
     // JButtons
-    String[] btnNames = { "A", "B", "C", "D"};
-    JButton[] buttons = new JButton[btnNames.length];
-    int[] btnX = new int[]{55, 400, 55, 400};
-    int[] btnY = new int[]{125, 125, 275, 275};
+    private String[] btnNames = { "A", "B", "C", "D"};
+    private JButton[] buttons = new JButton[btnNames.length];
+    private int[] btnX = new int[]{55, 400, 55, 400};
+    private int[] btnY = new int[]{125, 125, 275, 275};
 
     // JPanel
-    RoundJPanel outerPanel = new RoundJPanel();
-    RoundJPanel innerPanel = new RoundJPanel();
+    private RoundJPanel outerPanel = new RoundJPanel();
+    private RoundJPanel innerPanel = new RoundJPanel();
 
     // Color
-    Color outerPanelColor = new java.awt.Color(220, 220, 220);
-    Color innerPanelColor = new java.awt.Color(0, 0, 0);
+    private Color outerPanelColor = new java.awt.Color(220, 220, 220);
+    private Color innerPanelColor = new java.awt.Color(0, 0, 0);
     // Color innerPanelColor = new java.awt.Color(255, 255, 255);
 
 
     // Icons
 
-    String[][] iconNames = {
+    private String[][] iconNames = {
             /* 0 */{"timekeeping_active.png", "timekeeping_active.png", "timekeeping_grey.png", "timekeeping_grey.png"},
             /* 1 */{"timer_inactive.png", "timer_active.png", "timer_grey_inactive.png", "timer_grey_active.png"},
             /* 2 */{"stop_watch_active.png", "stop_watch_active.png", "stop_watch_grey_inactive.png", "stop_watch_grey_inactive.png"},
@@ -251,16 +251,16 @@ public class DisplayManager extends JFrame{
             /* 4 */{"global_time_active.png", "global_time_active.png", "global_time_grey_active.png", "global_time_grey_active.png"},
             /* 5 */{"sleeping_time_inactive.png", "sleeping_time_active.png", "sleeping_time_grey_inactive.png", "sleeping_time_grey_active.png"}
     };
-    ImageIcon[][] clockIcons;
-    ImageIcon[] activatedIcons;
-    JLabel[] labelIcons;
+    private ImageIcon[][] clockIcons;
+    private ImageIcon[] activatedIcons;
+    private JLabel[] labelIcons;
 
     //Event Listener
-    MyMouseEvent myMouseEvent = new MyMouseEvent("TEST");
+    protected MyMouseEvent myMouseEvent = new MyMouseEvent("TEST");
 
     // Segments
-    JLabel[] segments;
-    JLabel selector_label;
+    private JLabel[] segments;
+    private JLabel selector_label;
 
 
     private ImageIcon[] getResizedActivatedIcon(){
