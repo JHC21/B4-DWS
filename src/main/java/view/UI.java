@@ -82,6 +82,7 @@ public class UI {
                     displayManager.displayIcon(functionList, checkerList);
                     displayManager.displaySelector();
                     displayManager.cleanDisplay();
+                    displayManager.notDisplaySelector();
                 }
                 continue;
             }
@@ -92,6 +93,7 @@ public class UI {
                     displayManager.displayIcon(functionList, checkerList);
                     displayManager.displaySelector();
                     displayManager.cleanDisplay();
+                    displayManager.notDisplaySelector();
                 }
                 continue;
             }
