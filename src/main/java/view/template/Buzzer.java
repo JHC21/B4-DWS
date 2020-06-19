@@ -36,7 +36,9 @@ public class Buzzer extends Thread{
             this.wait();
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
+
     }
 
     public synchronized void threadNotify() {
@@ -52,12 +54,12 @@ public class Buzzer extends Thread{
                 this.flag = true;
             }
             toolkit.beep();
-            try {
+            try{
                 Thread.sleep(1000);
-            } catch(InterruptedException e) {
-
+            }catch(InterruptedException e) {
+                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
-
         }
 
     }
