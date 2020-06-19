@@ -125,7 +125,7 @@ public class DisplayManager extends JFrame{
             String value3 = value.substring(13, 19);
             java.net.URL url = Thread.currentThread().getContextClassLoader().getResource("alarm_active.png");
             System.out.println(url);
-            String innerText = "<html><div style='border:1px solid red width:80 height:80' >" +
+            String innerText = "<html>" +
                     "<div style='padding:0 50px 0 50px; display:block;'>" +
                     "<img src='" + url + "' width=100 height=100></div>" +
                     "<div style='width:180px; height:30px; display:block; font-size:22px; text-align:center;'>"+ value1 +"</div>" +
@@ -157,7 +157,7 @@ public class DisplayManager extends JFrame{
         String value1 = value.substring(0,10); // year month day dayOfWeek
         String value2 = value.substring(11, 13); // timeFormat
         String value3 = value.substring(14); // hour minute
-        String innerText = "<html><div style='border:1px solid red width:80 height:80' >" +
+        String innerText = "<html>" +
                 temp +
                 "<div style='width:180px; height:30px; display:block; font-size:20px; text-align:center;'>" + value1 + "</div>" +
                 "<div style='width:180px; height:50px; display:block; font-size:27px; text-align:center;'><b style='font-size:22px;'>" + value2 + "</b>" + value3 + "</div>" +
