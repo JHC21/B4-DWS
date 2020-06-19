@@ -15,11 +15,6 @@ public class Flag {
     private static final long YEAR365_MILLI = 31557600000L;
     private static final long YEAR366_MILLI = 31644000000L;
 
-    public String[] flags;
-    public Flag(){
-        flags = new String[33];
-    }
-
         //0 : Time Keeping 연
         //1 : Time Keeping 월
         //2 : Time Keeping 일

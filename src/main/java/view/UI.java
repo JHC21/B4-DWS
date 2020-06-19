@@ -14,7 +14,7 @@ import java.util.Random;
 
 public class UI {
 
-    private static final String customize = "customize your own watch";
+    private final String CUSTOMIZE = "customize your own watch";
 
     private DisplayManager displayManager;
     private ModeManager modeManager;
@@ -28,7 +28,7 @@ public class UI {
     private long lastPressedTime; // back to base의 조건으로 사용된다
     private Mode mode;
     private int alarmNumber;
-    private StringBuilder customText = new StringBuilder(customize); // customize your own watch를 랜덤으로 구현하기 위한 변수 공간이다.
+    private StringBuilder customText = new StringBuilder(CUSTOMIZE); // customize your own watch를 랜덤으로 구현하기 위한 변수 공간이다.
     private int[] checkerList = {0, 0, 0}; // 0: alarm, 1: sleeping time, 2: timer
     private int[] functionList = {0, 1, 2, 3, 4, 5};
 
@@ -167,7 +167,7 @@ public class UI {
             if(pressed.equals("E")){
                 int temp = 0;
                 displayManager.cleanDisplay();
-                customText = new StringBuilder(customize);
+                customText = new StringBuilder(CUSTOMIZE);
                 for(int i = 0; i < customText.length(); i++) {
                     if(customText.charAt(i) != ' ') {
                         temp = new Random().nextInt(2);

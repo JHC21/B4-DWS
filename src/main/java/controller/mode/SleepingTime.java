@@ -9,9 +9,9 @@ public class SleepingTime {
     private LocalTime wakeUpTime;   //기상시각
     private int status;         //0이면 inactive, 1이면 active상태.글 (1이면 cheering message를 받는 상태임)
 
-    private static final long SECOND_LONG = 1000L;
-    private static final long MINUTE_LONG = 60000L;
-    private static final long HOUR_LONG = 3600000L;
+    private final long SECOND_LONG = 1000L;
+    private final long MINUTE_LONG = 60000L;
+    private final long HOUR_LONG = 3600000L;
 
     public SleepingTime(){
         this.sleepTime = LocalTime.of(7, 30);
