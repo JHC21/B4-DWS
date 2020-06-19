@@ -3,6 +3,8 @@ package view.template;
 import javax.sound.sampled.*;
 import java.net.URL;
 import java.awt.Toolkit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Buzzer extends Thread{
 
@@ -35,7 +37,7 @@ public class Buzzer extends Thread{
         try {
             this.wait();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Logger.getLogger("logger").log(Level.INFO, "Failed to wait thread");
             Thread.currentThread().interrupt();
         }
 
@@ -57,7 +59,7 @@ public class Buzzer extends Thread{
             try{
                 Thread.sleep(1000);
             }catch(InterruptedException e) {
-                e.printStackTrace();
+                Logger.getLogger("logger").log(Level.INFO, "Failed to notify thread");
                 Thread.currentThread().interrupt();
             }
         }
