@@ -3,6 +3,7 @@ package controller.mode;
 import controller.Utility;
 
 import java.time.LocalTime;
+import java.util.Arrays;
 
 public class Alarm {
     private boolean[] alarmingDay;
@@ -17,7 +18,7 @@ public class Alarm {
     }
 
     public boolean[] getAlarmingDay() {
-        return this.alarmingDay;
+        return Arrays.copyOf(this.alarmingDay, this.alarmingDay.length);
     }
 
     public LocalTime getAlarmingTime() {
