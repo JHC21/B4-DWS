@@ -96,8 +96,8 @@ public class Utility {
         //String 형식은 "20 05 03 일    06:30"
         //12시간제일때는 "20 05 03 일 AM 06:30"
 
-        String[] currentTimeString = Utility.millitoTimeFormat_test(currentTime);
-        int[] currentTimeInt = Utility.milliToTimeFormat(currentTime);
+        String[] currentTimeString = millitoTimeFormat_test(currentTime);
+        int[] currentTimeInt = milliToTimeFormat(currentTime);
 
         String timeFormat;
         if(currentTimeFormat) { // 12시간제

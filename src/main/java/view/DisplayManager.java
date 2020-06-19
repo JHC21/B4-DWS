@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class DisplayManager extends JFrame{
 
-    private static final String[] cheeringMessages = {
+    private static final String[] CHEERING_MESSAGES = {
             "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>이제 잘 시간이에요<br>오늘도 수고 많았어요^^b</div>",
             "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>혹시 야근인가요? ㅠㅠbr>퇴근까지 힘내 보아요!</div>",
             "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>공부도 일단 꿀잠 자고<br>이어서 하는 건 어때요?</div>",
@@ -125,7 +125,7 @@ public class DisplayManager extends JFrame{
             String value3 = value.substring(13, 19);
             java.net.URL url = Thread.currentThread().getContextClassLoader().getResource("alarm_active.png");
             System.out.println(url);
-            String innerText = "<html>" +
+            String innerText = "<html><div style='border:1px solid red width:80 height:80' >" +
                     "<div style='padding:0 50px 0 50px; display:block;'>" +
                     "<img src='" + url + "' width=100 height=100></div>" +
                     "<div style='width:180px; height:30px; display:block; font-size:22px; text-align:center;'>"+ value1 +"</div>" +
@@ -153,11 +153,11 @@ public class DisplayManager extends JFrame{
     }
     private void cheeringMessageShowAll(String value){               //25: Cheering message 전체
         // String temp = cheeringMessages[(int)(Math.random() * cheeringMessages.length)];
-        String temp = cheeringMessages[4];
+        String temp = CHEERING_MESSAGES[4];
         String value1 = value.substring(0,10); // year month day dayOfWeek
         String value2 = value.substring(11, 13); // timeFormat
         String value3 = value.substring(14); // hour minute
-        String innerText = "<html>" +
+        String innerText = "<html><div style='border:1px solid red width:80 height:80' >" +
                 temp +
                 "<div style='width:180px; height:30px; display:block; font-size:20px; text-align:center;'>" + value1 + "</div>" +
                 "<div style='width:180px; height:50px; display:block; font-size:27px; text-align:center;'><b style='font-size:22px;'>" + value2 + "</b>" + value3 + "</div>" +
@@ -223,27 +223,27 @@ public class DisplayManager extends JFrame{
             this::otherTimeTimeFormat,
     };
 
-    private int selector = 0;
+    int selector = 0;
 
     // JButtons
-    private String[] btnNames = { "A", "B", "C", "D"};
-    private JButton[] buttons = new JButton[btnNames.length];
-    private int[] btnX = new int[]{55, 400, 55, 400};
-    private int[] btnY = new int[]{125, 125, 275, 275};
+    String[] btnNames = { "A", "B", "C", "D"};
+    JButton[] buttons = new JButton[btnNames.length];
+    int[] btnX = new int[]{55, 400, 55, 400};
+    int[] btnY = new int[]{125, 125, 275, 275};
 
     // JPanel
-    private RoundJPanel outerPanel = new RoundJPanel();
-    private RoundJPanel innerPanel = new RoundJPanel();
+    RoundJPanel outerPanel = new RoundJPanel();
+    RoundJPanel innerPanel = new RoundJPanel();
 
     // Color
-    private Color outerPanelColor = new java.awt.Color(220, 220, 220);
-    private Color innerPanelColor = new java.awt.Color(0, 0, 0);
+    Color outerPanelColor = new java.awt.Color(220, 220, 220);
+    Color innerPanelColor = new java.awt.Color(0, 0, 0);
     // Color innerPanelColor = new java.awt.Color(255, 255, 255);
 
 
     // Icons
 
-    private String[][] iconNames = {
+    String[][] iconNames = {
             /* 0 */{"timekeeping_active.png", "timekeeping_active.png", "timekeeping_grey.png", "timekeeping_grey.png"},
             /* 1 */{"timer_inactive.png", "timer_active.png", "timer_grey_inactive.png", "timer_grey_active.png"},
             /* 2 */{"stop_watch_active.png", "stop_watch_active.png", "stop_watch_grey_inactive.png", "stop_watch_grey_inactive.png"},
@@ -251,16 +251,16 @@ public class DisplayManager extends JFrame{
             /* 4 */{"global_time_active.png", "global_time_active.png", "global_time_grey_active.png", "global_time_grey_active.png"},
             /* 5 */{"sleeping_time_inactive.png", "sleeping_time_active.png", "sleeping_time_grey_inactive.png", "sleeping_time_grey_active.png"}
     };
-    private ImageIcon[][] clockIcons;
-    private ImageIcon[] activatedIcons;
-    private JLabel[] labelIcons;
+    ImageIcon[][] clockIcons;
+    ImageIcon[] activatedIcons;
+    JLabel[] labelIcons;
 
     //Event Listener
-    protected MyMouseEvent myMouseEvent = new MyMouseEvent("TEST");
+    MyMouseEvent myMouseEvent = new MyMouseEvent("TEST");
 
     // Segments
-    private JLabel[] segments;
-    private JLabel selector_label;
+    JLabel[] segments;
+    JLabel selector_label;
 
 
     private ImageIcon[] getResizedActivatedIcon(){
