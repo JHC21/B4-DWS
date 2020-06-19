@@ -80,9 +80,7 @@ public class UI {
                     checkerList[0] = 1;
                     buzzer.pauseThread();
                     displayManager.displayIcon(functionList, checkerList);
-                    displayManager.displaySelector();
                     displayManager.cleanDisplay();
-                    displayManager.notDisplaySelector();
                 }
                 continue;
             }
@@ -91,9 +89,7 @@ public class UI {
                     checkerList[1] = 1;
                     buzzer.pauseThread();
                     displayManager.displayIcon(functionList, checkerList);
-                    displayManager.displaySelector();
                     displayManager.cleanDisplay();
-                    displayManager.notDisplaySelector();
                 }
                 continue;
             }
