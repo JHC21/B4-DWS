@@ -12,15 +12,15 @@ public class StopWatchTest {
     private long startTime;
     private long stackedTime;
 
+    // 0: RESET 1: PAUSE 2: RUNNING
     @Test
     public void 스탑워치_상태_테스트(){
 
         stopWatch.changeStopWatchState((long)clockSystem.getTime()[0]);
-        boolean nowState = (stopWatch.getStopWatchState() ==1);
+        boolean nowState = (stopWatch.getStopWatchState() == 2);
         this.startTime = (long)clockSystem.getTime()[0];
 
         assertEquals(true, nowState);
-
     }
 
     @Test
@@ -40,7 +40,7 @@ public class StopWatchTest {
         long currentTime = (long)clockSystem.getTime()[0];
 
         stopWatch.changeStopWatchState(currentTime);
-        boolean nowState = (stopWatch.getStopWatchState() == 1);
+        boolean nowState = (stopWatch.getStopWatchState() == 2);
         this.startTime = currentTime;
 
         currentTime = (long)clockSystem.getTime()[0];
