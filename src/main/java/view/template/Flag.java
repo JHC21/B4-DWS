@@ -4,16 +4,16 @@ import controller.Utility;
 
 public class Flag {
 
-    static final long SECOND_MILLI = 1000L;
-    static final long MINUTE_MILLI = 60000L;
-    static final long HOUR_MILLI = 3600000L;
-    static final long DAY_MILLI = 86400000L;
-    static final long MONTH28_MILLI = 2419200000L;
-    static final long MONTH29_MILLI = 2505600000L;
-    static final long MONTH30_MILLI = 2592000000L;
-    static final long MONTH31_MILLI = 2678400000L;
-    static final long YEAR365_MILLI = 31557600000L;
-    static final long YEAR366_MILLI = 31644000000L;
+    private static final long SECOND_MILLI = 1000L;
+    private static final long MINUTE_MILLI = 60000L;
+    private static final long HOUR_MILLI = 3600000L;
+    private static final long DAY_MILLI = 86400000L;
+    private static final long MONTH28_MILLI = 2419200000L;
+    private static final long MONTH29_MILLI = 2505600000L;
+    private static final long MONTH30_MILLI = 2592000000L;
+    private static final long MONTH31_MILLI = 2678400000L;
+    private static final long YEAR365_MILLI = 31557600000L;
+    private static final long YEAR366_MILLI = 31644000000L;
 
     public String[] flags;
     public Flag(){
