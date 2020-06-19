@@ -344,7 +344,7 @@ public class ModeManager {
             timeFormat[1] = "  ";
         }
 
-        timeFormat[8] = "  ";
+        timeFormat[8] = "false";
 
         return timeFormat;
 
