@@ -115,6 +115,8 @@ public class UI {
                 else if(checkerList[1] == 2) {
                     displayManager.displayCheeringMessage(temp);
                     system.ringSleepingTime();
+                }else{
+                    continue;
                 }
                 continue;
             }
@@ -196,7 +198,9 @@ public class UI {
                     if(pressed.equals("B")) system.changeTimeFormat();
                     // C버튼이 눌리는 처리는 맨 위에
 
-                } else if(curSubCategory == 1) {
+                }
+
+                if(curSubCategory == 1) {
                     displayManager.displaySelector();
                     Object[] curTime = modeManager.displayTime(system);
                     displayManager.displayTime((String[])curTime[0]);
@@ -228,7 +232,6 @@ public class UI {
                         //int 값 = displayManager에서 선택자에 해당하는 값을 가져옴
                         //displayManager.setValue(++displayManager.get선택자(), displayManager.get값())
                     }
-                    // Set Time
                 }
             }else if(curMainCategory == 1){
                 //if(displayManager.getSelector() < 5 || displayManager.getSelector() > 10) displayManager.setSelector(5);
@@ -255,7 +258,9 @@ public class UI {
                         //active&inactive
                         system.toggleTimerActivation();
                     }
-                }else if(curSubCategory == 1){
+                }
+
+                if(curSubCategory == 1){
                     //set Timer
                     displayManager.displaySelector();
                     displayManager.setTimer(modeManager.setTimer(system));
@@ -321,7 +326,9 @@ public class UI {
                         //toggle active/inactive
                         system.toggleAlarmActivation(this.alarmNumber);
                     }
-                }else if(curSubCategory == 1){
+                }
+
+                if(curSubCategory == 1){
                     //set Alarm
                     displayManager.displaySelector();
                     Object[] alarmValue = modeManager.displayAlarm(system, this.alarmNumber);
@@ -394,7 +401,9 @@ public class UI {
                         if(currentSelector == 21) { // 내 도시
                             system.setMyTimeZone(1);
 //                            system.setMyTimeZone(Flag.getGlobalTimeValue(displayManager.getSelector()));
-                        } else if(currentSelector == 23){ // 다른 도시
+                        }
+
+                        if(currentSelector == 23){ // 다른 도시
                             system.setAnotherTimeZone(1);
                         }
                     }
@@ -411,7 +420,9 @@ public class UI {
                         }
                     }
                 }
-            }else if(curMainCategory == 5){
+            }
+
+            if(curMainCategory == 5){
                 //SleepingTime
                 int getSelector = displayManager.getSelector();
                 //if(getSelector != 22 && getSelector != 27 && getSelector != 24 && getSelector != 28){
@@ -453,7 +464,9 @@ public class UI {
                         if(getSelector == 22 || getSelector == 27){
                             // type: 0-분, 1-시 value: 값
                             system.setWakeUpTime(Flag.getWakeUpSleepTimeValue(getSelector), 1);
-                        }else if(getSelector == 24 || getSelector == 28){
+                        }
+
+                        if(getSelector == 24 || getSelector == 28){
                             system.setSleepTime(Flag.getWakeUpSleepTimeValue(getSelector), 1);
                         }
 
@@ -463,7 +476,9 @@ public class UI {
                     if(pressed.equals("D")){
                         if(getSelector == 22 || getSelector == 27){
                             system.setWakeUpTime(Flag.getWakeUpSleepTimeValue(getSelector), -1);
-                        }else if(getSelector == 24 || getSelector == 28) {
+                        }
+
+                        if(getSelector == 24 || getSelector == 28) {
                             system.setSleepTime(Flag.getWakeUpSleepTimeValue(getSelector), -1);
                         }
                     }

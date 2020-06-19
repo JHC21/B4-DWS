@@ -301,6 +301,7 @@ public class ModeManager {
 
         if(turned == 0) timeFormat[8] = "0";
         else if(turned == 1) timeFormat[8] = "1";
+        else return timeFormat;
 
         return timeFormat;
     }

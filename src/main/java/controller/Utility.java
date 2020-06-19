@@ -45,6 +45,7 @@ public class Utility {
         else if (temp.equals(DayOfWeek.THURSDAY)) timeFormat[7] = "목";
         else if (temp.equals(DayOfWeek.FRIDAY)) timeFormat[7] = "금";
         else if (temp.equals(DayOfWeek.SATURDAY)) timeFormat[7] = "토";
+        else return timeFormat;
 
         return timeFormat;
     }
@@ -80,6 +81,7 @@ public class Utility {
         else if (temp.equals(DayOfWeek.THURSDAY)) timeFormat[7] = 4;
         else if (temp.equals(DayOfWeek.FRIDAY)) timeFormat[7] = 5;
         else if (temp.equals(DayOfWeek.SATURDAY)) timeFormat[7] = 6;
+        else return timeFormat;
 
         return timeFormat;
     }

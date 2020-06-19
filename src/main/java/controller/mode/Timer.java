@@ -96,6 +96,8 @@ public class Timer {
         } else if(this.state == 2){
             this.state = 1;
             this.stackedTime += systemTime - this.startTime;
+        }else{
+            throw new IllegalArgumentException();
         }
         //타이머의 inactive, active를 toggle하는 메소드
         //this.state의 상태를 0~1로 번갈아가며 toggle해주는 것임
@@ -112,6 +114,8 @@ public class Timer {
             this.state = 1;
         }else if(this.state == 1){
             this.state = 0;
+        }else{
+            throw new IllegalArgumentException();
         }
         //타이머의 stop, restart를 toggle하는 메소드
         //this.state의 상태를 0~1로 번갈아가며 toggle해주는 것임.

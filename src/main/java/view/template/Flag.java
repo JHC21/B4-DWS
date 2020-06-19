@@ -79,6 +79,7 @@ public class Flag {
         else if(selector == 5) updateValue = HOUR_MILLI;
         else if(selector == 6) updateValue = MINUTE_MILLI;
         else if(selector == 7) updateValue = SECOND_MILLI;
+        else updateValue = 0L;
 
         System.out.println("Updated Value of : " + (pmValue * updateValue));
 
@@ -92,6 +93,7 @@ public class Flag {
         if(selector == 5) diffValue = HOUR_MILLI;
         else if(selector == 6) diffValue = MINUTE_MILLI;
         else if(selector == 7) diffValue = SECOND_MILLI;
+        else diffValue = 0L;
 
         if(settedTime + (pmValue * diffValue) < 0) return DAY_MILLI + (pmValue * diffValue);
         else return diffValue * pmValue;
@@ -101,7 +103,7 @@ public class Flag {
     public static int getWakeUpSleepTimeValue(int selector){
         if(selector == 22 || selector == 24) return 1;
         else if(selector == 27 || selector == 28) return 0;
-        return 0;
+        else return 0;
     }
 
 
@@ -112,14 +114,15 @@ public class Flag {
         else if(selector == 5) return 6;
         else if(selector == 6) return 7;
         else if(selector == 7) return 0;
-        return 0;
+        else return 0;
+
     }
 
     public static int moveTimerSelector(int selector) {
         if(selector == 5) return 6;
         else if(selector == 6) return 7;
         else if(selector == 7) return 5;
-        return 0;
+        else return 0;
     }
 
     public static int moveAlarmSelector(int selector) {
@@ -132,8 +135,7 @@ public class Flag {
         else if(selector == 16) return 17; // 목 일 경우
         else if(selector == 17) return 18; // 금 일 경우
         else if(selector == 18) return 5; // 토 일 경우
-
-        return 0;
+        else return 0;
     }
 
 
@@ -145,8 +147,8 @@ public class Flag {
         else if(selector == 34) return 35;
         else if(selector == 35) return 36;
         else if(selector == 36) return 31;
+        else return 0;
 
-        return 0;
     }
 
     public static int moveFunctionSelectorReverse(int selector){
@@ -156,8 +158,8 @@ public class Flag {
         else if(selector == 34) return 33;
         else if(selector == 35) return 34;
         else if(selector == 36) return 35;
+        else return 0;
 
-        return 0;
     }
 
     //21: global time의 내도시 / 추천 수면시간 / 목표 기상시각
@@ -176,8 +178,7 @@ public class Flag {
         else if(selector == 27) return 24;
         else if(selector == 24) return 28;
         else if (selector == 28) return 22;
-
-        return 0;
+        else return 0;
     }
   
     public static boolean isAlarmDayOfWeek(int selector) {

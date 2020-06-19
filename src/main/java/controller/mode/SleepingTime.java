@@ -80,6 +80,8 @@ public class SleepingTime {
         }else if(type == 0){
             if(value == 1) wakeUpTime = wakeUpTime.plusMinutes(1);
             else wakeUpTime = wakeUpTime.minusMinutes(1);
+        }else{
+            throw new IllegalArgumentException();
         }
     }
 
@@ -92,7 +94,10 @@ public class SleepingTime {
         }else if(type == 0){ // 분
             if(value == 1) this.sleepTime = this.sleepTime.plusMinutes(1);
             else this.sleepTime = this.sleepTime.minusMinutes(1);
+        }else{
+            throw new IllegalArgumentException();
         }
+
         if(this.sleepTime.isAfter(LocalTime.of(12,0)))
             this.sleepTime = LocalTime.of(1, 30);
         if(this.sleepTime.isBefore(LocalTime.of(1,30)))
@@ -103,7 +108,6 @@ public class SleepingTime {
         //this.status의 상태를 0~1로 토
         if(this.status == 0) this.status = 1;
         else this.status = 0;
-
     }
 
 
@@ -135,9 +139,4 @@ public class SleepingTime {
     public LocalTime getWakeUpTime() {
         return this.wakeUpTime;
     }
-
-
-
-
-
 }
