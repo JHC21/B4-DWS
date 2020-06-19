@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class DisplayManager extends JFrame{
 
-    static final String[] cheeringMessages = {
+    private static final String[] CHEERING_MESSAGES = {
             "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>이제 잘 시간이에요<br>오늘도 수고 많았어요^^b</div>",
             "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>혹시 야근인가요? ㅠㅠbr>퇴근까지 힘내 보아요!</div>",
             "<div style='height:80px; text-align:center; display:block; font-size: 14px;'>공부도 일단 꿀잠 자고<br>이어서 하는 건 어때요?</div>",
@@ -153,7 +153,7 @@ public class DisplayManager extends JFrame{
     }
     private void cheeringMessageShowAll(String value){               //25: Cheering message 전체
         // String temp = cheeringMessages[(int)(Math.random() * cheeringMessages.length)];
-        String temp = cheeringMessages[4];
+        String temp = CHEERING_MESSAGES[4];
         String value1 = value.substring(0,10); // year month day dayOfWeek
         String value2 = value.substring(11, 13); // timeFormat
         String value3 = value.substring(14); // hour minute
