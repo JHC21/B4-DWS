@@ -9,6 +9,7 @@ import view.template.Mode;
 
 import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.Random;
 
 
 public class UI {
@@ -169,7 +170,7 @@ public class UI {
                 customText = new StringBuilder(customize);
                 for(int i = 0; i < customText.length(); i++) {
                     if(customText.charAt(i) != ' ') {
-                        temp = (int)(Math.random() * 2);
+                        temp = new Random().nextInt(2);
                         if(temp == 1) customText.setCharAt(i, (char)(customText.charAt(i) - ('a' - 'A')));
                     }
                 }

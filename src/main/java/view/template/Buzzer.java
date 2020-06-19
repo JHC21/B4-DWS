@@ -38,8 +38,9 @@ public class Buzzer extends Thread{
             this.wait();
         } catch (InterruptedException e) {
             Logger.getLogger("logger").log(Level.INFO, "Failed to wait thread");
-//            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
+
     }
 
     public synchronized void threadNotify() {
@@ -55,12 +56,12 @@ public class Buzzer extends Thread{
                 this.flag = true;
             }
             toolkit.beep();
-            try {
+            try{
                 Thread.sleep(1000);
-            } catch(InterruptedException e) {
+            }catch(InterruptedException e) {
                 Logger.getLogger("logger").log(Level.INFO, "Failed to notify thread");
+                Thread.currentThread().interrupt();
             }
-
         }
 
     }
